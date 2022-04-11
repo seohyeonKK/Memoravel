@@ -6,14 +6,17 @@
  * @flow strict-local
  */
 
+import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import { Text, View } from 'react-native'
 
 const App = () => {
   return (
-    <View>
-      <Text>zzzklfndksanjfnasjkn</Text>
-    </View>
+    <NavigationContainer>
+      <View>
+        <Text>zzzklfndksanjfnasjkn</Text>
+      </View>
+    </NavigationContainer>
   )
 }
 
