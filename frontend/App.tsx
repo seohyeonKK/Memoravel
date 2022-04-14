@@ -8,13 +8,14 @@
 
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import Icons from './Icons'
 
 const App = () => {
   return (
     <NavigationContainer>
-      <View>
-        <Text>zzzklfndksanjfnasjkn</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Icons.Entypo name="rocket" size={20} color="black" />
       </View>
     </NavigationContainer>
   )
