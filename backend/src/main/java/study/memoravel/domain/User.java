@@ -1,4 +1,4 @@
-package domain;
+package study.memoravel.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -6,9 +6,10 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
-
+    // Camel Case인 field name이 snake_case로 변환되어 처리된다.
+    // ddl은 snake_case로 작성
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,24 +45,24 @@ public class User {
         return userName;
     }
 
-    public void setUserName(String user_name) {
-        this.userName = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getUserPassword() {
         return userPassword;
     }
 
-    public void setUserPassword(String user_password) {
-        this.userPassword = user_password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(String phone_num) {
-        this.phoneNum = phone_num;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getEmail() {
@@ -92,7 +93,7 @@ public class User {
         return regDate;
     }
 
-    public void setRegDate(Date reg_date) {
-        this.regDate = reg_date;
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
 }
