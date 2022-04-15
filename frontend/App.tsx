@@ -6,17 +6,21 @@
  * @flow strict-local
  */
 
+import Front from '@/Front'
+import Login from '@/Login'
 import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import { View } from 'react-native'
-import Icons from './Icons'
+
+const Stack = createNativeStackNavigator()
 
 const App = () => {
   return (
     <NavigationContainer>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Icons.Entypo name="rocket" size={20} color="black" />
-      </View>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Front">
+        <Stack.Screen name="Front" component={Front} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
