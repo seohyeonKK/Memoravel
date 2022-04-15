@@ -28,7 +28,15 @@ public class JWT {
                 .compact();
     }
 
-    public static Claims parseJWT(String jwt) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwt).getBody();
+    public static Claims parseJWT(String jwt) throws Exception {
+        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwt).getBody();
+        if (checkExpire(claims)) {
+            throw new Exception("JWT 만료");
+        }
+        return claims;
+    }
+
+    private static Boolean checkExpire(Claims claims) {
+        return claims.getExpiration() == null;
     }
 }

@@ -37,7 +37,13 @@ public class UserApiController {
 
     @GetMapping("jwt")
     public Integer jwt(@RequestParam("jwt") String jwt) {
-        Claims claims = JWT.parseJWT(jwt);
-        return claims.get("id", Integer.class);
+        try {
+            Claims claims = JWT.parseJWT(jwt);
+            return claims.get("id", Integer.class);
+        } catch (Exception e) {
+            // TODO: jwt 만료에 대한 예외처리
+            e.printStackTrace();
+            return null;
+        }
     }
 }
