@@ -26,9 +26,11 @@ public class UserService {
 
     public String join(User user) {
         userRepo.save(user);
+        return generateToken(user.getUserId(), user.getUserPassword());
     }
 
-    private String generateToken(User user) {
+    private String generateToken(String userId, String userPassword) {
+        // TODO: JWT토큰 생성 및 Token Table에 저장
         return "12335432165[Token]12332541254";
     }
 }

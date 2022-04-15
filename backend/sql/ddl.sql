@@ -11,5 +11,6 @@ create or replace table user
     reg_date      datetime default now()
 );
 
+
 insert into user(user_id, user_name, user_password, phone_num, email, gender, city)
 values ('koc0819', 'khc', '1234', '01025302359', 'koc0819@gmail.com', 'man', 'seoul');

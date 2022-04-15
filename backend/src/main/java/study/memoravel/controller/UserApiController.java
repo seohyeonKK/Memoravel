@@ -30,6 +30,6 @@ public class UserApiController {
 
     @PostMapping("join")
     public String join(@RequestBody User user) {
-
+        return userService.join(user);
     }
 }

@@ -17,14 +17,8 @@ public class UserRepository {
         this.em = em;
     }
 
-    public User save(User user) {
+    public void save(User user) {
         em.persist(user);
-
-        return user;
-    }
-
-    public List<User> findAll() {
-        return em.createQuery("select user from User as user", User.class).getResultList();
     }
 
     public User findByUserId(String userId) {
