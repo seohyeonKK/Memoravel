@@ -1,13 +1,12 @@
 package study.memoravel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.memoravel.domain.User;
 import study.memoravel.repository.UserRepository;
+import study.memoravel.util.JWT;
 
 @Transactional
-@Service
 public class UserService {
     private static UserRepository userRepo;
 
@@ -16,21 +15,20 @@ public class UserService {
         UserService.userRepo = userRepo;
     }
 
-    public Boolean login(String userId, String userPassword) throws Exception {
+    public String login(String userId, String userPassword) throws Exception {
         User result = userRepo.findByUserId(userId);
         if (result == null) {
             throw new Exception("존재하지 않는 ID");
         }
-        return result.getUserPassword().equals(userPassword);
+        if (result.getUserPassword().equals(userPassword)) {
+
+            return JWT.createJWT(result);
+        }
+        return null;
     }
 
     public String join(User user) {
         userRepo.save(user);
-        return generateToken(user.getUserId(), user.getUserPassword());
-    }
-
-    private String generateToken(String userId, String userPassword) {
-        // TODO: JWT토큰 생성 및 Token Table에 저장
-        return "12335432165[Token]12332541254";
+        return JWT.createJWT(user);
     }
 }

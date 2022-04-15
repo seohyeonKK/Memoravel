@@ -1,14 +1,12 @@
 package study.memoravel.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import study.memoravel.domain.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 
-@Repository
 public class UserRepository {
     private final EntityManager em;
 
@@ -19,6 +17,10 @@ public class UserRepository {
 
     public void save(User user) {
         em.persist(user);
+    }
+
+    public User findById(long id) {
+        return em.find(User.class, id);
     }
 
     public User findByUserId(String userId) {
