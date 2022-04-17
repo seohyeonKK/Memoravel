@@ -60,6 +60,11 @@ public class UserService {
         return null;
     }
 
+    public Boolean checkMail(String mail) {
+        User result = userRepo.findByEmail(mail);
+        return result == null;
+    }
+
     private void sendMessage(String phoneNumber, int randomNumber) throws CoolsmsException {
         Message coolSMS = new Message(coolSMSAPIKey, coolSMSAPISecret);
 

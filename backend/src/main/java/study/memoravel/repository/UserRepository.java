@@ -42,4 +42,14 @@ public class UserRepository {
         }
         return result.get(0);
     }
+
+    public User findByEmail(String mail) {
+        List<User> result = em.createQuery("select user from User as user where user.email = :mail", User.class)
+                .setParameter("mail", mail)
+                .getResultList();
+        if (result.size() == 0) {
+            return null;
+        }
+        return result.get(0);
+    }
 }

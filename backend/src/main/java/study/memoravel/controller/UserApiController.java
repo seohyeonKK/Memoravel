@@ -20,6 +20,11 @@ public class UserApiController {
     }
 
 
+    @GetMapping("checkMail")
+    public Boolean checkMail(@RequestParam String mail) {
+        return userService.checkMail(mail);
+    }
+
     @GetMapping("checkPhone")
     public String checkPhone(@RequestParam String phoneNumber) {
         return userService.checkPhone(phoneNumber);
