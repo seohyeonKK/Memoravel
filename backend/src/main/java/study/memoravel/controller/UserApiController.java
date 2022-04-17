@@ -19,6 +19,12 @@ public class UserApiController {
         this.userService = userService;
     }
 
+
+    @GetMapping("checkPhone")
+    public String checkPhone(@RequestParam String phoneNumber) {
+        return userService.checkPhone(phoneNumber);
+    }
+
     @PostMapping("login")
     public String login(@RequestBody User user) {
         try {
@@ -35,6 +41,8 @@ public class UserApiController {
         return userService.join(user);
     }
 
+
+    // for jwt parse test
     @GetMapping("jwt")
     public Integer jwt(@RequestParam("jwt") String jwt) {
         try {

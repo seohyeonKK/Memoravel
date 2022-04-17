@@ -29,6 +29,8 @@ dependencies {
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     // jwt
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    // coolSMS
+    implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 
 }
 
