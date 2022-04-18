@@ -9,11 +9,11 @@ import study.memoravel.domain.User;
 import java.util.Date;
 
 public class JWT {
-    private static final String secretKey = "secret!!";
+    private static final String secretKey = "asdfasdfasdf";
 
     public static String createJWT(User user) {
-        // TODO: secret key 어떤걸 사용할지
-        // TODO: 어떤 값을 payload(claim)으로 사용할지
+        // TODO: secret key 정적인 값 사용 X
+        // TODO: 어떤 값을 payload(claim)으로 사용할지 -> id 값
 
         Date now = new Date();
         long expiredTime = 1000 * 60L * 30L; // 30분
@@ -23,7 +23,7 @@ public class JWT {
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
                 .claim("id", user.getId()) // 비공개 클레임 설정
-                .claim("password", user.getUserPassword())
+                .claim("password", user.getUserPassword()) // TODO remove
                 .signWith(SignatureAlgorithm.HS256, secretKey) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }

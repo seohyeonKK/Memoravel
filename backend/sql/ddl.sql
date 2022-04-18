@@ -14,3 +14,6 @@ create or replace table user
 
 insert into user(user_id, user_name, user_password, phone_num, email, gender, city)
 values ('koc0819', 'khc', '1234', '01025302359', 'koc0819@gmail.com', 'man', 'seoul');
+
+# TODO 가능 언어, 희망 언어 등록
+# TODO 소개, 프로필 사진
