@@ -54,7 +54,7 @@ public class UserApiController {
             Claims claims = JWT.parseJWT(jwt);
             return claims.get("id", Integer.class);
         } catch (Exception e) {
-            // TODO: jwt 만료에 대한 예외처리
+            // TODO: jwt 만료에 대한 예외처리 -> 앱에서 만료 확인 후 재송신
             e.printStackTrace();
             return null;
         }
