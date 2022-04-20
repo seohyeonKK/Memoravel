@@ -8,9 +8,27 @@ create or replace table user
     email         varchar(500) not null,
     gender        varchar(10),
     city          varchar(100),
+    profile_photo varchar(100),
     reg_date      datetime default now()
 );
 
+create or replace table language
+(
+    id int(10) not null, auto_increment primary key,
+    name varchar(100) not null,
+);
+
+create or replace table hope_language
+(
+    user_id int(10) not null,
+    lang_id int(10) not null,
+);
+
+create or replace table can_language
+(
+    user_id int(10) not null,
+    lang_id int(10) not null,
+);
 
 insert into user(user_id, user_name, user_password, phone_num, email, gender, city)
 values ('koc0819', 'khc', '1234', '01025302359', 'koc0819@gmail.com', 'man', 'seoul');
