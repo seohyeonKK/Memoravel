@@ -62,6 +62,7 @@ public class UserService {
 
     public Boolean checkMail(String mail) {
         User result = userRepo.findByEmail(mail);
+        // TODO 이메일 인증 기능 만들기 md5, 8글자 정도의 문자열
         return result == null;
     }
 
