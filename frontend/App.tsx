@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import Front from '@/FrontPage'
-import Login from '@/LoginPage'
+import Front from '@/pages/FrontPage'
+import Login from '@/pages/LoginPage'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Text, View, ImageBackground, StyleSheet, TextInput, Pressable } from 'react-native'
 import Images from '@assets/images'
-import { Logo } from '@/FrontPage'
-import Icons from '../Icons'
+import { Logo } from '@/pages/FrontPage'
+import Icons from '../../Icons'
 
 const Login = () => {
-  const [id, setId] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [showPassword, setShowPassword] = useState<boolean>(true)
+  const [id, setId] = useState < string > ''
+  const [password, setPassword] = useState < string > ''
+  const [showPassword, setShowPassword] = useState < boolean > true
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
