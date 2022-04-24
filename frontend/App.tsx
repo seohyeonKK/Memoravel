@@ -7,21 +7,32 @@
  */
 
 import Front from '@/pages/FrontPage'
+import LoginOption from '@/pages/LoginOptionPage'
 import Login from '@/pages/LoginPage'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const Stack = createNativeStackNavigator()
 
+export enum Language {
+  ENGLISH = 0,
+  KOREAN = 1,
+}
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Front">
-        <Stack.Screen name="Front" component={Front} />
-        <Stack.Screen name="Login" component={Login} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Front">
+          <Stack.Screen name="Front" component={Front} />
+          <Stack.Screen name="LoginOption" component={LoginOption} />
+          <Stack.Screen name="Login" component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 

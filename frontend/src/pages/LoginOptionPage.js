@@ -1,44 +1,47 @@
-import { setEnglish, setKorean } from '@/redux/languageOption'
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { View, StyleSheet, ImageBackground, Text, Pressable } from 'react-native'
+import { Logo } from '@/pages/FrontPage'
+import { useSelector } from 'react-redux'
 
-export const Logo = () => {
-  return (
-    <View style={styles.logo}>
-      <Image source={Images.Logo} style={styles.logoImg} />
-      <Text style={styles.logoText}>memoravel</Text>
-    </View>
-  )
-}
-
-export const Front = () => {
+const LoginOption = () => {
   const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const Korean = () => {
-    dispatch(setKorean())
-    navigation.navigate('LoginOption')
-  }
+  const language = useSelector((state) => state.languageOption)
 
-  const English = () => {
-    dispatch(setEnglish())
-    navigation.navigate('LoginOption')
-  }
+  const loginOption = [
+    {
+      sloganFirst: 'Travel that makes',
+      sloganSecond: 'memorable times',
+      login: 'LOGIN',
+      signup: 'SIGNUP',
+    },
+    {
+      sloganFirst: '기억에 남는 여행,',
+      sloganSecond: '추억이 되는 시간',
+      login: '로그인',
+      signup: '회원가입',
+    },
+  ]
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
         <View style={styles.slogan}>
-          <Text style={styles.sloganText}>기억에 남는 여행,{'\n'}추억이 되는 시간</Text>
+          <Text style={styles.sloganText}>
+            {loginOption[language].sloganFirst}
+            {'\n'}
+            {loginOption[language].sloganSecond}
+          </Text>
           {Logo()}
         </View>
         <View style={styles.buttons}>
-          <Pressable style={styles.button} onPress={Korean}>
-            <Text style={styles.buttonText}>한국어로 시작하기</Text>
+          {console.log(language)}
+          <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.buttonText}>{loginOption[language].login}</Text>
           </Pressable>
-          <Pressable style={styles.button} onPress={English}>
-            <Text style={styles.buttonText}>START IN ENGLISH</Text>
+          <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.buttonText}>{loginOption[language].signup}</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -108,4 +111,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Front
+export default LoginOption
