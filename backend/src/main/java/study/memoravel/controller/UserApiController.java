@@ -19,7 +19,6 @@ public class UserApiController {
         this.userService = userService;
     }
 
-
     @GetMapping("checkMail")
     public Boolean checkMail(@RequestParam String mail) {
         return userService.checkMail(mail);
