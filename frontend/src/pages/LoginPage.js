@@ -5,9 +5,9 @@ import { Logo } from '@/pages/FrontPage'
 import Icons from '../../Icons'
 
 const Login = () => {
-  const [id, setId] = useState < string > ''
-  const [password, setPassword] = useState < string > ''
-  const [showPassword, setShowPassword] = useState < boolean > true
+  const [id, setId] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(true)
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
