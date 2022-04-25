@@ -4,12 +4,14 @@ import Images from '@assets/images'
 import Icons from '../../Icons'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
   const language = useSelector((state) => state.languageOption)
+  const navigation = useNavigation()
 
   const login = [
     {
@@ -33,6 +35,13 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
+        <Icons.Ionicons
+          name="chevron-back"
+          size={30}
+          color="white"
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        />
         <View style={LoginStyles.loginText}>
           <Text style={LoginStyles.login}>{login[language].login}</Text>
           <Text style={LoginStyles.welcome}>{login[language].welcome}</Text>
@@ -44,7 +53,7 @@ const Login = () => {
               style={{ flex: 1, paddingLeft: 12, paddingRight: 30 }}
               onChangeText={(text) => setId(text)}
               value={id}
-              placeholder="ID"
+              placeholder={login[language].email}
               keyboardType="default"
               placeholderTextColor="rgba(0, 0, 0, 0.6)"
             />
@@ -60,7 +69,7 @@ const Login = () => {
               style={{ flex: 1, paddingLeft: 12, paddingRight: 10 }}
               onChangeText={(text) => setPassword(text)}
               value={password}
-              placeholder="Password"
+              placeholder={login[language].password}
               keyboardType="default"
               secureTextEntry={showPassword}
               textContentType={'password'}
@@ -76,12 +85,14 @@ const Login = () => {
             </Pressable>
           </View>
           <Pressable>
-            <Text style={LoginStyles.find}>아이디/비밀번호 찾기</Text>
+            <Text style={LoginStyles.find}>
+              {login[language].findId} {login[language].findPassword}
+            </Text>
           </Pressable>
         </View>
         <View style={LoginStyles.loginBtn}>
           <Pressable style={LoginStyles.button}>
-            <Text style={LoginStyles.buttonText}>LOGIN</Text>
+            <Text style={LoginStyles.buttonText}>{login[language].login}</Text>
           </Pressable>
         </View>
       </ImageBackground>
