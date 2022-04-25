@@ -4,6 +4,7 @@ import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, Pressable } from 'react-native'
 import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
+import Icons from '../../Icons'
 
 const LoginOption = () => {
   const navigation = useNavigation()
@@ -27,6 +28,14 @@ const LoginOption = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
+        <Icons.Ionicons
+          name="chevron-back"
+          size={30}
+          color="white"
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        />
+
         <View style={styles.slogan}>
           <Text style={styles.sloganText}>
             {loginOption[language].sloganFirst}
@@ -36,7 +45,6 @@ const LoginOption = () => {
           {Logo()}
         </View>
         <View style={styles.buttons}>
-          {console.log(language)}
           <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.buttonText}>{loginOption[language].login}</Text>
           </Pressable>
@@ -56,6 +64,7 @@ const styles = StyleSheet.create({
   backgroundImg: {
     flex: 1,
     justifyContent: 'center',
+    zIndex: 0,
   },
   slogan: {
     flex: 1,
@@ -108,6 +117,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 13,
     lineHeight: 15,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 57,
+    left: 27,
+    zIndex: 1,
   },
 })
 
