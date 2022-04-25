@@ -1,5 +1,7 @@
 package study.memoravel.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -7,22 +9,33 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "user")
+@ApiModel(value = "유저 정보")
 public class User {
     // Camel Case인 field name이 snake_case로 변환되어 처리된다.
     // ddl은 snake_case로 작성
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(hidden = true)
     private long id;
-    private String userId;
-    private String userName;
-    private String userPassword;
-    private String phoneNum;
-    private String email;
-    private String gender;
-    private String city;
     @CreationTimestamp
+    @ApiModelProperty(hidden = true)
     private Date regDate;
+
+    @ApiModelProperty(value = "유저 아이디")
+    private String userId;
+    @ApiModelProperty(value = "유저 이름")
+    private String userName;
+    @ApiModelProperty(value = "유저 비밀번호")
+    private String userPassword;
+    @ApiModelProperty(value = "유저 핸드폰 번호")
+    private String phoneNum;
+    @ApiModelProperty(value = "유저 이메일")
+    private String email;
+    @ApiModelProperty(value = "유저 성별")
+    private String gender;
+    @ApiModelProperty(value = "유저 지역")
+    private String city;
 
 
     public long getId() {
