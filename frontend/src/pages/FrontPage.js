@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
 import { useDispatch } from 'react-redux'
+import styles from '@/styles'
 
 export const Logo = () => {
   return (
@@ -29,16 +30,16 @@ export const Front = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
-        <View style={styles.slogan}>
-          <Text style={styles.sloganText}>기억에 남는 여행,{'\n'}추억이 되는 시간</Text>
+        <View style={FrontStyles.slogan}>
+          <Text style={FrontStyles.sloganText}>기억에 남는 여행,{'\n'}추억이 되는 시간</Text>
           {Logo()}
         </View>
-        <View style={styles.buttons}>
-          <Pressable style={styles.button} onPress={Korean}>
-            <Text style={styles.buttonText}>한국어로 시작하기</Text>
+        <View style={FrontStyles.buttons}>
+          <Pressable style={styles.whiteLongBox} onPress={Korean}>
+            <Text style={styles.boxInnerText}>한국어로 시작하기</Text>
           </Pressable>
-          <Pressable style={styles.button} onPress={English}>
-            <Text style={styles.buttonText}>START IN ENGLISH</Text>
+          <Pressable style={styles.whiteLongBox} onPress={English}>
+            <Text style={styles.boxInnerText}>START IN ENGLISH</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -46,7 +47,7 @@ export const Front = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const FrontStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -67,44 +68,9 @@ const styles = StyleSheet.create({
     marginBottom: 22,
     textAlign: 'center',
   },
-  logo: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoImg: {
-    width: 90,
-    height: 85,
-  },
-  logoText: {
-    fontFamily: 'GmarketSansTTFMedium',
-    fontWeight: '500',
-    fontSize: 18,
-    textAlign: 'center',
-    lineHeight: 21,
-    marginTop: 5,
-    color: 'white',
-  },
   buttons: {
     flex: 1,
     alignItems: 'center',
-  },
-  button: {
-    width: 255,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 150,
-    justifyContent: 'center',
-    marginBottom: 17,
-    shadowOffset: { width: 1, height: 3 },
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontFamily: 'GmarketSansTTFMedium',
-    fontWeight: '500',
-    fontSize: 13,
-    lineHeight: 15,
   },
 })
 

@@ -1,23 +1,45 @@
 import React, { useState } from 'react'
 import { Text, View, ImageBackground, StyleSheet, TextInput, Pressable } from 'react-native'
 import Images from '@assets/images'
-import { Logo } from '@/pages/FrontPage'
 import Icons from '../../Icons'
+import styles from '@/styles'
+import { useSelector } from 'react-redux'
 
 const Login = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
+  const language = useSelector((state) => state.languageOption)
+
+  const login = [
+    {
+      login: 'LOGIN',
+      welcome: 'Welcome Back !',
+      email: 'E-mail',
+      password: 'Password',
+      findId: 'Find ID',
+      findPassword: 'Find Password',
+    },
+    {
+      login: '로그인',
+      welcome: '돌아오신 것을 환영해요 !',
+      email: '이메일',
+      password: '비밀번호',
+      findId: '아이디 찾기',
+      findPassword: '비밀번호 찾기',
+    },
+  ]
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
-        <View style={styles.logo}>
-          {Logo()}
-          <Text style={styles.welcome}>돌아오신 것을 환영해요!</Text>
+        <View style={LoginStyles.loginText}>
+          <Text style={LoginStyles.login}>{login[language].login}</Text>
+          <Text style={LoginStyles.welcome}>{login[language].welcome}</Text>
         </View>
-        <View style={styles.input}>
-          <View style={styles.inputText}>
-            <Icons.Ionicons name="person-sharp" size={16} style={styles.loginIcon} color="rgba(0,0,0,0.5)" />
+        <View style={LoginStyles.input}>
+          <View style={styles.whiteLongBox}>
+            <Icons.Ionicons name="person-sharp" size={16} style={LoginStyles.loginIcon} color="rgba(0,0,0,0.5)" />
             <TextInput
               style={{ flex: 1, paddingLeft: 12, paddingRight: 30 }}
               onChangeText={(text) => setId(text)}
@@ -27,8 +49,13 @@ const Login = () => {
               placeholderTextColor="rgba(0, 0, 0, 0.6)"
             />
           </View>
-          <View style={styles.inputText}>
-            <Icons.MaterialCommunityIcons name="lock" size={18} style={styles.passwordIcon} color="rgba(0,0,0,0.5)" />
+          <View style={styles.whiteLongBox}>
+            <Icons.MaterialCommunityIcons
+              name="lock"
+              size={18}
+              style={LoginStyles.passwordIcon}
+              color="rgba(0,0,0,0.5)"
+            />
             <TextInput
               style={{ flex: 1, paddingLeft: 12, paddingRight: 10 }}
               onChangeText={(text) => setPassword(text)}
@@ -40,16 +67,21 @@ const Login = () => {
               placeholderTextColor="rgba(0, 0, 0, 0.6)"
             />
             <Pressable onPress={() => setShowPassword((prev) => !prev)}>
-              <Icons.MaterialCommunityIcons name="eye" size={18} style={styles.showPassword} color="rgba(0,0,0,0.5)" />
+              <Icons.MaterialCommunityIcons
+                name="eye"
+                size={18}
+                style={LoginStyles.showPassword}
+                color="rgba(0,0,0,0.5)"
+              />
             </Pressable>
           </View>
           <Pressable>
-            <Text style={styles.find}>아이디/비밀번호 찾기</Text>
+            <Text style={LoginStyles.find}>아이디/비밀번호 찾기</Text>
           </Pressable>
         </View>
-        <View style={styles.login}>
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>LOGIN</Text>
+        <View style={LoginStyles.loginBtn}>
+          <Pressable style={LoginStyles.button}>
+            <Text style={LoginStyles.buttonText}>LOGIN</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -57,25 +89,26 @@ const Login = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  backgroundImg: {
+const LoginStyles = StyleSheet.create({
+  loginText: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  logo: {
-    flex: 0.4,
-    paddingTop: '45%',
+  login: {
+    marginTop: '55%',
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 25,
+    lineHeight: 25,
   },
   welcome: {
     textAlign: 'center',
     fontFamily: 'GmarketSansTTFMEdium',
-    fontWeight: '500',
+    fontWeight: '400',
     fontSize: 13,
-    lineHeight: 15,
-    marginTop: 5,
+    lineHeight: 13,
+    marginTop: 10,
     color: '#464646',
   },
   input: {
@@ -83,33 +116,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 5,
   },
-  inputText: {
-    width: 255,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 150,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginTop: 17,
-    shadowOffset: { width: 1, height: 3 },
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
-  },
   loginIcon: {
     justifyContent: 'center',
-    marginTop: 17,
     marginLeft: 22,
   },
   passwordIcon: {
     justifyContent: 'center',
-    marginTop: 15,
     marginLeft: 21,
   },
   showPassword: {
     marginRight: 20,
-    marginTop: 15,
   },
-
   find: {
     fontFamily: 'GmarketSansTTFMedium',
     fontWeight: '500',
@@ -120,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginLeft: 110,
   },
-  login: {
+  loginBtn: {
     flex: 1,
     alignItems: 'center',
   },

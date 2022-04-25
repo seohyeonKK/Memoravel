@@ -5,6 +5,7 @@ import { View, StyleSheet, ImageBackground, Text, Pressable } from 'react-native
 import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
 import Icons from '../../Icons'
+import styles from '@/styles'
 
 const LoginOption = () => {
   const navigation = useNavigation()
@@ -35,21 +36,20 @@ const LoginOption = () => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         />
-
-        <View style={styles.slogan}>
-          <Text style={styles.sloganText}>
+        <View style={LoginOptionStyles.slogan}>
+          <Text style={LoginOptionStyles.sloganText}>
             {loginOption[language].sloganFirst}
             {'\n'}
             {loginOption[language].sloganSecond}
           </Text>
           {Logo()}
         </View>
-        <View style={styles.buttons}>
-          <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.buttonText}>{loginOption[language].login}</Text>
+        <View style={LoginOptionStyles.buttons}>
+          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.boxInnerText}>{loginOption[language].login}</Text>
           </Pressable>
-          <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.buttonText}>{loginOption[language].signup}</Text>
+          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.boxInnerText}>{loginOption[language].signup}</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -57,15 +57,7 @@ const LoginOption = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  backgroundImg: {
-    flex: 1,
-    justifyContent: 'center',
-    zIndex: 0,
-  },
+const LoginOptionStyles = StyleSheet.create({
   slogan: {
     flex: 1,
     justifyContent: 'center',
@@ -79,50 +71,10 @@ const styles = StyleSheet.create({
     marginBottom: 22,
     textAlign: 'center',
   },
-  logo: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoImg: {
-    width: 90,
-    height: 85,
-  },
-  logoText: {
-    fontFamily: 'GmarketSansTTFMedium',
-    fontWeight: '500',
-    fontSize: 18,
-    textAlign: 'center',
-    lineHeight: 21,
-    marginTop: 5,
-    color: 'white',
-  },
+
   buttons: {
     flex: 1,
     alignItems: 'center',
-  },
-  button: {
-    width: 255,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 150,
-    justifyContent: 'center',
-    marginBottom: 17,
-    shadowOffset: { width: 1, height: 3 },
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontFamily: 'GmarketSansTTFMedium',
-    fontWeight: '500',
-    fontSize: 13,
-    lineHeight: 15,
-  },
-  backButton: {
-    position: 'absolute',
-    top: 57,
-    left: 27,
-    zIndex: 1,
   },
 })
 
