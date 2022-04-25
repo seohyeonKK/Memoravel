@@ -4,8 +4,8 @@ import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, Pressable } from 'react-native'
 import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
-import Icons from '../../Icons'
 import styles from '@/styles'
+import Back from '@/components/Back'
 
 const LoginOption = () => {
   const navigation = useNavigation()
@@ -29,13 +29,7 @@ const LoginOption = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
-        <Icons.Ionicons
-          name="chevron-back"
-          size={30}
-          color="white"
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        />
+        {Back()}
         <View style={LoginOptionStyles.slogan}>
           <Text style={LoginOptionStyles.sloganText}>
             {loginOption[language].sloganFirst}

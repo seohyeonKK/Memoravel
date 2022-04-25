@@ -5,6 +5,7 @@ import Icons from '../../Icons'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import Back from '@/components/Back'
 
 const Login = () => {
   const [id, setId] = useState('')
@@ -35,13 +36,7 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
-        <Icons.Ionicons
-          name="chevron-back"
-          size={30}
-          color="white"
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        />
+        {Back()}
         <View style={LoginStyles.loginText}>
           <Text style={LoginStyles.login}>{login[language].login}</Text>
           <Text style={LoginStyles.welcome}>{login[language].welcome}</Text>

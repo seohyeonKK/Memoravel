@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   backgroundImg: {
     flex: 1,
     justifyContent: 'center',
-    zIndex: 0,
   },
   whiteLongBox: {
     width: 255,
@@ -31,12 +30,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 13,
     lineHeight: 15,
-  },
-  backButton: {
-    position: 'absolute',
-    top: 57,
-    left: 27,
-    zIndex: 1,
   },
   logo: {
     justifyContent: 'center',
