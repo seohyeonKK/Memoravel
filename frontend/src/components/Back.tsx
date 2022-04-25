@@ -17,7 +17,6 @@ const Back = () => {
           left: 27,
         }}
         onPress={() => {
-          console.log('go back!')
           navigation.goBack()
         }}
       />
