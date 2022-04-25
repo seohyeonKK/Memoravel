@@ -4,7 +4,6 @@ import Images from '@assets/images'
 import Icons from '../../Icons'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
 import Back from '@/components/Back'
 
 const Login = () => {
@@ -12,7 +11,6 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
   const language = useSelector((state) => state.languageOption)
-  const navigation = useNavigation()
 
   const login = [
     {
