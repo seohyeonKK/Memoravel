@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import { Text, View, ImageBackground, StyleSheet, TextInput, Pressable } from 'react-native'
+import { Text, View, ImageBackground, StyleSheet, Pressable } from 'react-native'
 import Images from '@assets/images'
-import Icons from '../../Icons'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
 import Back from '@/components/Back'
+import InputEmail from '@/components/InputEmail'
+import InputPassword from '@/components/InputPassword'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(true)
   const language = useSelector((state) => state.languageOption)
 
   const login = [
@@ -36,52 +36,12 @@ const Login = () => {
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
         {Back()}
         <View style={LoginStyles.loginText}>
-          <Text style={LoginStyles.login}>{login[language].login}</Text>
-          <Text style={LoginStyles.welcome}>{login[language].welcome}</Text>
+          <Text style={[styles.loginTitle, , { marginTop: '60%' }]}>{login[language].login}</Text>
+          <Text style={styles.welcome}>{login[language].welcome}</Text>
         </View>
         <View style={LoginStyles.input}>
-          <View style={styles.whiteLongBox}>
-            <Icons.MaterialCommunityIcons
-              name="email"
-              size={16}
-              style={LoginStyles.loginIcon}
-              color="rgba(0,0,0,0.5)"
-            />
-            <TextInput
-              style={{ flex: 1, paddingLeft: 12, paddingRight: 30 }}
-              onChangeText={(text) => setEmail(text)}
-              value={email}
-              placeholder={login[language].email}
-              keyboardType="default"
-              placeholderTextColor="rgba(0, 0, 0, 0.6)"
-            />
-          </View>
-          <View style={styles.whiteLongBox}>
-            <Icons.MaterialCommunityIcons
-              name="lock"
-              size={18}
-              style={LoginStyles.passwordIcon}
-              color="rgba(0,0,0,0.5)"
-            />
-            <TextInput
-              style={{ flex: 1, paddingLeft: 12, paddingRight: 10 }}
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-              placeholder={login[language].password}
-              keyboardType="default"
-              secureTextEntry={showPassword}
-              textContentType={'password'}
-              placeholderTextColor="rgba(0, 0, 0, 0.6)"
-            />
-            <Pressable onPress={() => setShowPassword((prev) => !prev)}>
-              <Icons.MaterialCommunityIcons
-                name="eye"
-                size={18}
-                style={LoginStyles.showPassword}
-                color="rgba(0,0,0,0.5)"
-              />
-            </Pressable>
-          </View>
+          {InputEmail(email, setEmail, login[language].email)}
+          {InputPassword(password, setPassword, login[language].password, true)}
           <View style={LoginStyles.find}>
             <Pressable>
               <Text style={LoginStyles.findText}>{login[language].findId}</Text>
@@ -107,38 +67,11 @@ const LoginStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  login: {
-    fontFamily: 'GmarketSansTTFBold',
-    marginTop: '60%',
-    color: 'white',
-    fontWeight: '800',
-    fontSize: 25,
-    lineHeight: 25,
-  },
-  welcome: {
-    textAlign: 'center',
-    fontFamily: 'GmarketSansTTFMedium',
-    fontWeight: '400',
-    fontSize: 13,
-    lineHeight: 13,
-    marginTop: 10,
-    color: '#464646',
-  },
+
   input: {
     flex: 0.6,
     alignItems: 'center',
     paddingTop: 5,
-  },
-  loginIcon: {
-    justifyContent: 'center',
-    marginLeft: 22,
-  },
-  passwordIcon: {
-    justifyContent: 'center',
-    marginLeft: 21,
-  },
-  showPassword: {
-    marginRight: 20,
   },
   find: {
     flex: 0.5,
