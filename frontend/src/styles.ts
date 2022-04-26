@@ -48,6 +48,34 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: 'white',
   },
+  button: {
+    width: 165,
+    height: 40,
+    backgroundColor: '#BEDF61',
+    borderRadius: 150,
+    justifyContent: 'center',
+    shadowOffset: { width: 0, height: 5 },
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+  },
+  disabledButton: {
+    width: 165,
+    height: 40,
+    backgroundColor: '#B4B4B4',
+    borderRadius: 150,
+    justifyContent: 'center',
+    shadowOffset: { width: 0, height: 5 },
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontFamily: 'GmarketSansTTFMedium',
+    fontWeight: '500',
+    fontSize: 13,
+    lineHeight: 15,
+    color: 'white',
+  },
 })
 
 export default styles

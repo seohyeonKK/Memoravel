@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import Back from '@/components/Back'
 
 const Login = () => {
-  const [id, setId] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
   const language = useSelector((state) => state.languageOption)
@@ -41,11 +41,16 @@ const Login = () => {
         </View>
         <View style={LoginStyles.input}>
           <View style={styles.whiteLongBox}>
-            <Icons.Ionicons name="person-sharp" size={16} style={LoginStyles.loginIcon} color="rgba(0,0,0,0.5)" />
+            <Icons.MaterialCommunityIcons
+              name="email"
+              size={16}
+              style={LoginStyles.loginIcon}
+              color="rgba(0,0,0,0.5)"
+            />
             <TextInput
               style={{ flex: 1, paddingLeft: 12, paddingRight: 30 }}
-              onChangeText={(text) => setId(text)}
-              value={id}
+              onChangeText={(text) => setEmail(text)}
+              value={email}
               placeholder={login[language].email}
               keyboardType="default"
               placeholderTextColor="rgba(0, 0, 0, 0.6)"
@@ -77,15 +82,18 @@ const Login = () => {
               />
             </Pressable>
           </View>
-          <Pressable>
-            <Text style={LoginStyles.find}>
-              {login[language].findId} {login[language].findPassword}
-            </Text>
-          </Pressable>
+          <View style={LoginStyles.find}>
+            <Pressable>
+              <Text style={LoginStyles.findText}>{login[language].findId}</Text>
+            </Pressable>
+            <Pressable>
+              <Text style={LoginStyles.findText}>{login[language].findPassword}</Text>
+            </Pressable>
+          </View>
         </View>
         <View style={LoginStyles.loginBtn}>
-          <Pressable style={LoginStyles.button}>
-            <Text style={LoginStyles.buttonText}>{login[language].login}</Text>
+          <Pressable style={email && password ? styles.button : styles.disabledButton}>
+            <Text style={styles.buttonText}>{login[language].login}</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -103,7 +111,7 @@ const LoginStyles = StyleSheet.create({
     fontFamily: 'GmarketSansTTFBold',
     marginTop: '60%',
     color: 'white',
-    fontWeight: '700',
+    fontWeight: '800',
     fontSize: 25,
     lineHeight: 25,
   },
@@ -133,36 +141,25 @@ const LoginStyles = StyleSheet.create({
     marginRight: 20,
   },
   find: {
+    flex: 0.5,
+    flexDirection: 'row',
+    marginTop: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  findText: {
     fontFamily: 'GmarketSansTTFMedium',
     fontWeight: '500',
     fontSize: 12,
     lineHeight: 14,
     color: 'white',
     textDecorationLine: 'underline',
-    marginTop: 8,
-    marginLeft: 110,
+    margin: 5,
   },
+
   loginBtn: {
     flex: 1,
     alignItems: 'center',
-  },
-  button: {
-    width: 165,
-    height: 40,
-    backgroundColor: '#B4B4B4',
-    borderRadius: 150,
-    justifyContent: 'center',
-    shadowOffset: { width: 0, height: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 0.3,
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontFamily: 'GmarketSansTTFMedium',
-    fontWeight: '500',
-    fontSize: 13,
-    lineHeight: 15,
-    color: 'white',
   },
 })
 
