@@ -6,14 +6,29 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import study.memoravel.domain.User;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.Properties;
 
 public class JWT {
-    private static final String secretKey = "asdfasdfasdf";
+    private static String secret;
+
+    private static String getSecret() {
+        Properties pt = new Properties();
+        String result = null;
+        try {
+            pt.load(JWT.class.getResourceAsStream("/private.properties"));
+            result = pt.getProperty("jwt.secret");
+        } catch (IOException e) {
+            System.out.println("properties 파일 읽기 오류");
+        }
+        return result;
+    }
 
     public static String createJWT(User user) {
-        // TODO: secret key -> .properties로 빼기
-
+        if (secret == null) {
+            secret = getSecret();
+        }
         Date now = new Date();
         long expiredTime = 1000 * 60L * 30L; // 30분
 
@@ -22,12 +37,15 @@ public class JWT {
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
                 .claim("id", user.getId()) // 비공개 클레임 설정(ID만 사용)
-                .signWith(SignatureAlgorithm.HS256, secretKey) // 해싱 알고리즘과 시크릿 키 설정
+                .signWith(SignatureAlgorithm.HS256, secret) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }
 
     public static Claims parseJWT(String jwt) throws Exception {
-        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwt).getBody();
+        if (secret == null) {
+            secret = getSecret();
+        }
+        Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(jwt).getBody();
         if (checkExpire(claims)) {
             throw new Exception("JWT 만료");
         }
