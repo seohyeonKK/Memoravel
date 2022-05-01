@@ -1,6 +1,8 @@
 package study.memoravel.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +12,14 @@ import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
+@PropertySource("classpath:private.properties")
 public class MailService {
     private final JavaMailSender emailSender;
 
     @Value("${mail.id}")
     private String fromId;
 
+    @Autowired
     public MailService(JavaMailSender emailSender) {
         this.emailSender = emailSender;
     }
