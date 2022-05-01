@@ -14,20 +14,20 @@ create or replace table user
 
 create or replace table language
 (
-    id int(10) not null, auto_increment primary key,
-    name varchar(100) not null,
+    id   int(10)      not null auto_increment primary key,
+    name varchar(100) not null
 );
 
 create or replace table hope_language
 (
     user_id int(10) not null,
-    lang_id int(10) not null,
+    lang_id int(10) not null
 );
 
 create or replace table can_language
 (
     user_id int(10) not null,
-    lang_id int(10) not null,
+    lang_id int(10) not null
 );
 
 insert into user(user_id, user_name, user_password, phone_num, email, gender, city)

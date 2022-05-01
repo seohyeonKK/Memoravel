@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import study.memoravel.domain.User;
 import study.memoravel.domain.loginDTO;
+import study.memoravel.service.MailService;
 import study.memoravel.service.UserService;
 import study.memoravel.util.JWT;
 
@@ -16,16 +17,21 @@ import study.memoravel.util.JWT;
 @ResponseBody
 public class UserApiController {
     private final UserService userService;
+    private final MailService mailService;
 
     @Autowired
-    public UserApiController(UserService userService) {
+    public UserApiController(UserService userService, MailService mailService) {
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     @GetMapping("checkMail")
-    @ApiOperation(value = "이메일 중복 확인", notes = "이미 가입된 유저의 이메일과 같은 이메일인지 확인하여 Boolean 값을 반환한다.")
-    public Boolean checkMail(@ApiParam(value = "이메일", required = true) @RequestParam String mail) {
-        return userService.checkMail(mail);
+    @ApiOperation(value = "이메일 중복 확인", notes = "이미 가입된 유저의 이메일과 같은 이메일인지 확인하고 같은 이메일이 없다면, 인증번호을 반환한다.")
+    public String checkMail(@ApiParam(value = "이메일", required = true) @RequestParam String mail) {
+        if (userService.checkMail(mail)) {
+            return mailService.sendCheckMail(mail);
+        }
+        return null;
     }
 
     @GetMapping("checkPhone")

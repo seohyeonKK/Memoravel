@@ -4,6 +4,7 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import study.memoravel.domain.User;
 import study.memoravel.repository.UserRepository;
@@ -11,13 +12,14 @@ import study.memoravel.util.JWT;
 
 import java.util.HashMap;
 
+@PropertySource("classpath:private.properties")
 @Transactional
 public class UserService {
     private static UserRepository userRepo;
     // coolSMS
-    @Value("${coolSMSAPIKey}")
+    @Value("${coolSMS.api.key}")
     private String coolSMSAPIKey;
-    @Value("${coolSMSAPISecret}")
+    @Value("${coolSMS.api.secret}")
     private String coolSMSAPISecret;
 
     @Autowired
@@ -62,13 +64,12 @@ public class UserService {
 
     public Boolean checkMail(String mail) {
         User result = userRepo.findByEmail(mail);
-        // TODO 이메일 인증 기능 만들기 md5, 8글자 정도의 문자열
         return result == null;
     }
 
     private void sendMessage(String phoneNumber, int randomNumber) throws CoolsmsException {
         Message coolSMS = new Message(coolSMSAPIKey, coolSMSAPISecret);
-
+        // TODO coolSMS 의존성 주입 하기
         // 4 params(to, from, type, text) is necessary
         HashMap<String, String> params = new HashMap<>();
         params.put("to", phoneNumber);
