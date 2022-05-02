@@ -20,9 +20,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginTop: 17,
-    shadowOffset: { width: 1, height: 3 },
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
   },
   boxInnerText: {
     textAlign: 'center',
@@ -54,9 +51,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#BEDF61',
     borderRadius: 150,
     justifyContent: 'center',
-    shadowOffset: { width: 0, height: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 0.3,
   },
   disabledButton: {
     width: 168,
@@ -64,9 +58,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#B4B4B4',
     borderRadius: 150,
     justifyContent: 'center',
-    shadowOffset: { width: 0, height: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 0.3,
   },
   buttonText: {
     textAlign: 'center',
