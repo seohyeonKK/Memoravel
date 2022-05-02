@@ -42,7 +42,7 @@ const LoginOption = () => {
           <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.boxInnerText}>{loginOption[language].login}</Text>
           </Pressable>
-          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Signup')}>
+          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('EnterInfo')}>
             <Text style={styles.boxInnerText}>{loginOption[language].signup}</Text>
           </Pressable>
         </View>

@@ -7,13 +7,13 @@ import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
 
-const Signup = () => {
+const EnterInfo = () => {
   const language = useSelector((state) => state.languageOption)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
 
-  const signup = [
+  const enterInfo = [
     {
       signup: 'SIGN UP',
       travel: `It's time for us to travel`,
@@ -49,28 +49,28 @@ const Signup = () => {
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
         {Back()}
         <View style={[SignupStyles.loginText, { marginTop: '50%' }]}>
-          <Text style={styles.loginTitle}>{signup[language].signup}</Text>
-          <Text style={styles.welcome}>{signup[language].travel}</Text>
+          <Text style={styles.loginTitle}>{enterInfo[language].signup}</Text>
+          <Text style={styles.welcome}>{enterInfo[language].travel}</Text>
         </View>
         <View style={SignupStyles.step}>
           <Text style={[styles.stepText, { textDecorationLine: 'underline', fontWeight: '700' }]}>
-            {signup[language].enterInfo}
+            {enterInfo[language].enterInfo}
           </Text>
           <Text style={styles.stepText}>
             {' > '}
-            {signup[language].personalIdentification}
+            {enterInfo[language].personalIdentification}
             {' > '}
           </Text>
-          <Text style={styles.stepText}>{signup[language].complete}</Text>
+          <Text style={styles.stepText}>{enterInfo[language].complete}</Text>
         </View>
         <View style={SignupStyles.input}>
-          {InputEmail(email, setEmail, signup[language].email)}
-          {InputPassword(password, setPassword, signup[language].password, false, false)}
-          {InputPassword(confirm, setConfirm, signup[language].confirm, true, isSamePwd())}
+          {InputEmail(email, setEmail, enterInfo[language].email)}
+          {InputPassword(password, setPassword, enterInfo[language].password, false, false)}
+          {InputPassword(confirm, setConfirm, enterInfo[language].confirm, true, isSamePwd())}
         </View>
         <View style={SignupStyles.next}>
           <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton}>
-            <Text style={styles.buttonText}>{signup[language].next}</Text>
+            <Text style={styles.buttonText}>{enterInfo[language].next}</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -100,4 +100,4 @@ const SignupStyles = StyleSheet.create({
   },
 })
 
-export default Signup
+export default EnterInfo

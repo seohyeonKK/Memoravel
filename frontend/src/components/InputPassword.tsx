@@ -1,5 +1,5 @@
 import styles from '@/styles'
-import Icons from '../../Icons'
+import Icons from '@assets/Icons'
 import React, { useState } from 'react'
 import { View, TextInput, Pressable } from 'react-native'
 
