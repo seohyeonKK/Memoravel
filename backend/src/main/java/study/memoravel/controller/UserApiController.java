@@ -4,10 +4,13 @@ package study.memoravel.controller;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import study.memoravel.domain.User;
 import study.memoravel.domain.loginDTO;
+import study.memoravel.service.MailService;
+import study.memoravel.service.SMSService;
 import study.memoravel.service.UserService;
 import study.memoravel.util.JWT;
 
@@ -16,22 +19,40 @@ import study.memoravel.util.JWT;
 @ResponseBody
 public class UserApiController {
     private final UserService userService;
+    private final MailService mailService;
+    private final SMSService smsService;
 
     @Autowired
-    public UserApiController(UserService userService) {
+    public UserApiController(UserService userService, MailService mailService, SMSService smsService) {
         this.userService = userService;
+        this.mailService = mailService;
+        this.smsService = smsService;
     }
 
     @GetMapping("checkMail")
-    @ApiOperation(value = "이메일 중복 확인", notes = "이미 가입된 유저의 이메일과 같은 이메일인지 확인하여 Boolean 값을 반환한다.")
-    public Boolean checkMail(@ApiParam(value = "이메일", required = true) @RequestParam String mail) {
-        return userService.checkMail(mail);
+    @ApiOperation(value = "이메일 중복 확인", notes = "이미 가입된 유저의 이메일과 같은 이메일인지 확인하고 같은 이메일이 없다면, 인증번호을 반환한다.")
+    public String checkMail(@ApiParam(value = "이메일", required = true) @RequestParam String mail) {
+        String randomNumber = null;
+        if (userService.checkMail(mail)) {
+            randomNumber = mailService.sendCheckMail(mail);
+        }
+        return randomNumber;
     }
 
     @GetMapping("checkPhone")
     @ApiOperation(value = "핸드폰 번호 중복 확인", notes = "이미 가입된 유저의 핸드폰 번호와 같은 번호인지 확인하고 같은 번호가 없다면, 인증번호를 반환한다.")
     public String checkPhone(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber) {
-        return userService.checkPhone(phoneNumber);
+        String randomNumber = null;
+        if (userService.checkPhone(phoneNumber)) {
+            try {
+                randomNumber = smsService.sendMessage(phoneNumber);
+            } catch (CoolsmsException e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+                System.out.println(e.getCode());
+            }
+        }
+        return randomNumber;
     }
 
     @PostMapping(value = "login")
