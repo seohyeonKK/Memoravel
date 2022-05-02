@@ -59,8 +59,8 @@ const Signup = () => {
         </View>
         <View style={SignupStyles.input}>
           {InputEmail(email, setEmail, signup[language].email)}
-          {InputPassword(password, setPassword, signup[language].password, true)}
-          {InputPassword(confirm, setConfirm, signup[language].confirm, false)}
+          {InputPassword(password, setPassword, signup[language].password, false, password)}
+          {InputPassword(confirm, setConfirm, signup[language].confirm, true, password)}
         </View>
         <View style={SignupStyles.next}>
           <Pressable style={email && password && confirm ? styles.button : styles.disabledButton}>

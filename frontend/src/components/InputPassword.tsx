@@ -3,9 +3,20 @@ import Icons from '../../Icons'
 import React, { useState } from 'react'
 import { View, TextInput, Pressable } from 'react-native'
 
-const InputPassword = (password: string, setPassword: Function, pwdText: string, confirm: boolean) => {
+const InputPassword = (
+  password: string,
+  setPassword: Function,
+  pwdText: string,
+  confirm: boolean,
+  confirmPwd: string,
+) => {
   const [showPassword, setShowPassword] = useState(true)
 
+  const isSamePwd = () => {
+    if (password.length <= 0) return false
+    if (confirmPwd === password) return true
+    else false
+  }
   return (
     <View style={styles.whiteLongBox}>
       <Icons.MaterialCommunityIcons
@@ -26,6 +37,18 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
         textContentType={'password'}
       />
       {confirm ? (
+        <View>
+          {isSamePwd() && (
+            <Icons.Ionicons
+              name="checkmark"
+              size={20}
+              style={{
+                marginRight: 17,
+              }}
+              color="#39DB00"></Icons.Ionicons>
+          )}
+        </View>
+      ) : (
         <Pressable onPress={() => setShowPassword((prev) => !prev)}>
           <Icons.MaterialCommunityIcons
             name="eye"
@@ -36,8 +59,6 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
             color="rgba(0,0,0,0.5)"
           />
         </Pressable>
-      ) : (
-        <View></View>
       )}
     </View>
   )
