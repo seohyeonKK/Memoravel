@@ -38,6 +38,12 @@ const Signup = () => {
     },
   ]
 
+  const isSamePwd = () => {
+    if (password.length <= 0) return false
+    if (confirm === password) return true
+    else false
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
@@ -59,11 +65,11 @@ const Signup = () => {
         </View>
         <View style={SignupStyles.input}>
           {InputEmail(email, setEmail, signup[language].email)}
-          {InputPassword(password, setPassword, signup[language].password, false, password)}
-          {InputPassword(confirm, setConfirm, signup[language].confirm, true, password)}
+          {InputPassword(password, setPassword, signup[language].password, false, false)}
+          {InputPassword(confirm, setConfirm, signup[language].confirm, true, isSamePwd())}
         </View>
         <View style={SignupStyles.next}>
-          <Pressable style={email && password && confirm ? styles.button : styles.disabledButton}>
+          <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton}>
             <Text style={styles.buttonText}>{signup[language].next}</Text>
           </Pressable>
         </View>
