@@ -2,6 +2,7 @@ package study.memoravel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import study.memoravel.domain.Login;
 import study.memoravel.domain.User;
 import study.memoravel.repository.UserRepository;
 import study.memoravel.util.JWT;
@@ -15,30 +16,27 @@ public class UserService {
         UserService.userRepo = userRepo;
     }
 
-    public String login(String userId, String userPassword) throws Exception {
-        User result = userRepo.findByUserId(userId);
-        if (result == null) {
-            throw new Exception("존재하지 않는 ID");
-        }
-        if (result.getUserPassword().equals(userPassword)) {
-
+    public String login(Login.DTO loginInfo) throws Exception {
+        User.DTO result = userRepo.findByEmail(loginInfo.getEmail());
+        if (result != null && result.getPassword().equals(loginInfo.getPassword())) {
             return JWT.createJWT(result);
+        } else {
+            throw new Exception("Failed Login");
         }
-        return null;
     }
 
-    public String join(User user) {
+    public String Signup(User.DTO user) {
         userRepo.save(user);
         return JWT.createJWT(user);
     }
 
     public Boolean checkPhone(String phoneNumber) {
-        User result = userRepo.findByPhoneNumber(phoneNumber);
+        User.DTO result = userRepo.findByPhoneNumber(phoneNumber);
         return result == null;
     }
 
     public Boolean checkMail(String mail) {
-        User result = userRepo.findByEmail(mail);
+        User.DTO result = userRepo.findByEmail(mail);
         return result == null;
     }
 }

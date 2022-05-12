@@ -15,12 +15,14 @@ import java.sql.Date;
 public class User {
     @Getter
     @Setter
-    @ApiModel("유저 정보")
     @AllArgsConstructor
     @Builder
-    public static class Request {
+    @ApiModel("유저 정보")
+    public static class DTO {
         @ApiModelProperty(value = "이메일")
         private String email;
+        @ApiModelProperty(value = "별명")
+        private String nickname;
         @ApiModelProperty(value = "비밀번호")
         private String password;
         @ApiModelProperty(hidden = true)
@@ -33,16 +35,12 @@ public class User {
         private String photoPath;
         @ApiModelProperty(value = "핸드폰번호")
         private String phoneNumber;
-    }
 
-    @Getter
-    @Setter
-    @ApiModel(value = "로그인 요청")
-    public static class LoginRequest {
-        @ApiModelProperty(value = "아이디")
-        private String id;
-        @ApiModelProperty(value = "비밀번호")
-        private String password;
+        public User.DAO toDAO() {
+            return User.DAO.builder().email(email).nickname(nickname).password(password)
+                    .regDate(regDate).address(address).gender(gender).photoPath(photoPath)
+                    .phoneNumber(phoneNumber).build();
+        }
     }
 
     @Getter
@@ -50,12 +48,14 @@ public class User {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    @Entity
+    @ToString
+    @Entity(name = "user")
     @Table(name = "user")
-    public static class Info {
+    public static class DAO {
         @Id
         @PrimaryKeyJoinColumn
         private String email;
+        private String nickname;
         private String password;
         @CreationTimestamp
         private Date regDate;
@@ -63,5 +63,12 @@ public class User {
         private String gender;
         private String photoPath;
         private String phoneNumber;
+
+        public User.DTO toDTO() {
+            return User.DTO.builder().email(email).nickname(nickname).password(password)
+                    .regDate(regDate).address(address).gender(gender).photoPath(photoPath)
+                    .phoneNumber(phoneNumber).build();
+        }
     }
+
 }

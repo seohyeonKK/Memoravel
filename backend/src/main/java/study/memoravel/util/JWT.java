@@ -25,7 +25,7 @@ public class JWT {
         return result;
     }
 
-    public static String createJWT(User user) {
+    public static String createJWT(User.DTO userInfo) {
         if (secret == null) {
             secret = getSecret();
         }
@@ -33,10 +33,10 @@ public class JWT {
         long expiredTime = 1000 * 60L * 30L; // 30분
 
         return Jwts.builder().setHeaderParam(Header.TYPE, Header.JWT_TYPE) // header 설정
-                .setIssuer(user.getUserName()) // 발급자 설정
+                .setIssuer(userInfo.getNickname()) // 발급자 설정
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
-                .claim("id", user.getId()) // 비공개 클레임 설정(ID만 사용)
+                .claim("email", userInfo.getEmail()) // 비공개 클레임 설정(ID만 사용)
                 .signWith(SignatureAlgorithm.HS256, secret) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }
