@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiParam;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import study.memoravel.domain.DTO.loginDTO;
 import study.memoravel.domain.User;
 import study.memoravel.service.MailService;
 import study.memoravel.service.SMSService;
@@ -57,7 +56,7 @@ public class UserApiController {
 
     @PostMapping(value = "login")
     @ApiOperation(value = "로그인", notes = "로그인 할 유저의 아이디와 비밀번호의 일치를 확인하고, 일치한다면 JWT를 반환한다.")
-    public String login(@ApiParam(value = "유저의 아이디(userId)와 비밀번호(userPassword)", required = true) @RequestBody loginDTO loginDTO) {
+    public String login(@ApiParam(value = "유저의 아이디(userId)와 비밀번호(userPassword)", required = true) @RequestBody LoginInfo loginDTO) {
         try {
             return userService.login(loginDTO.getUserId(), loginDTO.getUserPassword());
         } catch (Exception e) {
