@@ -43,13 +43,20 @@ public class UserRepository {
         }
     }
 
-    public User.DTO findByEmail(String mail) {
-        List<User.DAO> result = em.createQuery("select user from user as user where user.email = :mail", User.DAO.class)
-                .setParameter("mail", mail)
+    public User.DTO findByEmail(String email) {
+        List<User.DAO> result = em.createQuery("select user from user as user where user.email = :email", User.DAO.class)
+                .setParameter("email", email)
                 .getResultList();
         if (result.size() == 0) {
             return null;
         }
         return result.get(0).toDTO();
+    }
+
+    public void updatePhoneNumber(String email, String phoneNumber) {
+        em.createQuery("update user as u set u.phoneNumber = :phoneNumber where u.email = :email")
+                .setParameter("phoneNumber", phoneNumber)
+                .setParameter("email", email)
+                .executeUpdate();
     }
 }

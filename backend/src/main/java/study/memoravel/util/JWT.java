@@ -1,9 +1,6 @@
 package study.memoravel.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import study.memoravel.domain.User;
 
 import java.io.IOException;
@@ -41,13 +38,15 @@ public class JWT {
                 .compact();
     }
 
-    public static Claims parseJWT(String jwt) throws Exception {
+    public static Claims parseJWT(String jwtString) throws ExpiredJwtException {
         if (secret == null) {
             secret = getSecret();
         }
-        Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(jwt).getBody();
+        Jwt jwt = Jwts.parser().setSigningKey(secret).parse(jwtString);
+
+        Claims claims = (Claims) jwt.getBody();
         if (checkExpire(claims)) {
-            throw new Exception("JWT 만료");
+            throw new ExpiredJwtException(jwt.getHeader(), (Claims) jwt.getBody(), "expired");
         }
         return claims;
     }

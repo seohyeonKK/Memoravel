@@ -7,7 +7,8 @@ create table if not exists user
     address      varchar(50) not null,
     gender       varchar(10) not null check (gender = 'man' || gender = 'woman'),
     photo_path   varchar(50) not null,
-    phone_number varchar(50)
+    phone_number varchar(50),
+    language     varchar(50) not null default 'korean'
 );
 
 create table if not exists course

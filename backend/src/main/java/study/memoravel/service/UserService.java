@@ -30,12 +30,16 @@ public class UserService {
         return JWT.createJWT(user);
     }
 
-    public Boolean checkPhone(String phoneNumber) {
+    public Boolean checkPhoneNumber(String phoneNumber) {
         User.DTO result = userRepo.findByPhoneNumber(phoneNumber);
         return result == null;
     }
 
-    public Boolean checkMail(String mail) {
+    public void setPhoneNumber(String email, String phoneNumber) {
+        userRepo.updatePhoneNumber(email, phoneNumber);
+    }
+
+    public Boolean checkEmail(String mail) {
         User.DTO result = userRepo.findByEmail(mail);
         return result == null;
     }
