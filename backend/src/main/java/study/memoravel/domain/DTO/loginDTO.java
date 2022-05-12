@@ -1,4 +1,4 @@
-package study.memoravel.domain;
+package study.memoravel.domain.DTO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

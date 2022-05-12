@@ -1,82 +1,40 @@
 package study.memoravel.domain;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
 @Table(name = "user")
-@ApiModel(value = "유저 정보")
 public class User {
-    // Camel Case인 field name이 snake_case로 변환되어 처리된다.
-    // ddl은 snake_case로 작성
+    public User() {
+
+    }
+
+    public User(String email, String password, String address, String gender, String photoPath, String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.gender = gender;
+        this.photoPath = photoPath;
+        this.phoneNumber = phoneNumber;
+    }
+
     @Id
     @PrimaryKeyJoinColumn
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(hidden = true)
-    private long id;
-    @CreationTimestamp
-    @ApiModelProperty(hidden = true)
-    private Date regDate;
-
-    @ApiModelProperty(value = "유저 아이디")
-    private String userId;
-    @ApiModelProperty(value = "유저 이름")
-    private String userName;
-    @ApiModelProperty(value = "유저 비밀번호")
-    private String userPassword;
-    @ApiModelProperty(value = "유저 핸드폰 번호")
-    private String phoneNum;
-    @ApiModelProperty(value = "유저 이메일")
     private String email;
-    @ApiModelProperty(value = "유저 성별")
+    private String password;
+    @CreationTimestamp
+    private Date regDate;
+    private String address;
     private String gender;
-    @ApiModelProperty(value = "유저 지역")
-    private String city;
+    private String photoPath;
+    private String phoneNumber;
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
 
     public String getEmail() {
         return email;
@@ -84,6 +42,30 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getGender() {
@@ -94,19 +76,19 @@ public class User {
         this.gender = gender;
     }
 
-    public String getCity() {
-        return city;
+    public String getPhotoPath() {
+        return photoPath;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
-    public Date getRegDate() {
-        return regDate;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
