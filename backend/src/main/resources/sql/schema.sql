@@ -1,22 +1,21 @@
-create or replace table user
+create table if not exists user
 (
     email        varchar(50) primary key,
-    nickname     varchar(50) unique,
-    password     varchar(50)                                            not null,
-    reg_date     datetime default now(),
-    address      varchar(50)                                            not null,
-    gender       varchar(10) check (gender = 'man' or gender = 'woman') not null,
-    photo_path   varchar(50)                                            not null,
+    nickname     varchar(50) not null unique,
+    password     varchar(50) not null,
+    reg_date     datetime    not null default now(),
+    address      varchar(50) not null,
+    gender       varchar(10) not null check (gender = 'man' || gender = 'woman'),
+    photo_path   varchar(50) not null,
     phone_number varchar(50)
 );
 
-
-create or replace table course
+create table if not exists course
 (
     id int primary key auto_increment
 );
 
-create or replace table interested_course
+create table if not exists interested_course
 (
     email         varchar(50) references user (email),
     course_id     int references course (id),
@@ -24,7 +23,7 @@ create or replace table interested_course
     course_tile   varchar(50) not null
 );
 
-create or replace table visited_course
+create table if not exists visited_course
 (
     email         varchar(50) references user (email),
     course_id     int references course (id),
@@ -32,7 +31,7 @@ create or replace table visited_course
     course_tile   varchar(50) not null
 );
 
-create or replace table registered_course
+create table if not exists registered_course
 (
     email         varchar(50) references user (email),
     course_id     int references course (id),
