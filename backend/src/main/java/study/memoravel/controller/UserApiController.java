@@ -1,7 +1,6 @@
 package study.memoravel.controller;
 
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -74,17 +73,13 @@ public class UserApiController {
         }
     }
 
-    // TODO JWT Token Refresh
     @GetMapping("refresh-token")
     @ApiOperation(value = "JWT token 재발행", notes = "JWT 를 확인하여 만료기간을 갱신 후 반환한다.")
     public Response jwt(@RequestHeader Map<String, Object> header) {
         try {
-            String jwt = (String) header.get("authorization");
-            Claims claims = JWT.parse(jwt);
-            String email = (String) claims.get("email");
+            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
             User.DTO user = userService.getUser(email);
             String newJwt = JWT.create(user);
-
             return Response.builder().code(200).result(newJwt).message("success refresh token").build();
         } catch (Exception e) {
             return Response.builder().code(500).result(e).message("failed refresh token").build();
@@ -110,14 +105,26 @@ public class UserApiController {
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "핸드폰 번호 인증 이후 유저의 핸드폰 번호를 저장한다.")
     public Response setPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
-        String jwt = (String) header.get("authorization");
         try {
-            Claims claims = JWT.parse(jwt);
-            String email = claims.get("email", String.class);
+            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
             userService.setPhoneNumber(email, phoneNumber);
             return Response.builder().code(200).result(phoneNumber).message("success set phone number").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed set phone number").build();
         }
     }
+
+    @GetMapping("info")
+    @ApiOperation(value = "유저 정보 반환", notes = "헤더의 JWT 에 해당하는 유저 정보를 반환한다.")
+    public Response getUserInfo(@RequestHeader Map<String, Object> header) {
+        try {
+            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
+            User.DTO user = userService.getUser(email);
+            return Response.builder().code(200).result(user).message("success get user info").build();
+        } catch (ExpiredJwtException e) {
+            return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();
+        }
+    }
+
+
 }
