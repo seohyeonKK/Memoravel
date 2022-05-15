@@ -102,7 +102,7 @@ public class UserApiController {
     }
 
     @PutMapping("phone-number")
-    @ApiOperation(value = "핸드폰 번호 저장", notes = "핸드폰 번호 인증 이후 유저의 핸드폰 번호를 저장한다.")
+    @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
     public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
         try {
             String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
