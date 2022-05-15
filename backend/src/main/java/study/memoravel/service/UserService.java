@@ -2,7 +2,6 @@ package study.memoravel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import study.memoravel.domain.Login;
 import study.memoravel.domain.User;
 import study.memoravel.repository.UserRepository;
 import study.memoravel.util.JWT;
@@ -16,39 +15,30 @@ public class UserService {
         UserService.userRepo = userRepo;
     }
 
-    public String login(Login.DTO loginInfo) throws Exception {
-        User.DTO result = userRepo.findByEmail(loginInfo.getEmail());
-        if (result != null && result.getPassword().equals(loginInfo.getPassword())) {
-            return JWT.create(result);
-        } else {
-            throw new Exception("Failed Login");
+    public String login(String userId, String userPassword) throws Exception {
+        User result = userRepo.findByUserId(userId);
+        if (result == null) {
+            throw new Exception("존재하지 않는 ID");
         }
+        if (result.getUserPassword().equals(userPassword)) {
+
+            return JWT.createJWT(result);
+        }
+        return null;
     }
 
-    public String signup(User.DTO user) {
+    public String join(User user) {
         userRepo.save(user);
-        return JWT.create(user);
+        return JWT.createJWT(user);
     }
 
-    public User.DTO getUser(String email) {
-        return userRepo.findByEmail(email);
-    }
-
-    public void setUser(String email, User.DTO user) {
-        userRepo.updateUser(email, user);
-    }
-
-    public Boolean checkPhoneNumber(String phoneNumber) {
-        User.DTO result = userRepo.findByPhoneNumber(phoneNumber);
+    public Boolean checkPhone(String phoneNumber) {
+        User result = userRepo.findByPhoneNumber(phoneNumber);
         return result == null;
     }
 
-    public void setPhoneNumber(String email, String phoneNumber) {
-        userRepo.updatePhoneNumber(email, phoneNumber);
-    }
-
-    public Boolean checkEmail(String mail) {
-        User.DTO result = userRepo.findByEmail(mail);
+    public Boolean checkMail(String mail) {
+        User result = userRepo.findByEmail(mail);
         return result == null;
     }
 }

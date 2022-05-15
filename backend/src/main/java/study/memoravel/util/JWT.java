@@ -1,6 +1,9 @@
 package study.memoravel.util;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import study.memoravel.domain.User;
 
 import java.io.IOException;
@@ -22,7 +25,7 @@ public class JWT {
         return result;
     }
 
-    public static String create(User.DTO userInfo) {
+    public static String createJWT(User user) {
         if (secret == null) {
             secret = getSecret();
         }
@@ -30,29 +33,21 @@ public class JWT {
         long expiredTime = 1000 * 60L * 30L; // 30분
 
         return Jwts.builder().setHeaderParam(Header.TYPE, Header.JWT_TYPE) // header 설정
-                .setIssuer(userInfo.getNickname()) // 발급자 설정
+                .setIssuer(user.getUserName()) // 발급자 설정
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
-                .claim("email", userInfo.getEmail()) // 비공개 클레임 설정(ID만 사용)
-                .claim("trash", new Date().getTime())
+                .claim("id", user.getId()) // 비공개 클레임 설정(ID만 사용)
                 .signWith(SignatureAlgorithm.HS256, secret) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }
 
-    public static String getEmailFromJWT(String jwtString) {
-        Claims claims = JWT.parse(jwtString);
-        return (String) claims.get("email");
-    }
-
-    private static Claims parse(String jwtString) throws ExpiredJwtException {
+    public static Claims parseJWT(String jwt) throws Exception {
         if (secret == null) {
             secret = getSecret();
         }
-        Jwt jwt = Jwts.parser().setSigningKey(secret).parse(jwtString);
-
-        Claims claims = (Claims) jwt.getBody();
+        Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(jwt).getBody();
         if (checkExpire(claims)) {
-            throw new ExpiredJwtException(jwt.getHeader(), (Claims) jwt.getBody(), "expired");
+            throw new Exception("JWT 만료");
         }
         return claims;
     }
