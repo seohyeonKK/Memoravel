@@ -16,6 +16,7 @@ import study.memoravel.service.SMSService;
 import study.memoravel.service.UserService;
 import study.memoravel.util.JWT;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 @RestController
@@ -36,11 +37,15 @@ public class UserApiController {
     @GetMapping("email-authentication")
     @ApiOperation(value = "이메일 인증", notes = "이미 가입된 유저의 이메일과 같은 이메일인지 확인하고 같은 이메일이 없다면, 인증번호을 반환한다.")
     public Response getEmailAuthentication(@ApiParam(value = "이메일", required = true) @RequestParam String email) {
-        if (userService.checkEmail(email)) {
-            String randomNumber = mailService.sendCheckMail(email);
-            return Response.builder().code(200).result(randomNumber).message("success email authentication").build();
-        } else {
-            return Response.builder().code(500).result(null).message("failed email authentication\n already using email").build();
+        try {
+            if (userService.checkEmail(email)) {
+                String randomNumber = mailService.sendCheckMail(email);
+                return Response.builder().code(200).result(randomNumber).message("success email authentication").build();
+            } else {
+                return Response.builder().code(500).result(email).message("failed email authentication\n already using email").build();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            return Response.builder().code(500).result(e).message("failed email authentication\n MD5 algorithm is error").build();
         }
     }
 
@@ -79,7 +84,7 @@ public class UserApiController {
             String email = (String) claims.get("email");
             User.DTO user = userService.getUser(email);
             String newJwt = JWT.create(user);
-            
+
             return Response.builder().code(200).result(newJwt).message("success refresh token").build();
         } catch (Exception e) {
             return Response.builder().code(500).result(e).message("failed refresh token").build();
