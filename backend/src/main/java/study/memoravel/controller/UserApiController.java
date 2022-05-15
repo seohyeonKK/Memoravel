@@ -51,12 +51,11 @@ public class UserApiController {
 
     @PostMapping("signup")
     @ApiOperation(value = "가입", notes = "가입 할 유저의 정보를 저장하고, JWT 를 반환한다.")
-    public Response Signup(@RequestBody User.DTO user) {
+    public Response signup(@RequestBody User.DTO user) {
         try {
-            String jwt = userService.Signup(user);
+            String jwt = userService.signup(user);
             return Response.builder().code(200).result(jwt).message("success signup").build();
         } catch (Exception e) {
-            e.printStackTrace();
             return Response.builder().code(500).result(e).message("failed signup").build();
         }
     }
@@ -75,7 +74,7 @@ public class UserApiController {
 
     @GetMapping("refresh-token")
     @ApiOperation(value = "JWT token 재발행", notes = "JWT 를 확인하여 만료기간을 갱신 후 반환한다.")
-    public Response jwt(@RequestHeader Map<String, Object> header) {
+    public Response getRefreshToken(@RequestHeader Map<String, Object> header) {
         try {
             String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
             User.DTO user = userService.getUser(email);
@@ -104,7 +103,7 @@ public class UserApiController {
 
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "핸드폰 번호 인증 이후 유저의 핸드폰 번호를 저장한다.")
-    public Response setPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
+    public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
         try {
             String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
             userService.setPhoneNumber(email, phoneNumber);
@@ -126,5 +125,18 @@ public class UserApiController {
         }
     }
 
+    @PostMapping("info")
+    @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
+    public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody User.DTO user) {
+        try {
+            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
+            userService.setUser(email, user);
+            return Response.builder().code(200).result(user).message("success get user info").build();
+        } catch (ExpiredJwtException e) {
+            return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();
+        } catch (Exception e) {
+            return Response.builder().code(500).result(e).message("failed get user info").build();
+        }
+    }
 
 }

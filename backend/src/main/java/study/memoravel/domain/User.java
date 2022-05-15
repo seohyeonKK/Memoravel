@@ -36,10 +36,13 @@ public class User {
         @ApiModelProperty(value = "핸드폰번호")
         private String phoneNumber;
 
+        @ApiModelProperty(value = "UI 언어")
+        private String language;
+
         public User.DAO toDAO() {
-            return User.DAO.builder().email(email).nickname(nickname).password(password)
+            return DAO.builder().email(email).nickname(nickname).password(password)
                     .regDate(regDate).address(address).gender(gender).photoPath(photoPath)
-                    .phoneNumber(phoneNumber).build();
+                    .phoneNumber(phoneNumber).language(language).build();
         }
     }
 
@@ -63,11 +66,12 @@ public class User {
         private String gender;
         private String photoPath;
         private String phoneNumber;
+        private String language;
 
         public User.DTO toDTO() {
-            return User.DTO.builder().email(email).nickname(nickname).password(password)
+            return DTO.builder().email(email).nickname(nickname).password(password)
                     .regDate(regDate).address(address).gender(gender).photoPath(photoPath)
-                    .phoneNumber(phoneNumber).build();
+                    .phoneNumber(phoneNumber).language(language).build();
         }
     }
 

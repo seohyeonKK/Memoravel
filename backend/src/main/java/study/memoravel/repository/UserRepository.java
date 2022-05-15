@@ -59,4 +59,19 @@ public class UserRepository {
                 .setParameter("email", email)
                 .executeUpdate();
     }
+
+    public void updateUser(String email, User.DTO user) {
+        em.createQuery("update user as u set u.email = :newEmail, u.nickname = :nickname," +
+                        " u.address = :address, u.gender = :gender , u.photoPath = :photoPath , u.phoneNumber = :phoneNumber , " +
+                        "u.language = :language where u.email = :email")
+                .setParameter("newEmail", user.getEmail())
+                .setParameter("nickname", user.getNickname())
+                .setParameter("address", user.getAddress())
+                .setParameter("gender", user.getGender())
+                .setParameter("photoPath", user.getPhotoPath())
+                .setParameter("phoneNumber", user.getPhoneNumber())
+                .setParameter("language", user.getLanguage())
+                .setParameter("email", email)
+                .executeUpdate();
+    }
 }

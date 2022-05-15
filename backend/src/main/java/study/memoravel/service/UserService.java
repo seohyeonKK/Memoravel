@@ -25,13 +25,17 @@ public class UserService {
         }
     }
 
-    public String Signup(User.DTO user) {
+    public String signup(User.DTO user) {
         userRepo.save(user);
         return JWT.create(user);
     }
 
     public User.DTO getUser(String email) {
         return userRepo.findByEmail(email);
+    }
+
+    public void setUser(String email, User.DTO user) {
+        userRepo.updateUser(email, user);
     }
 
     public Boolean checkPhoneNumber(String phoneNumber) {
