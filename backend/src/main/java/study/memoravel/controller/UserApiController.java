@@ -70,17 +70,19 @@ public class UserApiController {
     }
 
     // TODO JWT Token Refresh
-    @GetMapping("jwt")
-    @ApiOperation(value = "백엔드 테스트용 API", notes = "백엔드 테스트용 API")
-    public Integer jwt(@RequestParam("jwt") String jwt) {
+    @GetMapping("refresh-token")
+    @ApiOperation(value = "JWT token 재발행", notes = "JWT 를 확인하여 만료기간을 갱신 후 반환한다.")
+    public Response jwt(@RequestHeader Map<String, Object> header) {
         try {
-            Claims claims = JWT.parseJWT(jwt);
-            return claims.get("id", Integer.class);
+            String jwt = (String) header.get("authorization");
+            Claims claims = JWT.parse(jwt);
+            String email = (String) claims.get("email");
+            User.DTO user = userService.getUser(email);
+            String newJwt = JWT.create(user);
+            
+            return Response.builder().code(200).result(newJwt).message("success refresh token").build();
         } catch (Exception e) {
-            // TODO: jwt 만료에 대한 예외처리 -> 앱에서 만료 확인 후 재송신
-            // TODO 삭제
-            e.printStackTrace();
-            return null;
+            return Response.builder().code(500).result(e).message("failed refresh token").build();
         }
     }
 
@@ -93,7 +95,7 @@ public class UserApiController {
                 randomNumber = smsService.sendMessage(phoneNumber);
                 return Response.builder().code(200).result(randomNumber).message("success phone number authentication").build();
             } catch (CoolsmsException e) {
-                return Response.builder().code(500).result(e).message("faild phone number authentication\n cool sms error").build();
+                return Response.builder().code(500).result(e).message("failed phone number authentication\n cool sms error").build();
             }
         } else {
             return Response.builder().code(500).result(null).message("failed phone number authentication\n already using phone number").build();
@@ -105,13 +107,12 @@ public class UserApiController {
     public Response setPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
         String jwt = (String) header.get("authorization");
         try {
-            Claims claims = JWT.parseJWT(jwt);
-            String email = (String) claims.get("email");
+            Claims claims = JWT.parse(jwt);
+            String email = claims.get("email", String.class);
             userService.setPhoneNumber(email, phoneNumber);
-
             return Response.builder().code(200).result(phoneNumber).message("success set phone number").build();
         } catch (ExpiredJwtException e) {
-            return Response.builder().code(500).result(e).message("asdfasdf").build();
+            return Response.builder().code(500).result(e).message("failed set phone number").build();
         }
     }
 }

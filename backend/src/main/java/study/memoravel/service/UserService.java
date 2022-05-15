@@ -19,7 +19,7 @@ public class UserService {
     public String login(Login.DTO loginInfo) throws Exception {
         User.DTO result = userRepo.findByEmail(loginInfo.getEmail());
         if (result != null && result.getPassword().equals(loginInfo.getPassword())) {
-            return JWT.createJWT(result);
+            return JWT.create(result);
         } else {
             throw new Exception("Failed Login");
         }
@@ -27,7 +27,11 @@ public class UserService {
 
     public String Signup(User.DTO user) {
         userRepo.save(user);
-        return JWT.createJWT(user);
+        return JWT.create(user);
+    }
+
+    public User.DTO getUser(String email) {
+        return userRepo.findByEmail(email);
     }
 
     public Boolean checkPhoneNumber(String phoneNumber) {

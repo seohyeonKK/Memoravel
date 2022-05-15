@@ -22,7 +22,7 @@ public class JWT {
         return result;
     }
 
-    public static String createJWT(User.DTO userInfo) {
+    public static String create(User.DTO userInfo) {
         if (secret == null) {
             secret = getSecret();
         }
@@ -38,7 +38,7 @@ public class JWT {
                 .compact();
     }
 
-    public static Claims parseJWT(String jwtString) throws ExpiredJwtException {
+    public static Claims parse(String jwtString) throws ExpiredJwtException {
         if (secret == null) {
             secret = getSecret();
         }

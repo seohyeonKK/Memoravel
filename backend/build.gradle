@@ -38,6 +38,8 @@ dependencies {
     // Lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    // Dev Tools
+    implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.6.7'
 
 
 }
