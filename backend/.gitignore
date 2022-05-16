@@ -1,6 +1,7 @@
 # API KEY
 src/main/resources/application-API-KEY.properties
 src/main/resources/application.properties
+src/main/resources/private.properties
 
 HELP.md
 .gradle
