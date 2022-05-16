@@ -2,111 +2,77 @@ package study.memoravel.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.sql.Date;
 
-@Entity
-@Table(name = "user")
-@ApiModel(value = "유저 정보")
+
 public class User {
-    // Camel Case인 field name이 snake_case로 변환되어 처리된다.
-    // ddl은 snake_case로 작성
-    @Id
-    @PrimaryKeyJoinColumn
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(hidden = true)
-    private long id;
-    @CreationTimestamp
-    @ApiModelProperty(hidden = true)
-    private Date regDate;
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @Builder
+    @ApiModel("유저 정보")
+    public static class DTO {
+        @ApiModelProperty(value = "이메일")
+        private String email;
+        @ApiModelProperty(value = "별명")
+        private String nickname;
+        @ApiModelProperty(value = "비밀번호")
+        private String password;
+        @ApiModelProperty(hidden = true)
+        private Date regDate;
+        @ApiModelProperty(value = "주소")
+        private String address;
+        @ApiModelProperty(value = "성별")
+        private String gender;
+        @ApiModelProperty(value = "프로필 사진 위치")
+        private String photoPath;
+        @ApiModelProperty(value = "핸드폰번호")
+        private String phoneNumber;
 
-    @ApiModelProperty(value = "유저 아이디")
-    private String userId;
-    @ApiModelProperty(value = "유저 이름")
-    private String userName;
-    @ApiModelProperty(value = "유저 비밀번호")
-    private String userPassword;
-    @ApiModelProperty(value = "유저 핸드폰 번호")
-    private String phoneNum;
-    @ApiModelProperty(value = "유저 이메일")
-    private String email;
-    @ApiModelProperty(value = "유저 성별")
-    private String gender;
-    @ApiModelProperty(value = "유저 지역")
-    private String city;
+        @ApiModelProperty(value = "UI 언어")
+        private String language;
 
-
-    public long getId() {
-        return id;
+        public User.DAO toDAO() {
+            return DAO.builder().email(email).nickname(nickname).password(password)
+                    .regDate(regDate).address(address).gender(gender).photoPath(photoPath)
+                    .phoneNumber(phoneNumber).language(language).build();
+        }
     }
 
-    public void setId(long id) {
-        this.id = id;
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    @Entity(name = "user")
+    @Table(name = "user")
+    public static class DAO {
+        @Id
+        @PrimaryKeyJoinColumn
+        private String email;
+        private String nickname;
+        private String password;
+        @CreationTimestamp
+        private Date regDate;
+        private String address;
+        private String gender;
+        private String photoPath;
+        private String phoneNumber;
+        private String language;
+
+        public User.DTO toDTO() {
+            return DTO.builder().email(email).nickname(nickname).password(password)
+                    .regDate(regDate).address(address).gender(gender).photoPath(photoPath)
+                    .phoneNumber(phoneNumber).language(language).build();
+        }
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Date getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
-    }
 }
