@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import study.memoravel.util.MD5;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Service
@@ -19,7 +17,7 @@ public class MailService {
     private final JavaMailSender emailSender;
 
     @Value("${mail.id}")
-    private String senderEmail;
+    private String fromId;
 
     @Autowired
     public MailService(JavaMailSender emailSender) {
@@ -27,6 +25,7 @@ public class MailService {
     }
 
     private static String getAuthNumber() {
+        // TODO MD5 방식으로 인증키 생성
         StringBuilder key = new StringBuilder();
         Random rnd = new Random();
 
@@ -52,7 +51,7 @@ public class MailService {
         return key.toString();
     }
 
-    private MimeMessage createMessage(String receiverEmail, String authNumber) throws Exception {
+    private MimeMessage createMessage(String to, String authNumber) throws Exception {
         String text = "";
         text += "<div style='margin:100px;'>";
         text += "<h1> 안녕하세요 Memoravel 입니다. </h1>";
@@ -69,18 +68,18 @@ public class MailService {
         text += "</div>";
 
         MimeMessage message = emailSender.createMimeMessage();
-        message.addRecipients(RecipientType.TO, receiverEmail);//보내는 대상
+        message.addRecipients(RecipientType.TO, to);//보내는 대상
         message.setSubject("Memoravel 이메일 인증");//제목
         message.setText(text, "utf-8", "html");//내용
-        message.setFrom(new InternetAddress(senderEmail, "Memoravel"));//보내는 사람
+        message.setFrom(new InternetAddress(fromId, "Memoravel"));//보내는 사람
 
         return message;
     }
 
-    public String sendCheckMail(String receiverEmail) throws NoSuchAlgorithmException {
-        String authNumber = MD5.getMD5(receiverEmail);
+    public String sendCheckMail(String to) {
+        String authNumber = getAuthNumber();
         try {
-            MimeMessage message = createMessage(receiverEmail, authNumber);
+            MimeMessage message = createMessage(to, authNumber);
             emailSender.send(message);
         } catch (Exception es) {
             es.printStackTrace();

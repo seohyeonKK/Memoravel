@@ -35,12 +35,6 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     // Mail Service
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    // Lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-    // Dev Tools
-    implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.6.7'
-
 
 }
 
