@@ -51,4 +51,8 @@ public class UserService {
         User.DTO result = userRepo.findByEmail(mail);
         return result == null;
     }
+
+    public void setLanguage(String email, String newLanguage) {
+        userRepo.updateLanguage(email, newLanguage);
+    }
 }

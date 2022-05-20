@@ -51,7 +51,7 @@ public class UserApiController {
 
     @PostMapping("signup")
     @ApiOperation(value = "가입", notes = "가입 할 유저의 정보를 저장하고, JWT 를 반환한다.")
-    public Response signup(@RequestBody User.DTO user) {
+    public Response userSignup(@RequestBody User.DTO user) {
         try {
             String jwt = userService.signup(user);
             return Response.builder().code(200).result(jwt).message("success signup").build();
@@ -62,7 +62,7 @@ public class UserApiController {
 
     @PostMapping(value = "login")
     @ApiOperation(value = "로그인", notes = "로그인 할 유저의 아이디와 비밀번호의 일치를 확인하고, 일치한다면 JWT 를 발급한다.")
-    public Response login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody Login.DTO loginInfo) {
+    public Response userLogin(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody Login.DTO loginInfo) {
         try {
             String jwt = userService.login(loginInfo);
             return Response.builder().code(200).result(jwt).message("success login").build();
@@ -87,7 +87,7 @@ public class UserApiController {
 
     @GetMapping("phone-number-authentication")
     @ApiOperation(value = "핸드폰 번호 인증", notes = "이미 가입된 유저의 핸드폰 번호와 같은 번호인지 확인하고 같은 번호가 없다면, 인증번호를 반환한다.")
-    public Response getPhoneAuthentication(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber) {
+    public Response getUserPhoneAuthentication(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber) {
         if (userService.checkPhoneNumber(phoneNumber)) {
             String randomNumber = null;
             try {
@@ -103,7 +103,7 @@ public class UserApiController {
 
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
-    public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
+    public Response putUserPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
         try {
             String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
             userService.setPhoneNumber(email, phoneNumber);
@@ -131,12 +131,23 @@ public class UserApiController {
         try {
             String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
             userService.setUser(email, user);
-            return Response.builder().code(200).result(user).message("success get user info").build();
+            return Response.builder().code(200).result(user).message("success set user info").build();
         } catch (ExpiredJwtException e) {
-            return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();
+            return Response.builder().code(500).result(e).message("failed set user info \n token is expired").build();
         } catch (Exception e) {
-            return Response.builder().code(500).result(e).message("failed get user info").build();
+            return Response.builder().code(500).result(e).message("failed set user info").build();
         }
     }
 
+    @PatchMapping("language")
+    @ApiOperation(value = "유저 언어 설정", notes = "헤더의 JWT 에 해당하는 유저의 언어 설정을 변경한다.")
+    public Response patchUserLanguage(@RequestHeader Map<String, Object> header, @RequestParam String newLanguage) {
+        try {
+            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
+            userService.setLanguage(email, newLanguage);
+            return Response.builder().code(200).result(newLanguage).message("success set user language").build();
+        } catch (Exception e) {
+            return Response.builder().code(500).result(null).message("failed set user language").build();
+        }
+    }
 }

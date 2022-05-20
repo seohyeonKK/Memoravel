@@ -74,4 +74,11 @@ public class UserRepository {
                 .setParameter("email", email)
                 .executeUpdate();
     }
+
+    public void updateLanguage(String email, String newLanguage) {
+        em.createQuery("update user as u set u.language = :language where u.email = :email")
+                .setParameter("language", newLanguage)
+                .setParameter("email", email)
+                .executeUpdate();
+    }
 }
