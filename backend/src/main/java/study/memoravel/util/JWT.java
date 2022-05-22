@@ -34,7 +34,8 @@ public class JWT {
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
                 .claim("email", userInfo.getEmail()) // 비공개 클레임 설정(ID만 사용)
-                .claim("trash", new Date().getTime())
+                .claim("nickname", userInfo.getNickname())
+                .claim("phoneNumber", userInfo.getPhoneNumber())
                 .signWith(SignatureAlgorithm.HS256, secret) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }

@@ -1,5 +1,6 @@
 create table if not exists user
 (
+#     TODO 인덱싱 수정을 위해서 PK는 정수형으로 수정
     email        varchar(50) primary key,
     nickname     varchar(50) not null unique,
     password     varchar(50) not null,
