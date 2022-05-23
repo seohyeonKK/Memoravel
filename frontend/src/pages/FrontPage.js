@@ -1,11 +1,10 @@
 import { setEnglish, setKorean } from '@/redux/languageOption'
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styles from '@/styles'
-import { postSignup } from '@/api'
 
 export const Logo = () => {
   return (
@@ -28,23 +27,6 @@ export const Front = () => {
     navigation.navigate('LoginOption')
   }
 
-  const signUp = async () => {
-    const response = await postSignup({
-      address: '경기도 하남시',
-      email: 'hyeonee2@nate.com',
-      gender: 'man',
-      language: 'english',
-      nickname: 'mandoo',
-      password: 'hyeonee2',
-      phoneNumber: '01028570414',
-      photoPath: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-    })
-    console.log(response)
-    if (response) console.log('doit')
-  }
-  useEffect(() => {
-    signUp()
-  }, [])
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
