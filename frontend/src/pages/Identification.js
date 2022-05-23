@@ -17,23 +17,25 @@ const Signup = () => {
     {
       signup: 'SIGN UP',
       travel: `It's time for us to travel`,
-      enterInfo: 'Enter Info',
       personalIdentification: 'Personal Identification',
+      enterInfo: 'Enter Info',
       complete: 'Complete',
-      email: 'E-mail',
-      password: 'Password',
-      confirm: 'Confirm Password',
+      phoneNumber: 'Phone number',
+      sendingCode: 'Sending Code',
+      code: 'code',
+      confirmCode: 'Confirm Code',
       next: 'NEXT',
     },
     {
       signup: '회원가입',
       travel: '우리 이제 함께 여행해요 !',
-      enterInfo: '회원정보 입력',
       personalIdentification: '본인인증',
+      enterInfo: '회원정보 입력',
       complete: '회원가입 완료',
-      email: '이메일',
-      password: '비밀번호',
-      confirm: '비밀번호 확인',
+      phoneNumber: '휴대폰 번호',
+      sendingCode: '인증번호 보내기',
+      code: '인증번호',
+      confirmCode: '인증번호 확인',
       next: '다음',
     },
   ]
@@ -54,11 +56,11 @@ const Signup = () => {
         </View>
         <View style={SignupStyles.step}>
           <Text style={[styles.stepText, { textDecorationLine: 'underline', fontWeight: '700' }]}>
-            {signup[language].enterInfo}
+            {signup[language].personalIdentification}
           </Text>
           <Text style={styles.stepText}>
             {' > '}
-            {signup[language].personalIdentification}
+            {signup[language].enterInfo}
             {' > '}
           </Text>
           <Text style={styles.stepText}>{signup[language].complete}</Text>

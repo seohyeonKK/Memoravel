@@ -7,9 +7,9 @@
  */
 
 import Front from '@/pages/FrontPage'
+import Identification from '@/pages/Identification'
 import LoginOption from '@/pages/LoginOptionPage'
 import Login from '@/pages/LoginPage'
-import Signup from '@/pages/SignupPage'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
@@ -31,7 +31,7 @@ const App = () => {
           <Stack.Screen name="Front" component={Front} />
           <Stack.Screen name="LoginOption" component={LoginOption} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Signup" component={Identification} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
