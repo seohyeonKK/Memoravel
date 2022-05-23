@@ -36,8 +36,8 @@ dependencies {
     // Mail Service
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     // Lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     // Dev Tools
     implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.6.7'
 
