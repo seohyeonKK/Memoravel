@@ -5,6 +5,7 @@ import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styles from '@/styles'
+import { postSignup } from '@/api'
 
 export const Logo = () => {
   return (
@@ -14,7 +15,6 @@ export const Logo = () => {
     </View>
   )
 }
-
 export const Front = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -27,12 +27,29 @@ export const Front = () => {
     dispatch(setEnglish())
     navigation.navigate('LoginOption')
   }
+
+  const signUp = async () => {
+    const response = await postSignup({
+      address: '경기도 하남시',
+      email: 'hyeonee2@nate.com',
+      gender: 'man',
+      language: 'english',
+      nickname: 'mandoo',
+      password: 'hyeonee2',
+      phoneNumber: '01028570414',
+      photoPath: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
+    })
+    console.log(response)
+    if (response) console.log('doit')
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
         <View style={FrontStyles.slogan}>
           <Text style={FrontStyles.sloganText}>기억에 남는 여행,{'\n'}추억이 되는 시간</Text>
           {Logo()}
+          {signUp()}
         </View>
         <View style={FrontStyles.buttons}>
           <Pressable style={styles.whiteLongBox} onPress={Korean}>
