@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import study.memoravel.util.MD5;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
@@ -78,7 +77,7 @@ public class MailService {
     }
 
     public String sendCheckMail(String receiverEmail) throws NoSuchAlgorithmException {
-        String authNumber = MD5.getMD5(receiverEmail);
+        String authNumber = getAuthNumber();
         try {
             MimeMessage message = createMessage(receiverEmail, authNumber);
             emailSender.send(message);
