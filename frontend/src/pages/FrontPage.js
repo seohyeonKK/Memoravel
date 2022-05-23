@@ -1,7 +1,7 @@
 import { setEnglish, setKorean } from '@/redux/languageOption'
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styles from '@/styles'
@@ -42,14 +42,15 @@ export const Front = () => {
     console.log(response)
     if (response) console.log('doit')
   }
-
+  useEffect(() => {
+    signUp()
+  }, [])
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
         <View style={FrontStyles.slogan}>
           <Text style={FrontStyles.sloganText}>기억에 남는 여행,{'\n'}추억이 되는 시간</Text>
           {Logo()}
-          {signUp()}
         </View>
         <View style={FrontStyles.buttons}>
           <Pressable style={styles.whiteLongBox} onPress={Korean}>
