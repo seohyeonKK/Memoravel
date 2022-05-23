@@ -2,7 +2,7 @@ create table if not exists user
 (
     email        varchar(50) primary key,
     nickname     varchar(50) not null unique,
-    password     varchar(50) not null,
+    password     varchar(60) not null,
     reg_date     datetime    not null default now(),
     address      varchar(50) not null,
     gender       varchar(10) not null check (gender = 'man' || gender = 'woman'),

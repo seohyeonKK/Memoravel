@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.memoravel.domain.Login;
 import study.memoravel.domain.User;
 import study.memoravel.repository.UserRepository;
+import study.memoravel.util.Encoding;
 import study.memoravel.util.JWT;
 
 @Transactional
@@ -18,7 +19,10 @@ public class UserService {
 
     public String login(Login.DTO loginInfo) throws Exception {
         User.DTO result = userRepo.findByEmail(loginInfo.getEmail());
-        if (result != null && result.getPassword().equals(loginInfo.getPassword())) {
+        if (result == null) {
+            throw new Exception("Failed Login");
+        }
+        if (Encoding.checkBCrypt(loginInfo.getPassword(), result.getPassword())) {
             return JWT.create(result);
         } else {
             throw new Exception("Failed Login");
@@ -26,6 +30,7 @@ public class UserService {
     }
 
     public String signup(User.DTO user) {
+        user.setPassword(Encoding.getBCrypt(user.getPassword()));
         userRepo.save(user);
         return JWT.create(user);
     }
