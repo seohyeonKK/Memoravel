@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontFamily: 'GmarketSansTTFBold',
     fontWeight: '400',
     fontSize: 12,
-    lineHeight: 12,
+    lineHeight: 16,
   },
   stepText: {
     fontFamily: 'GmarketSansTTFBold',
