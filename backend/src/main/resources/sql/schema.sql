@@ -1,4 +1,9 @@
-create table if not exists user
+drop table interested_course;
+drop table visited_course;
+drop table registered_course;
+drop table user;
+
+create or replace table user
 (
     email        varchar(50) primary key,
     nickname     varchar(50) not null unique,
@@ -11,12 +16,12 @@ create table if not exists user
     language     varchar(50) not null default 'korean'
 );
 
-create table if not exists course
+create or replace table course
 (
     id int primary key auto_increment
 );
 
-create table if not exists interested_course
+create or replace table interested_course
 (
     email         varchar(50) references user (email),
     course_id     int references course (id),
@@ -24,7 +29,7 @@ create table if not exists interested_course
     course_tile   varchar(50) not null
 );
 
-create table if not exists visited_course
+create or replace table visited_course
 (
     email         varchar(50) references user (email),
     course_id     int references course (id),
@@ -32,7 +37,7 @@ create table if not exists visited_course
     course_tile   varchar(50) not null
 );
 
-create table if not exists registered_course
+create or replace table registered_course
 (
     email         varchar(50) references user (email),
     course_id     int references course (id),

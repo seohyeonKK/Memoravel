@@ -1,11 +1,12 @@
 package study.memoravel.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import study.memoravel.domain.User;
+import study.memoravel.controller.account.SignupInfo;
+import study.memoravel.controller.userInfo.UserInfo;
+import study.memoravel.domain.UserEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import java.util.List;
 
 
 public class UserRepository {
@@ -16,7 +17,7 @@ public class UserRepository {
         this.em = em;
     }
 
-    public void save(User.DTO user) {
+    public void save(SignupInfo signupInfo) {
 //        em.createNativeQuery("insert into user (email, nickname, password, address, gender, photo_path) values (:email,:nickname,:password,:address,:gender,:photoPath)")
 //                .setParameter("email", user.getEmail())
 //                .setParameter("nickname", user.getNickname())
@@ -24,33 +25,42 @@ public class UserRepository {
 //                .setParameter("address", user.getAddress())
 //                .setParameter("gender", user.getGender())
 //                .setParameter("photoPath", user.getPhotoPath());
+        UserEntity user = UserEntity.builder().email(signupInfo.getEmail())
+                .password(signupInfo.getPassword())
+                .address(signupInfo.getAddress())
+                .nickname(signupInfo.getNickname())
+                .gender(signupInfo.getGender()).build();
 
-        em.persist(user.toDAO());
+        em.persist(user);
     }
 
-    public User.DTO findById(long id) {
-        return em.find(User.DAO.class, id).toDTO();
+    public UserInfo findById(long id) {
+        UserEntity userEntity = em.find(UserEntity.class, id);
+        return new UserInfo(userEntity);
     }
 
-    public User.DTO findByPhoneNumber(String phoneNumber) {
+    public UserInfo findByPhoneNumber(String phoneNumber) {
         try {
-            User.DAO result = em.createQuery("select u from user as u where u.phoneNumber = :phoneNumber", User.DAO.class)
+            UserEntity result = em.createQuery("select u from user as u where u.phoneNumber = :phoneNumber", UserEntity.class)
                     .setParameter("phoneNumber", phoneNumber)
                     .getSingleResult();
-            return result.toDTO();
+
+            return new UserInfo(result);
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public User.DTO findByEmail(String email) {
-        List<User.DAO> result = em.createQuery("select user from user as user where user.email = :email", User.DAO.class)
-                .setParameter("email", email)
-                .getResultList();
-        if (result.size() == 0) {
+    public UserInfo findByEmail(String email) {
+        try {
+            UserEntity result = em.createQuery("select user from user as user where user.email = :email", UserEntity.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+
+            return new UserInfo(result);
+        } catch (NoResultException e) {
             return null;
         }
-        return result.get(0).toDTO();
     }
 
     public void updatePhoneNumber(String email, String phoneNumber) {
@@ -60,17 +70,17 @@ public class UserRepository {
                 .executeUpdate();
     }
 
-    public void updateUser(String email, User.DTO user) {
+    public void updateUser(String email, UserInfo userInfo) {
         em.createQuery("update user as u set u.email = :newEmail, u.nickname = :nickname," +
                         " u.address = :address, u.gender = :gender , u.photoPath = :photoPath , u.phoneNumber = :phoneNumber , " +
                         "u.language = :language where u.email = :email")
-                .setParameter("newEmail", user.getEmail())
-                .setParameter("nickname", user.getNickname())
-                .setParameter("address", user.getAddress())
-                .setParameter("gender", user.getGender())
-                .setParameter("photoPath", user.getPhotoPath())
-                .setParameter("phoneNumber", user.getPhoneNumber())
-                .setParameter("language", user.getLanguage())
+                .setParameter("newEmail", userInfo.getEmail())
+                .setParameter("nickname", userInfo.getNickname())
+                .setParameter("address", userInfo.getAddress())
+                .setParameter("gender", userInfo.getGender())
+                .setParameter("photoPath", userInfo.getPhotoPath())
+                .setParameter("phoneNumber", userInfo.getPhoneNumber())
+                .setParameter("language", userInfo.getLanguage())
                 .setParameter("email", email)
                 .executeUpdate();
     }
