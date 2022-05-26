@@ -11,15 +11,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  whiteLongBox: {
-    width: 255,
+  longBox: {
+    width: 250,
     height: 50,
     backgroundColor: 'white',
     borderRadius: 150,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 17,
+    marginTop: 15,
+  },
+  longBtn: {
+    width: 250,
+    height: 40,
+    backgroundColor: '#B4B4B4',
+    borderRadius: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 15,
   },
   boxInnerText: {
     textAlign: 'center',
@@ -82,6 +92,12 @@ const styles = StyleSheet.create({
     lineHeight: 13,
     marginTop: 10,
     color: '#464646',
+  },
+  mediumText: {
+    fontFamily: 'GmarketSansTTFBold',
+    fontWeight: '400',
+    fontSize: 12,
+    lineHeight: 12,
   },
   stepText: {
     fontFamily: 'GmarketSansTTFBold',

@@ -5,7 +5,7 @@ import { View, TextInput } from 'react-native'
 
 const InputEmail = (email: string, setEmail: Function, emailText: string) => {
   return (
-    <View style={styles.whiteLongBox}>
+    <View style={styles.longBox}>
       <Icons.MaterialCommunityIcons
         name="email"
         size={16}
@@ -16,7 +16,7 @@ const InputEmail = (email: string, setEmail: Function, emailText: string) => {
         color="rgba(0,0,0,0.5)"
       />
       <TextInput
-        style={{ flex: 1, paddingLeft: 12, paddingRight: 30 }}
+        style={[styles.mediumText, { flex: 1, paddingLeft: 15, paddingRight: 30 }]}
         onChangeText={(text) => setEmail(text)}
         value={email}
         placeholder={emailText}

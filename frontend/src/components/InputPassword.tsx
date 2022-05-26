@@ -7,7 +7,7 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
   const [showPassword, setShowPassword] = useState(true)
 
   return (
-    <View style={styles.whiteLongBox}>
+    <View style={styles.longBox}>
       <Icons.MaterialCommunityIcons
         name="lock"
         size={18}

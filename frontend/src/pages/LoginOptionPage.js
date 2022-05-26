@@ -39,10 +39,10 @@ const LoginOption = () => {
           {Logo()}
         </View>
         <View style={LoginOptionStyles.buttons}>
-          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Login')}>
+          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.boxInnerText}>{loginOption[language].login}</Text>
           </Pressable>
-          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('EnterInfo')}>
+          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.boxInnerText}>{loginOption[language].signup}</Text>
           </Pressable>
         </View>
