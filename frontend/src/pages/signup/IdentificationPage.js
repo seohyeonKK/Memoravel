@@ -5,6 +5,7 @@ import Images from '@assets/images'
 import { useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
+import { identification } from '@/constants/language'
 
 const Identification = () => {
   const language = useSelector((state) => state.languageOption)
@@ -13,33 +14,6 @@ const Identification = () => {
 
   // const [code, setCode] = useState('')
   // const [request, setRequest] = useState(false)
-
-  const identification = [
-    {
-      signup: 'SIGN UP',
-      travel: `It's time for us to travel`,
-      personalIdentification: 'Personal Identification',
-      enterInfo: 'Enter Info',
-      complete: 'Complete',
-      email: 'E-mail',
-      sendingCode: 'Sending Code',
-      code: 'Code',
-      confirmCode: 'Confirm Code',
-      next: 'NEXT',
-    },
-    {
-      signup: '회원가입',
-      travel: '우리 이제 함께 여행해요 !',
-      personalIdentification: '본인인증',
-      enterInfo: '회원정보 입력',
-      complete: '회원가입 완료',
-      email: '이메일',
-      sendingCode: '인증번호 보내기',
-      code: '인증\n번호',
-      confirmCode: '인증번호 확인',
-      next: '다음',
-    },
-  ]
   const codeConfirm = (
     <View style={styles.longBox}>
       <Text style={[styles.mediumText, { paddingLeft: 22, color: '#888888', lineHeight: 14 }]}>

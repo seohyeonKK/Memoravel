@@ -6,30 +6,12 @@ import { useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
+import { login } from '@/constants/language'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const language = useSelector((state) => state.languageOption)
-
-  const login = [
-    {
-      login: 'LOGIN',
-      welcome: 'Welcome Back !',
-      email: 'E-mail',
-      password: 'Password',
-      findId: 'Find ID',
-      findPassword: 'Find Password',
-    },
-    {
-      login: '로그인',
-      welcome: '돌아오신 것을 환영해요 !',
-      email: '이메일',
-      password: '비밀번호',
-      findId: '아이디 찾기',
-      findPassword: '비밀번호 찾기',
-    },
-  ]
 
   return (
     <View style={styles.container}>

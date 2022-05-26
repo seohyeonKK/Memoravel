@@ -6,39 +6,13 @@ import { useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
+import { enterInfo } from '@/constants/language'
 
 const EnterInfo = () => {
   const language = useSelector((state) => state.languageOption)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
-
-  const enterInfo = [
-    {
-      signup: 'SIGN UP',
-      travel: `It's time for us to travel`,
-      personalIdentification: 'Personal Identification',
-      enterInfo: 'Enter Info',
-      complete: 'Complete',
-      phoneNumber: 'Phone number',
-      sendingCode: 'Sending Code',
-      code: 'code',
-      confirmCode: 'Confirm Code',
-      next: 'NEXT',
-    },
-    {
-      signup: '회원가입',
-      travel: '우리 이제 함께 여행해요 !',
-      personalIdentification: '본인인증',
-      enterInfo: '회원정보 입력',
-      complete: '회원가입 완료',
-      phoneNumber: '휴대폰 번호',
-      sendingCode: '인증번호 보내기',
-      code: '인증번호',
-      confirmCode: '인증번호 확인',
-      next: '다음',
-    },
-  ]
 
   const isSamePwd = () => {
     if (password.length <= 0) return false

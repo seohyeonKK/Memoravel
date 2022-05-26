@@ -6,25 +6,11 @@ import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
 import styles from '@/styles'
 import Back from '@/components/Back'
+import { loginOption } from '@/constants/language'
 
 const LoginOption = () => {
   const navigation = useNavigation()
   const language = useSelector((state) => state.languageOption)
-
-  const loginOption = [
-    {
-      sloganFirst: 'Travel that makes',
-      sloganSecond: 'memorable times',
-      login: 'LOGIN',
-      signup: 'SIGNUP',
-    },
-    {
-      sloganFirst: '기억에 남는 여행,',
-      sloganSecond: '추억이 되는 시간',
-      login: '로그인',
-      signup: '회원가입',
-    },
-  ]
 
   return (
     <View style={styles.container}>
