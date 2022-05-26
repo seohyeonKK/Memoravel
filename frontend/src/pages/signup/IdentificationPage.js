@@ -9,7 +9,9 @@ import InputEmail from '@/components/InputEmail'
 const Identification = () => {
   const language = useSelector((state) => state.languageOption)
   const [email, setEmail] = useState('')
-  const [code, setCode] = useState('')
+  const [inputCode, setInputCode] = useState('')
+
+  // const [code, setCode] = useState('')
   // const [request, setRequest] = useState(false)
 
   const identification = [
@@ -45,8 +47,8 @@ const Identification = () => {
       </Text>
       <TextInput
         style={[styles.mediumText, { flex: 1, paddingLeft: 10 }]}
-        onChangeText={(text) => setCode(text)}
-        value={code}
+        onChangeText={(text) => setInputCode(text)}
+        value={inputCode}
         placeholderTextColor="rgba(0, 0, 0, 0.6)"
         autoCapitalize="none"
       />
@@ -80,14 +82,14 @@ const Identification = () => {
             </Text>
           </Pressable>
           {codeConfirm}
-          <Pressable style={[styles.longBtn, code ? { backgroundColor: '#BEDF61' } : '']}>
+          <Pressable style={[styles.longBtn, inputCode ? { backgroundColor: '#BEDF61' } : '']}>
             <Text style={[styles.mediumText, { textAlign: 'center', color: 'white' }]}>
               {identification[language].confirmCode}
             </Text>
           </Pressable>
         </View>
         <View style={identificationStyles.next}>
-          <Pressable style={email && code ? styles.button : styles.disabledButton}>
+          <Pressable style={email && inputCode ? styles.button : styles.disabledButton}>
             <Text style={styles.buttonText}>{identification[language].next}</Text>
           </Pressable>
         </View>

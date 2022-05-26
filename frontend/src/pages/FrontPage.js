@@ -14,7 +14,6 @@ export const Logo = () => {
     </View>
   )
 }
-
 export const Front = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -27,6 +26,7 @@ export const Front = () => {
     dispatch(setEnglish())
     navigation.navigate('LoginOption')
   }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
