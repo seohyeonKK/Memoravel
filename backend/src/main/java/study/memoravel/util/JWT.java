@@ -47,6 +47,7 @@ public class JWT {
         if (secret == null) {
             secret = getSecret();
         }
+        jwtString = jwtString.replaceFirst("Bearer ", "");
         Jwt jwt = Jwts.parser().setSigningKey(secret).parse(jwtString);
 
         Claims claims = (Claims) jwt.getBody();
