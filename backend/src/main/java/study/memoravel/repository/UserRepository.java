@@ -63,6 +63,18 @@ public class UserRepository {
         }
     }
 
+    public UserInfo findByNickname(String nickname) {
+        try {
+            UserEntity result = em.createQuery("select user from user as user where user.nickname = :nickname", UserEntity.class)
+                    .setParameter("nickname", nickname)
+                    .getSingleResult();
+
+            return new UserInfo(result);
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public void updatePhoneNumber(String email, String phoneNumber) {
         em.createQuery("update user as u set u.phoneNumber = :phoneNumber where u.email = :email")
                 .setParameter("phoneNumber", phoneNumber)

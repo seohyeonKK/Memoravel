@@ -42,6 +42,19 @@ public class AccountApiController {
         }
     }
 
+    @GetMapping("nickname-check")
+    @ApiOperation(value = "닉네임 중복 확인", notes = "이미 가입된 유저의 닉네임과 같은 닉네임인지 확인한다. 중복이면 false 반환")
+    public Response getNicknameCheck(@ApiParam(value = "닉네임", required = true) @RequestParam String nickname) {
+        try {
+            if (userService.checkNickname(nickname)) {
+                return Response.builder().code(200).result(true).message("success nickname check").build();
+            } else {
+                return Response.builder().code(200).result(false).message("success nickname check").build();
+            }
+        } catch (Exception e) {
+            return Response.builder().code(500).result(e).message("failed nickname check").build();
+        }
+    }
 
     @PostMapping("signup")
     @ApiOperation(value = "가입", notes = "가입 할 유저의 정보를 저장하고, JWT 를 반환한다.")

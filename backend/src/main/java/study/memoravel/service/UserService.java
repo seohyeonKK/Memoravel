@@ -57,4 +57,9 @@ public class UserService {
         UserInfo result = userRepo.findByEmail(mail);
         return result == null;
     }
+
+    public Boolean checkNickname(String nickname) {
+        UserInfo result = userRepo.findByNickname(nickname);
+        return result == null;
+    }
 }
