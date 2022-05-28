@@ -25,11 +25,14 @@ public class UserRepository {
 //                .setParameter("address", user.getAddress())
 //                .setParameter("gender", user.getGender())
 //                .setParameter("photoPath", user.getPhotoPath());
+        String defaultPhotoPath = "D://";
         UserEntity user = UserEntity.builder().email(signupInfo.getEmail())
                 .password(signupInfo.getPassword())
                 .address(signupInfo.getAddress())
                 .nickname(signupInfo.getNickname())
-                .gender(signupInfo.getGender()).build();
+                .gender(signupInfo.getGender())
+                .photoPath(defaultPhotoPath)
+                .build();
 
         em.persist(user);
     }
