@@ -8,9 +8,11 @@ import InputEmail from '@/components/InputEmail'
 import { identification } from '@/constants/language'
 import { useInterval } from '@/util'
 import Icons from '@assets/Icons'
+import { useNavigation } from '@react-navigation/native'
 
 const Identification = () => {
   const language = useSelector((state) => state.languageOption)
+  const navigation = useNavigation()
   const [email, setEmail] = useState('')
   const [inputCode, setInputCode] = useState('')
   const [code, setCode] = useState(null)
@@ -130,9 +132,7 @@ const Identification = () => {
           <Pressable
             style={email && inputCode && send && confirm ? styles.button : styles.disabledButton}
             disabled={!confirm}
-            onPress={() => {
-              console.log('next')
-            }}>
+            onPress={() => navigation.navigate('EnterInfo')}>
             <Text style={styles.buttonText}>{identification[language].next}</Text>
           </Pressable>
         </View>
