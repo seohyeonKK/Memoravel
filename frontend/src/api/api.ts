@@ -1,21 +1,8 @@
-import axios, { AxiosRequestConfig } from 'axios'
-import { userInfo } from './type'
-
-const request = async (config: AxiosRequestConfig) => {
-  try {
-    return await axios(config)
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      // todo: 공통 에러 처리
-    } else {
-      console.log(error)
-    }
-    return null
-  }
-}
+import { userInfo } from '@/type'
+import Send from '@/api/Send'
 
 const postSignup = async (userInfo: userInfo) => {
-  const response = await request({
+  return Send({
     method: 'post',
     url: '/api/user/signup',
     data: {
@@ -29,7 +16,6 @@ const postSignup = async (userInfo: userInfo) => {
       photoPath: userInfo.photoPath,
     },
   })
-  return response ? true : false
 }
 
 export { postSignup }
