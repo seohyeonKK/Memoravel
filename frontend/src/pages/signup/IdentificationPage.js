@@ -6,15 +6,57 @@ import { useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import { identification } from '@/constants/language'
+import { useInterval } from '@/util'
+import Icons from '@assets/Icons'
 
 const Identification = () => {
   const language = useSelector((state) => state.languageOption)
   const [email, setEmail] = useState('')
   const [inputCode, setInputCode] = useState('')
+  const [code, setCode] = useState(null)
+  const [request, setRequest] = useState(false)
+  const [timer, setTimer] = useState(0)
+  const [send, setSend] = useState(false)
+  const [confirm, setConfirm] = useState(false)
 
-  // const [code, setCode] = useState('')
-  // const [request, setRequest] = useState(false)
-  const codeConfirm = (
+  const getCode = () => {
+    if (!request) {
+      setRequest(true)
+      setTimer(180)
+      setSend(true)
+      console.log('send')
+      // todo: api 추가 response로 인증 코드
+    }
+  }
+
+  const confirmCode = () => {
+    // if (inputCode === code)
+    setConfirm(true)
+    setTimer(0)
+    console.log('confirm')
+  }
+
+  const setText = (text) => {
+    if (!confirm) {
+      if (!request) {
+        setEmail(text)
+        if (code && code.length > 0) setCode(null)
+      }
+    }
+  }
+
+  const getTimer = () => {
+    const time = parseInt(timer / 60) + ' : ' + (timer % 60 < 10 ? '0' : '') + (timer % 60)
+    return time
+  }
+
+  useInterval(() => {
+    if (timer > 0) {
+      setTimer(timer - 1)
+    }
+  }, 1000)
+
+  const codeConfirmInput = (
     <View style={styles.longBox}>
       <Text style={[styles.mediumText, { paddingLeft: 22, color: '#888888', lineHeight: 14 }]}>
         {identification[language].code}
@@ -25,7 +67,23 @@ const Identification = () => {
         value={inputCode}
         placeholderTextColor="rgba(0, 0, 0, 0.6)"
         autoCapitalize="none"
+        maxLength={8}
+        editable={!confirm}
       />
+      {confirm ? (
+        <Icons.Ionicons
+          name="checkmark"
+          size={20}
+          style={{
+            marginRight: 17,
+          }}
+          color="#39DB00"
+        />
+      ) : (
+        <Text style={{ paddingRight: 20, color: '#000000', lineHeight: 13, fontWeight: '300', fontSize: 11 }}>
+          {send ? getTimer() : null}
+        </Text>
+      )}
     </View>
   )
 
@@ -49,21 +107,32 @@ const Identification = () => {
           <Text style={styles.stepText}>{identification[language].complete}</Text>
         </View>
         <View style={identificationStyles.input}>
-          {InputEmail(email, setEmail, identification[language].email)}
-          <Pressable style={[styles.longBtn, email ? { backgroundColor: '#BEDF61' } : '']}>
-            <Text style={[styles.mediumText, { textAlign: 'center', color: 'white' }]}>
+          {InputEmail(email, setText, identification[language].email, !request && !confirm)}
+          <Pressable
+            style={[styles.longBtn, email ? { backgroundColor: '#464646' } : '']}
+            onPress={getCode}
+            disabled={confirm}>
+            <Text style={[styles.mediumText, { textAlign: 'center', color: 'white', lineHeight: 15 }]}>
               {identification[language].sendingCode}
             </Text>
           </Pressable>
-          {codeConfirm}
-          <Pressable style={[styles.longBtn, inputCode ? { backgroundColor: '#BEDF61' } : '']}>
-            <Text style={[styles.mediumText, { textAlign: 'center', color: 'white' }]}>
+          {codeConfirmInput}
+          <Pressable
+            style={[styles.longBtn, inputCode && send ? { backgroundColor: '#464646' } : '']}
+            onPress={confirmCode}
+            disabled={!send}>
+            <Text style={[styles.mediumText, { textAlign: 'center', color: 'white', lineHeight: 15 }]}>
               {identification[language].confirmCode}
             </Text>
           </Pressable>
         </View>
         <View style={identificationStyles.next}>
-          <Pressable style={email && inputCode ? styles.button : styles.disabledButton}>
+          <Pressable
+            style={email && inputCode && send && confirm ? styles.button : styles.disabledButton}
+            disabled={!confirm}
+            onPress={() => {
+              console.log('next')
+            }}>
             <Text style={styles.buttonText}>{identification[language].next}</Text>
           </Pressable>
         </View>
