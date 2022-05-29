@@ -29,15 +29,17 @@ const EnterInfo = () => {
           <Text style={styles.welcome}>{enterInfo[language].travel}</Text>
         </View>
         <View style={enterInfoStyles.step}>
-          <Text style={[styles.mediumText, { textDecorationLine: 'underline', fontWeight: '700' }]}>
-            {enterInfo[language].enterInfo}
-          </Text>
-          <Text style={styles.mediumText}>
-            {' > '}
+          <Text style={styles.stepText}>
             {enterInfo[language].personalIdentification}
             {' > '}
           </Text>
-          <Text style={styles.mediumText}>{enterInfo[language].complete}</Text>
+          <Text style={[styles.stepText, { textDecorationLine: 'underline', fontWeight: '700' }]}>
+            {enterInfo[language].enterInfo}
+          </Text>
+          <Text style={styles.stepText}>
+            {' > '}
+            {enterInfo[language].complete}
+          </Text>
         </View>
         <View style={enterInfoStyles.input}>
           {InputEmail(email, setEmail, enterInfo[language].email, true)}
