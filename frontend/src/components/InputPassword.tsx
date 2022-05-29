@@ -15,7 +15,7 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
         color="rgba(0,0,0,0.5)"
       />
       <TextInput
-        style={{ flex: 1, paddingLeft: 12, paddingRight: 10 }}
+        style={[styles.mediumText, { flex: 1, paddingLeft: 12, paddingRight: 10 }]}
         onChangeText={(text) => setPassword(text)}
         value={password}
         placeholder={pwdText}
@@ -34,7 +34,8 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
               style={{
                 marginRight: 17,
               }}
-              color="#39DB00"></Icons.Ionicons>
+              color="#39DB00"
+            />
           )}
         </View>
       ) : (
