@@ -22,7 +22,7 @@ const Login = () => {
           <Text style={styles.welcome}>{login[language].welcome}</Text>
         </View>
         <View style={LoginStyles.input}>
-          {InputEmail(email, setEmail, login[language].email)}
+          {InputEmail(email, setEmail, login[language].email, true)}
           {InputPassword(password, setPassword, login[language].password, true)}
           <View style={LoginStyles.find}>
             <Pressable>

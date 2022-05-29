@@ -40,7 +40,7 @@ const EnterInfo = () => {
           <Text style={styles.mediumText}>{enterInfo[language].complete}</Text>
         </View>
         <View style={enterInfoStyles.input}>
-          {InputEmail(email, setEmail, enterInfo[language].email)}
+          {InputEmail(email, setEmail, enterInfo[language].email, true)}
           {InputPassword(password, setPassword, enterInfo[language].password, false, false)}
           {InputPassword(confirm, setConfirm, enterInfo[language].confirm, true, isSamePwd())}
         </View>

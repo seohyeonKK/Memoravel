@@ -3,7 +3,7 @@ import Icons from '@assets/Icons'
 import React from 'react'
 import { View, TextInput } from 'react-native'
 
-const InputEmail = (email: string, setEmail: Function, emailText: string) => {
+const InputEmail = (email: string, setEmail: Function, emailText: string, editable: boolean) => {
   return (
     <View style={styles.longBox}>
       <Icons.MaterialCommunityIcons
@@ -23,6 +23,7 @@ const InputEmail = (email: string, setEmail: Function, emailText: string) => {
         keyboardType="email-address"
         placeholderTextColor="rgba(0, 0, 0, 0.6)"
         autoCapitalize="none"
+        editable={editable}
       />
     </View>
   )
