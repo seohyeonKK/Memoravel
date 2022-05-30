@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View } from 'react-native'
-import Icons from '../../Icons'
+import Icons from '@assets/Icons'
 
 const Back = () => {
   const navigation = useNavigation()

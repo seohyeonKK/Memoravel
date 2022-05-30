@@ -6,25 +6,11 @@ import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
 import styles from '@/styles'
 import Back from '@/components/Back'
+import { loginOption } from '@/constants/language'
 
 const LoginOption = () => {
   const navigation = useNavigation()
   const language = useSelector((state) => state.languageOption)
-
-  const loginOption = [
-    {
-      sloganFirst: 'Travel that makes',
-      sloganSecond: 'memorable times',
-      login: 'LOGIN',
-      signup: 'SIGNUP',
-    },
-    {
-      sloganFirst: '기억에 남는 여행,',
-      sloganSecond: '추억이 되는 시간',
-      login: '로그인',
-      signup: '회원가입',
-    },
-  ]
 
   return (
     <View style={styles.container}>
@@ -39,10 +25,10 @@ const LoginOption = () => {
           {Logo()}
         </View>
         <View style={LoginOptionStyles.buttons}>
-          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Login')}>
+          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.boxInnerText}>{loginOption[language].login}</Text>
           </Pressable>
-          <Pressable style={styles.whiteLongBox} onPress={() => navigation.navigate('Signup')}>
+          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.boxInnerText}>{loginOption[language].signup}</Text>
           </Pressable>
         </View>

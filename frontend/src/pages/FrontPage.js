@@ -14,7 +14,6 @@ export const Logo = () => {
     </View>
   )
 }
-
 export const Front = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -27,6 +26,7 @@ export const Front = () => {
     dispatch(setEnglish())
     navigation.navigate('LoginOption')
   }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
@@ -35,10 +35,10 @@ export const Front = () => {
           {Logo()}
         </View>
         <View style={FrontStyles.buttons}>
-          <Pressable style={styles.whiteLongBox} onPress={Korean}>
+          <Pressable style={styles.longBox} onPress={Korean}>
             <Text style={styles.boxInnerText}>한국어로 시작하기</Text>
           </Pressable>
-          <Pressable style={styles.whiteLongBox} onPress={English}>
+          <Pressable style={styles.longBox} onPress={English}>
             <Text style={styles.boxInnerText}>START IN ENGLISH</Text>
           </Pressable>
         </View>
