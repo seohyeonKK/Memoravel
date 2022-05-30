@@ -44,8 +44,3 @@ create or replace table registered_course
     user_nickname varchar(50) not null,
     course_tile   varchar(50) not null
 );
-
-
-# test data
-insert into user(email, nickname, password, address, gender, photo_path)
-values ('koc0819@gmail.com', 'chanbro', '1234', '구의동', 'man', 'D://');
