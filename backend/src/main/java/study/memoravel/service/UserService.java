@@ -21,12 +21,12 @@ public class UserService {
     public String login(LoginInfo login) throws Exception {
         UserInfo result = userRepo.findByEmail(login.getEmail());
         if (result == null) {
-            throw new Exception("Failed Login");
+            throw new Exception("not exist email");
         }
         if (Encoding.checkBCrypt(login.getPassword(), result.getPassword())) {
             return JWT.create(result.getNickname(), result.getEmail());
         } else {
-            throw new Exception("Failed Login");
+            throw new Exception("not matched password");
         }
     }
 
