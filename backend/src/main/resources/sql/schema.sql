@@ -1,7 +1,7 @@
-drop table interested_course;
-drop table visited_course;
-drop table registered_course;
-drop table user;
+drop table if exists interested_course;
+drop table if exists visited_course;
+drop table if exists registered_course;
+drop table if exists user;
 
 create or replace table user
 (
@@ -44,3 +44,8 @@ create or replace table registered_course
     user_nickname varchar(50) not null,
     course_tile   varchar(50) not null
 );
+
+
+# test data
+insert into user(email, nickname, password, address, gender, photo_path)
+values ('koc0819@gmail.com', 'chanbro', '1234', '구의동', 'man', 'D://');
