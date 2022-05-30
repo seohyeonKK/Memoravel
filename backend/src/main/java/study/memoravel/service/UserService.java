@@ -62,4 +62,8 @@ public class UserService {
         UserInfo result = userRepo.findByNickname(nickname);
         return result == null;
     }
+
+    public void setLanguage(String email, String newLanguage) {
+        userRepo.updateLanguage(email, newLanguage);
+    }
 }
