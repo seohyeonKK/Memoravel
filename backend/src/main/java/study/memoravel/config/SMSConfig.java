@@ -1,4 +1,4 @@
-package study.memoravel;
+package study.memoravel.config;
 
 import net.nurigo.java_sdk.api.Message;
 import org.springframework.beans.factory.annotation.Value;

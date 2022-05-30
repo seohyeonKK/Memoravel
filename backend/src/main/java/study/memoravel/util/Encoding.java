@@ -1,9 +1,20 @@
 package study.memoravel.util;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5 {
+public class Encoding {
+
+    public static String getBCrypt(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public static Boolean checkBCrypt(String value, String target) {
+        return BCrypt.checkpw(value, target);
+    }
+
     public static String getMD5(String email) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(email.getBytes());
