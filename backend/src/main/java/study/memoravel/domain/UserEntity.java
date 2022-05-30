@@ -1,12 +1,10 @@
 package study.memoravel.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 
@@ -31,4 +29,10 @@ public class UserEntity {
     private String photoPath;
     private String phoneNumber;
     private String language;
+
+    @PrePersist
+    public void prePersist(){
+        this.language = this.language == null ? "korean" : this.language;
+        this.photoPath = this.photoPath == null ? "D://" : this.photoPath;
+    }
 }

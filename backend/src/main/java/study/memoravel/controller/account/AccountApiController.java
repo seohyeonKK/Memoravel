@@ -74,6 +74,9 @@ public class AccountApiController {
             String jwt = userService.login(loginInfo);
             return Response.builder().code(200).result(jwt).message("success login").build();
         } catch (Exception e) {
+            if (e.getMessage().equals("not matched password") || e.getMessage().equals("not exist email")) {
+                return Response.builder().code(500).result(null).message("failed login").build();
+            }
             e.printStackTrace();
             return Response.builder().code(500).result(e).message("failed login").build();
         }
