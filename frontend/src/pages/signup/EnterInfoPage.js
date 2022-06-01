@@ -47,7 +47,7 @@ const EnterInfo = () => {
           {InputPassword(password, setPassword, enterInfo[language].password, false, false)}
           {InputPassword(confirm, setConfirm, enterInfo[language].confirm, true, isSamePwd())}
           <View style={enterInfoStyles.gender}>
-            <View style={enterInfoStyles.male}>
+            <View style={{ flexDirection: 'row' }}>
               <Text style={[styles.mediumText, { color: '#FFFFFF', marginRight: 20, lineHeight: 25 }]}>
                 {enterInfo[language].male}
               </Text>
@@ -55,7 +55,7 @@ const EnterInfo = () => {
                 <View style={male ? enterInfoStyles.checked : null} />
               </Pressable>
             </View>
-            <View style={enterInfoStyles.female}>
+            <View style={[{ flexDirection: 'row' }, language ? { marginLeft: 72 } : { marginLeft: 48 }]}>
               <Text style={[styles.mediumText, { color: '#FFFFFF', marginRight: 20, lineHeight: 25 }]}>
                 {enterInfo[language].female}
               </Text>
@@ -97,13 +97,6 @@ const enterInfoStyles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     marginTop: 20,
-  },
-  male: {
-    flexDirection: 'row',
-  },
-  female: {
-    flexDirection: 'row',
-    marginLeft: 72,
   },
   radio: {
     width: 25,
