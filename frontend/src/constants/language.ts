@@ -27,7 +27,7 @@ export const login = [
     welcome: '돌아오신 것을 환영해요 !',
     email: '이메일',
     password: '비밀번호',
-    findId: '아이디 찾기',
+    findId: '계정 찾기',
     findPassword: '비밀번호 찾기',
   },
 ]
