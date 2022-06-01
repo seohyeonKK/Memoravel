@@ -158,7 +158,8 @@ const identificationStyles = StyleSheet.create({
     alignItems: 'center',
   },
   next: {
-    flex: 1,
+    flex: 0.8,
+    marginTop: 25,
     alignItems: 'center',
   },
 })

@@ -13,6 +13,7 @@ const EnterInfo = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
+  const [male, setMale] = useState(true)
 
   const isSamePwd = () => {
     if (password.length <= 0) return false
@@ -45,7 +46,26 @@ const EnterInfo = () => {
           {InputEmail(email, setEmail, enterInfo[language].email, true)}
           {InputPassword(password, setPassword, enterInfo[language].password, false, false)}
           {InputPassword(confirm, setConfirm, enterInfo[language].confirm, true, isSamePwd())}
+          <View style={enterInfoStyles.gender}>
+            <View style={enterInfoStyles.male}>
+              <Text style={[styles.mediumText, { color: '#FFFFFF', marginRight: 20, lineHeight: 25 }]}>
+                {enterInfo[language].male}
+              </Text>
+              <Pressable style={enterInfoStyles.radio} onPress={() => setMale(true)}>
+                <View style={male ? enterInfoStyles.checked : null} />
+              </Pressable>
+            </View>
+            <View style={enterInfoStyles.female}>
+              <Text style={[styles.mediumText, { color: '#FFFFFF', marginRight: 20, lineHeight: 25 }]}>
+                {enterInfo[language].female}
+              </Text>
+              <Pressable style={enterInfoStyles.radio} onPress={() => setMale(false)}>
+                <View style={!male ? enterInfoStyles.checked : null} />
+              </Pressable>
+            </View>
+          </View>
         </View>
+
         <View style={enterInfoStyles.next}>
           <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton}>
             <Text style={styles.buttonText}>{enterInfo[language].next}</Text>
@@ -72,8 +92,35 @@ const enterInfoStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  gender: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginTop: 20,
+  },
+  male: {
+    flexDirection: 'row',
+  },
+  female: {
+    flexDirection: 'row',
+    marginLeft: 72,
+  },
+  radio: {
+    width: 25,
+    height: 25,
+    borderRadius: 30,
+    backgroundColor: '#FFFFFF',
+  },
+  checked: {
+    width: 11,
+    height: 11,
+    borderRadius: 30,
+    backgroundColor: '#888888',
+    margin: 7,
+  },
   next: {
-    flex: 1,
+    flex: 0.8,
+    marginTop: 25,
     alignItems: 'center',
   },
 })
