@@ -60,7 +60,12 @@ const Identification = () => {
 
   const codeConfirmInput = (
     <View style={styles.longBox}>
-      <Text style={[styles.mediumText, { paddingLeft: 22, color: '#888888', lineHeight: 14 }]}>
+      <Text
+        style={[
+          styles.mediumText,
+          { color: '#888888', lineHeight: 14 },
+          language ? { paddingLeft: 22 } : { fontSize: 10, paddingLeft: 14 },
+        ]}>
         {identification[language].code}
       </Text>
       <TextInput
