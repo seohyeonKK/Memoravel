@@ -71,9 +71,8 @@ export const enterInfo = [
     confirm: 'Confirm Password',
     male: 'Male',
     female: 'Female',
-    agree: 'By signing up you agree to the following',
-    legal: 'Legal Terms and Conditions.',
-    next: 'NEXT',
+    agree: 'By signing up you agree to the following.',
+    legal: 'Legal Terms and Conditions',
   },
   {
     signup: '회원가입',
@@ -88,6 +87,5 @@ export const enterInfo = [
     female: '여성',
     agree: '회원가입 시 이용약관에 동의하게 됩니다.',
     legal: '이용약관 확인하기',
-    next: '다음',
   },
 ]

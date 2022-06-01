@@ -65,10 +65,27 @@ const EnterInfo = () => {
             </View>
           </View>
         </View>
-
+        <View style={enterInfoStyles.agree}>
+          <Text
+            style={[
+              styles.mediumText,
+              { textAlign: 'center', color: '#464646' },
+              language ? { marginBottom: 3 } : { lineHeight: 15 },
+            ]}>
+            {enterInfo[language].agree}
+          </Text>
+          <Text
+            style={[
+              styles.mediumText,
+              { textAlign: 'center', color: '#000000', textDecorationLine: 'underline' },
+              language ? null : { lineHeight: 15 },
+            ]}>
+            {enterInfo[language].legal}
+          </Text>
+        </View>
         <View style={enterInfoStyles.next}>
           <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton}>
-            <Text style={styles.buttonText}>{enterInfo[language].next}</Text>
+            <Text style={styles.buttonText}>{enterInfo[language].signup}</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -111,9 +128,12 @@ const enterInfoStyles = StyleSheet.create({
     backgroundColor: '#888888',
     margin: 7,
   },
+  agree: {
+    marginTop: 30,
+    marginBottom: 10,
+  },
   next: {
-    flex: 0.8,
-    marginTop: 25,
+    flex: 0.7,
     alignItems: 'center',
   },
 })
