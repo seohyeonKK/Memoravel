@@ -17,6 +17,9 @@ import java.sql.Date;
 @ApiModel("유저 정보")
 
 public class UserInfo {
+
+    @ApiModelProperty(hidden = true)
+    private int id;
     @ApiModelProperty(value = "이메일")
     private String email;
     @ApiModelProperty(value = "별명")
@@ -35,8 +38,13 @@ public class UserInfo {
     private String phoneNumber;
     @ApiModelProperty(value = "UI 언어")
     private String language;
+    @ApiModelProperty(hidden = true)
+    private String salt;
+    @ApiModelProperty(hidden = true)
+    private String jwt;
 
     public UserInfo(UserEntity userEntity) {
+        id = userEntity.getId();
         email = userEntity.getEmail();
         nickname = userEntity.getNickname();
         password = userEntity.getPassword();
@@ -46,5 +54,7 @@ public class UserInfo {
         photoPath = userEntity.getPhotoPath();
         phoneNumber = userEntity.getPhoneNumber();
         language = userEntity.getLanguage();
+        salt = userEntity.getSalt();
+        jwt = userEntity.getJwt();
     }
 }

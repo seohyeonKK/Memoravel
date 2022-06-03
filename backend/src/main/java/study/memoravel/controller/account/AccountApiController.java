@@ -86,9 +86,9 @@ public class AccountApiController {
     @ApiOperation(value = "JWT token 재발행", notes = "JWT 를 확인하여 만료기간을 갱신 후 반환한다.")
     public Response getRefreshToken(@RequestHeader Map<String, Object> header) {
         try {
-            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
-            UserInfo userInfo = userService.getUser(email);
-            String newJwt = JWT.create(userInfo.getNickname(), userInfo.getEmail());
+            int id = JWT.getIdFromJWT((String) (header.get("authorization")));
+            UserInfo userInfo = userService.getUser(id);
+            String newJwt = JWT.create(userInfo.getId(), userInfo.getNickname());
             return Response.builder().code(200).result(newJwt).message("success refresh token").build();
         } catch (Exception e) {
             return Response.builder().code(500).result(e).message("failed refresh token").build();

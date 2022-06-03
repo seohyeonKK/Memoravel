@@ -24,4 +24,6 @@ public class SignupInfo {
     private String address;
     @ApiModelProperty(value = "성별")
     private String gender;
+    @ApiModelProperty(hidden = true)
+    private String salt;
 }
