@@ -82,7 +82,4 @@ public class UserInfoApiController {
         }
     }
 
-
-    // TODO update language api
-
 }

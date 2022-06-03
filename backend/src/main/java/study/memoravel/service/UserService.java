@@ -32,9 +32,12 @@ public class UserService {
     }
 
     public String signup(SignupInfo user) {
+        // 유저 데이터 저장
         String saltValue = Encoding.getSalt();
         user.setPassword(Encoding.getBCrypt(user.getPassword(), saltValue));
+        user.setSalt(saltValue);
         UserEntity userEntity = userRepo.save(user);
+        // jwt 저장
         String jwt = JWT.create(userEntity.getId(), userEntity.getNickname());
         userRepo.updateJWT(userEntity.getId(), jwt);
         return jwt;
@@ -65,9 +68,5 @@ public class UserService {
     public Boolean checkNickname(String nickname) {
         UserInfo result = userRepo.findByNickname(nickname);
         return result == null;
-    }
-
-    public void setLanguage(int id, String newLanguage) {
-        userRepo.updateLanguage(id, newLanguage);
     }
 }

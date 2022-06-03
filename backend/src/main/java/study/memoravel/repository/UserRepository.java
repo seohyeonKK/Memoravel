@@ -30,8 +30,7 @@ public class UserRepository {
                 .address(signupInfo.getAddress())
                 .nickname(signupInfo.getNickname())
                 .gender(signupInfo.getGender())
-                .salt("asdf")
-                .jwt("asdfsadF")
+                .salt(signupInfo.getSalt())
                 .build();
         em.persist(user);
         return user;
