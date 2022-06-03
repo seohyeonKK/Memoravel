@@ -47,8 +47,8 @@ public class UserInfoApiController {
     @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
     public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
         try {
-            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
-            userService.setPhoneNumber(email, phoneNumber);
+            int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
+            userService.setPhoneNumber(userId, phoneNumber);
             return Response.builder().code(200).result(phoneNumber).message("success set phone number").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed set phone number").build();
@@ -59,8 +59,8 @@ public class UserInfoApiController {
     @ApiOperation(value = "유저 정보 반환", notes = "헤더의 JWT 에 해당하는 유저 정보를 반환한다.")
     public Response getUserInfo(@RequestHeader Map<String, Object> header) {
         try {
-            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
-            UserInfo userInfo = userService.getUser(email);
+            int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
+            UserInfo userInfo = userService.getUser(userId);
             return Response.builder().code(200).result(userInfo).message("success get user info").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();
@@ -71,8 +71,8 @@ public class UserInfoApiController {
     @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
     public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody UserInfo userInfo) {
         try {
-            String email = JWT.getEmailFromJWT((String) (header.get("authorization")));
-            userService.setUser(email, userInfo);
+            int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
+            userService.setUser(userId, userInfo);
             return Response.builder().code(200).result(userInfo).message("success get user info").build();
 
         } catch (ExpiredJwtException e) {
@@ -81,5 +81,8 @@ public class UserInfoApiController {
             return Response.builder().code(500).result(e).message("failed get user info").build();
         }
     }
+
+
+    // TODO update language api
 
 }

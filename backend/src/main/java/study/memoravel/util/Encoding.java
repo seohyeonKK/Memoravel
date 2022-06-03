@@ -7,8 +7,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Encoding {
 
-    public static String getBCrypt(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+    public static String getSalt() {
+        return BCrypt.gensalt();
+    }
+
+    public static String getBCrypt(String password, String salt) {
+        return BCrypt.hashpw(password, salt);
     }
 
     public static Boolean checkBCrypt(String value, String target) {

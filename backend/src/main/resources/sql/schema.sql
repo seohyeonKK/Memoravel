@@ -20,17 +20,17 @@ drop table if exists tag;
 create table user
 (
     id           int primary key auto_increment,
-    email        varchar(50)  not null unique,
-    nickname     varchar(50)  not null unique,
-    password     varchar(60)  not null,
-    reg_date     datetime     not null default now(),
-    address      varchar(50)  not null,
-    gender       varchar(10)  not null check (gender = 'man' || gender = 'woman'),
-    photo_path   varchar(50)  not null,
+    email        varchar(50) not null unique,
+    nickname     varchar(50) not null unique,
+    password     varchar(60) not null,
+    reg_date     datetime    not null default now(),
+    address      varchar(50) not null,
+    gender       varchar(10) not null check (gender = 'man' || gender = 'woman'),
+    photo_path   varchar(50) not null,
     phone_number varchar(50),
-    language     varchar(50)  not null default 'korean',
-    salt         varchar(64)  not null,
-    jwt          varchar(500) not null
+    language     varchar(50) not null default 'korean',
+    salt         varchar(64) not null,
+    jwt          varchar(500)
 );
 create table lang
 (
