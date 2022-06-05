@@ -17,7 +17,7 @@ public class UserRepository {
         this.em = em;
     }
 
-    public void save(SignupInfo signupInfo) {
+    public UserEntity save(SignupInfo signupInfo) {
 //        em.createNativeQuery("insert into user (email, nickname, password, address, gender, photo_path) values (:email,:nickname,:password,:address,:gender,:photoPath)")
 //                .setParameter("email", user.getEmail())
 //                .setParameter("nickname", user.getNickname())
@@ -25,19 +25,25 @@ public class UserRepository {
 //                .setParameter("address", user.getAddress())
 //                .setParameter("gender", user.getGender())
 //                .setParameter("photoPath", user.getPhotoPath());
-        String defaultPhotoPath = "D://";
         UserEntity user = UserEntity.builder().email(signupInfo.getEmail())
                 .password(signupInfo.getPassword())
                 .address(signupInfo.getAddress())
                 .nickname(signupInfo.getNickname())
                 .gender(signupInfo.getGender())
-                .photoPath(defaultPhotoPath)
+                .salt(signupInfo.getSalt())
                 .build();
-
         em.persist(user);
+        return user;
     }
 
-    public UserInfo findById(long id) {
+    public void updateJWT(int id, String jwt) {
+        em.createQuery("update user as u set u.jwt = :jwt where u.id = :id")
+                .setParameter("jwt", jwt)
+                .setParameter("id", id)
+                .executeUpdate();
+    }
+
+    public UserInfo findById(int id) {
         UserEntity userEntity = em.find(UserEntity.class, id);
         return new UserInfo(userEntity);
     }
@@ -78,17 +84,17 @@ public class UserRepository {
         }
     }
 
-    public void updatePhoneNumber(String email, String phoneNumber) {
-        em.createQuery("update user as u set u.phoneNumber = :phoneNumber where u.email = :email")
+    public void updatePhoneNumber(int id, String phoneNumber) {
+        em.createQuery("update user as u set u.phoneNumber = :phoneNumber where u.id = :id")
                 .setParameter("phoneNumber", phoneNumber)
-                .setParameter("email", email)
+                .setParameter("id", id)
                 .executeUpdate();
     }
 
-    public void updateUser(String email, UserInfo userInfo) {
+    public void updateUser(int id, UserInfo userInfo) {
         em.createQuery("update user as u set u.email = :newEmail, u.nickname = :nickname," +
                         " u.address = :address, u.gender = :gender , u.photoPath = :photoPath , u.phoneNumber = :phoneNumber , " +
-                        "u.language = :language where u.email = :email")
+                        "u.language = :language where u.id = :id")
                 .setParameter("newEmail", userInfo.getEmail())
                 .setParameter("nickname", userInfo.getNickname())
                 .setParameter("address", userInfo.getAddress())
@@ -96,14 +102,14 @@ public class UserRepository {
                 .setParameter("photoPath", userInfo.getPhotoPath())
                 .setParameter("phoneNumber", userInfo.getPhoneNumber())
                 .setParameter("language", userInfo.getLanguage())
-                .setParameter("email", email)
+                .setParameter("id", id)
                 .executeUpdate();
     }
 
-    public void updateLanguage(String email, String newLanguage) {
-        em.createQuery("update user as u set u.language = :language where u.email = :email")
+    public void updateLanguage(int id, String newLanguage) {
+        em.createQuery("update user as u set u.language = :language where u.id = :id")
                 .setParameter("language", newLanguage)
-                .setParameter("email", email)
+                .setParameter("id", id)
                 .executeUpdate();
     }
 }

@@ -21,7 +21,7 @@ public class JWT {
         return result;
     }
 
-    public static String create(String nickname, String email) {
+    public static String create(int id, String nickname) {
         if (secret == null) {
             secret = getSecret();
         }
@@ -32,15 +32,15 @@ public class JWT {
                 .setIssuer(nickname) // 발급자 설정
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
-                .claim("email", email) // 비공개 클레임 설정(ID만 사용)
+                .claim("id", id) // 비공개 클레임 설정(ID만 사용)
                 .claim("date", new Date().getTime())
                 .signWith(SignatureAlgorithm.HS256, secret) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }
 
-    public static String getEmailFromJWT(String jwtString) {
+    public static Integer getIdFromJWT(String jwtString) {
         Claims claims = JWT.parse(jwtString);
-        return (String) claims.get("email");
+        return (Integer) claims.get("id");
     }
 
     private static Claims parse(String jwtString) throws ExpiredJwtException {
