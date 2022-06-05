@@ -89,3 +89,17 @@ export const enterInfo = [
     legal: '이용약관 확인하기',
   },
 ]
+export const nickName = [
+  {
+    infoBold: "사용하실 닉네임",
+    infoNormal: "을 입력해주세요.",
+    nickname: "닉네임",
+    check: "중복확인"
+  },
+  {
+    infoBold: "사용하실 닉네임",
+    infoNormal: "을 입력해주세요.",
+    nickname: "닉네임",
+    check: "중복확인"
+  }
+]
