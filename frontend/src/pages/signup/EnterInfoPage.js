@@ -1,24 +1,34 @@
 import styles from '@/styles'
 import React, { useState } from 'react'
-import { ImageBackground, Text, View, Pressable, StyleSheet } from 'react-native'
+import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native'
 import Images from '@assets/images'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
 import { enterInfo } from '@/constants/language'
+import { useNavigation } from '@react-navigation/native'
+import { setUserGender, setUserPassword } from '@/redux/userInformation'
 
 const EnterInfo = () => {
   const language = useSelector((state) => state.languageOption)
-  const [email, setEmail] = useState('')
+  const user = useSelector((state) => state.userInformation)
+  const navigation = useNavigation()
+  const [email, setEmail] = useState(user.email)
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [male, setMale] = useState(true)
+  const dispatch = useDispatch()
 
   const isSamePwd = () => {
     if (password.length <= 0) return false
-    if (confirm === password) return true
-    else false
+    return confirm === password
+  }
+
+  const next = () => {
+    dispatch(setUserGender(male))
+    dispatch(setUserPassword(password))
+    navigation.navigate('Nickname')
   }
 
   return (
@@ -43,7 +53,7 @@ const EnterInfo = () => {
           </Text>
         </View>
         <View style={enterInfoStyles.input}>
-          {InputEmail(email, setEmail, enterInfo[language].email, true)}
+          {InputEmail(email, setEmail, enterInfo[language].email, false)}
           {InputPassword(password, setPassword, enterInfo[language].password, false, false)}
           {InputPassword(confirm, setConfirm, enterInfo[language].confirm, true, isSamePwd())}
           <View style={enterInfoStyles.gender}>
@@ -84,7 +94,7 @@ const EnterInfo = () => {
           </Text>
         </View>
         <View style={enterInfoStyles.next}>
-          <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton}>
+          <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton} onPress={next}>
             <Text style={styles.buttonText}>{enterInfo[language].signup}</Text>
           </Pressable>
         </View>
