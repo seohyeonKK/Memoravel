@@ -3,11 +3,10 @@ import axios from 'axios'
 // axios.defaults.headers.common['Authorization'] = JWT_TOKEN ? `Bearer ${JWT_TOKEN}` : ''
 
 const instance = axios.create({
-  baseURL: '/',
+  baseURL: 'http://localhost:8080/',
   headers: {
     // Authorization: JWT_TOKEN ? `Bearer ${JWT_TOKEN}` : '',
   },
-  timeout: 1000,
 })
 
 instance.interceptors.request.use(
