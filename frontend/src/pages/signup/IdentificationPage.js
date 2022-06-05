@@ -1,14 +1,16 @@
 import styles from '@/styles'
 import React, { useState } from 'react'
-import { ImageBackground, Text, View, Pressable, StyleSheet, TextInput } from 'react-native'
+import { ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import Images from '@assets/images'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import { identification } from '@/constants/language'
 import { useInterval } from '@/util'
 import Icons from '@assets/Icons'
 import { useNavigation } from '@react-navigation/native'
+import { emailAuthentication } from '@/api/api'
+import { setUserEmail } from '@/redux/userInformation'
 
 const Identification = () => {
   const language = useSelector((state) => state.languageOption)
@@ -20,22 +22,26 @@ const Identification = () => {
   const [timer, setTimer] = useState(0)
   const [send, setSend] = useState(false)
   const [confirm, setConfirm] = useState(false)
+  const dispatch = useDispatch()
 
-  const getCode = () => {
+  const getCode = async () => {
     if (!request) {
       setRequest(true)
       setTimer(180)
       setSend(true)
-      console.log('send')
-      // todo: api 추가 response로 인증 코드
+      const get = await emailAuthentication(email)
+      if (parseInt(get.data.code) === 200) {
+        setCode(get.data.result)
+        setRequest(false)
+      }
     }
   }
 
   const confirmCode = () => {
-    // if (inputCode === code)
-    setConfirm(true)
-    setTimer(0)
-    console.log('confirm')
+    if (inputCode === code) {
+      setConfirm(true)
+      setTimer(0)
+    }
   }
 
   const setText = (text) => {
@@ -45,6 +51,11 @@ const Identification = () => {
         if (code && code.length > 0) setCode(null)
       }
     }
+  }
+
+  const next = () => {
+    dispatch(setUserEmail(email))
+    navigation.navigate('EnterInfo')
   }
 
   const getTimer = () => {
@@ -137,7 +148,7 @@ const Identification = () => {
           <Pressable
             style={email && inputCode && send && confirm ? styles.button : styles.disabledButton}
             disabled={!confirm}
-            onPress={() => navigation.navigate('EnterInfo')}>
+            onPress={next}>
             <Text style={styles.buttonText}>{identification[language].next}</Text>
           </Pressable>
         </View>
