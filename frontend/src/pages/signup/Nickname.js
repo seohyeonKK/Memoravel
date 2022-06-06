@@ -4,6 +4,7 @@ import styles from '@/styles'
 import Images from '@assets/images'
 import { useSelector } from 'react-redux'
 import { nickName } from '@/constants/language'
+import Back from '@/components/Back'
 
 const Nickname = () => {
   const language = useSelector((state) => state.languageOption)
@@ -43,6 +44,7 @@ const Nickname = () => {
 
   return (
     <View style={styles.container}>
+      {Back()}
       <ImageBackground
         source={Images.LoginBackground}
         resizeMode="cover"
