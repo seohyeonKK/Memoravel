@@ -9,7 +9,7 @@ import { identification } from '@/constants/language'
 import { useInterval } from '@/util'
 import Icons from '@assets/Icons'
 import { useNavigation } from '@react-navigation/native'
-import { emailAuthentication } from '@/api/api'
+import { getEmailAuthentication } from '@/api/api'
 import { setUserEmail } from '@/redux/userInformation'
 
 const Identification = () => {
@@ -29,7 +29,7 @@ const Identification = () => {
       setRequest(true)
       setTimer(180)
       setSend(true)
-      const get = await emailAuthentication(email)
+      const get = await getEmailAuthentication(email)
       if (parseInt(get.data.code) === 200) {
         setCode(get.data.result)
         setRequest(false)
