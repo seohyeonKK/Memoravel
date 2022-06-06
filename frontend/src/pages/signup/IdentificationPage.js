@@ -30,10 +30,8 @@ const Identification = () => {
       setTimer(180)
       setSend(true)
       const get = await getEmailAuthentication(email)
-      if (parseInt(get.data.code) === 200) {
-        setCode(get.data.result)
-        setRequest(false)
-      }
+      if (get) setRequest(false)
+      if (parseInt(get.data.code) === 200) setCode(get.data.result)
     }
   }
 
