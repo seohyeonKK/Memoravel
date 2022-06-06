@@ -96,6 +96,7 @@ export const nickName = [
     nickname: '닉네임',
     check: '중복확인',
     notAvailable: '*사용중인 닉네임입니다.',
+    next: '다음',
   },
   {
     infoBold: '사용하실 닉네임',
@@ -103,5 +104,6 @@ export const nickName = [
     nickname: '닉네임',
     check: '중복확인',
     notAvailable: '*사용중인 닉네임입니다.',
+    next: '다음',
   },
 ]
