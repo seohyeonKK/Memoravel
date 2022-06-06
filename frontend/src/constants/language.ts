@@ -27,7 +27,7 @@ export const login = [
     welcome: '돌아오신 것을 환영해요 !',
     email: '이메일',
     password: '비밀번호',
-    findId: '아이디 찾기',
+    findId: '계정 찾기',
     findPassword: '비밀번호 찾기',
   },
 ]
@@ -69,7 +69,10 @@ export const enterInfo = [
     email: 'E-mail',
     password: 'Password',
     confirm: 'Confirm Password',
-    next: 'NEXT',
+    male: 'Male',
+    female: 'Female',
+    agree: 'By signing up you agree to the following.',
+    legal: 'Legal Terms and Conditions',
   },
   {
     signup: '회원가입',
@@ -80,6 +83,23 @@ export const enterInfo = [
     email: '이메일',
     password: '비밀번호',
     confirm: '비밀번호 확인',
-    next: '다음',
+    male: '남성',
+    female: '여성',
+    agree: '회원가입 시 이용약관에 동의하게 됩니다.',
+    legal: '이용약관 확인하기',
   },
+]
+export const nickName = [
+  {
+    infoBold: "사용하실 닉네임",
+    infoNormal: "을 입력해주세요.",
+    nickname: "닉네임",
+    check: "중복확인"
+  },
+  {
+    infoBold: "사용하실 닉네임",
+    infoNormal: "을 입력해주세요.",
+    nickname: "닉네임",
+    check: "중복확인"
+  }
 ]

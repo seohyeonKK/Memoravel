@@ -10,12 +10,13 @@ import Front from '@/pages/FrontPage'
 import Identification from '@/pages/signup/IdentificationPage'
 import LoginOption from '@/pages/LoginOptionPage'
 import Login from '@/pages/LoginPage'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import React from 'react'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import store from './store'
 import EnterInfo from '@/pages/signup/EnterInfoPage'
+import Nickname from "@/pages/signup/Nickname"
 
 const Stack = createNativeStackNavigator()
 
@@ -28,12 +29,13 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Front">
-          <Stack.Screen name="Front" component={Front} />
-          <Stack.Screen name="LoginOption" component={LoginOption} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Identification} />
-          <Stack.Screen name="EnterInfo" component={EnterInfo} />
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Front">
+          <Stack.Screen name="Front" component={Front}/>
+          <Stack.Screen name="LoginOption" component={LoginOption}/>
+          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Signup" component={Identification}/>
+          <Stack.Screen name="EnterInfo" component={EnterInfo}/>
+          <Stack.Screen name="Nickname" component={Nickname}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
