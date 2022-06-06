@@ -5,14 +5,19 @@ import Images from '@assets/images'
 import { useSelector } from 'react-redux'
 import { nickName } from '@/constants/language'
 import Back from '@/components/Back'
+import { getNicknameCheck } from '@/api/api'
+import Icons from '@assets/Icons'
 
 const Nickname = () => {
   const language = useSelector((state) => state.languageOption)
   const upAnim = useRef(new Animated.Value(0)).current
   const fadeTxtAnim = useRef(new Animated.Value(0)).current
-  const fadeInputAnim = useRef(new Animated.Value(0)).current
+  const fadeInAnim = useRef(new Animated.Value(0)).current
   const [nickname, setNickname] = useState('')
-  const user = useSelector((state) => state.userInformation)
+  const [request, setRequest] = useState(false)
+  const [check, setCheck] = useState(false)
+  const [available, setAvailable] = useState(false)
+  // const user = useSelector((state) => state.userInformation)
 
   const goUp = () => {
     Animated.timing(upAnim, {
@@ -29,17 +34,27 @@ const Nickname = () => {
       useNativeDriver: true,
     }).start()
   }
-  const fadeInInput = () => {
-    Animated.timing(fadeInputAnim, {
+  const fadeIn = () => {
+    Animated.timing(fadeInAnim, {
       toValue: 1,
       useNativeDriver: true,
     }).start()
   }
 
+  const checkNickname = async () => {
+    if (!request && nickname.length) {
+      setRequest(true)
+      const checkNickname = await getNicknameCheck(nickname)
+      if (checkNickname) setRequest(false)
+      if (checkNickname.data.result) setAvailable(checkNickname.data.result)
+      setCheck(true)
+    }
+  }
+
   useEffect(() => {
     fadeInTxt()
     setTimeout(goUp, 1000)
-    setTimeout(fadeInInput, 2000)
+    setTimeout(fadeIn, 2000)
   }, [])
 
   return (
@@ -59,24 +74,50 @@ const Nickname = () => {
               {nickName[language].infoNormal}
             </Text>
           </Animated.View>
-          <Animated.View style={[styles.longBox, { opacity: fadeInputAnim }, nicknameStyles.input]}>
+          <Animated.View style={[styles.longBox, { opacity: fadeInAnim }, nicknameStyles.input]}>
             <TextInput
               style={[styles.mediumText, { flex: 1, paddingLeft: 22, paddingRight: 10 }]}
               value={nickname}
-              onChangeText={(text) => setNickname(text)}
+              onChangeText={(text) => {
+                setNickname(text)
+                setAvailable(false)
+                setCheck(false)
+              }}
               placeholder={nickName[language].nickname}
               keyboardType="default"
               placeholderTextColor="#888888"
               autoCapitalize="none"
             />
-            <Pressable>
-              <Text style={[styles.mediumText, { paddingRight: 19, textDecorationLine: 'underline' }]}>
-                {nickName[language].check}
-              </Text>
+            <Pressable style={{ opacity: nickname ? 1 : 0 }} onPress={checkNickname}>
+              {available ? (
+                <Icons.Ionicons
+                  name="checkmark"
+                  size={20}
+                  style={{
+                    marginRight: 17,
+                  }}
+                  color="#39DB00"
+                />
+              ) : check ? (
+                <Text style={[styles.mediumText, { paddingRight: 19, textDecorationLine: 'underline', color: 'red' }]}>
+                  {nickName[language].check}
+                </Text>
+              ) : (
+                <Text style={[styles.mediumText, { paddingRight: 19, textDecorationLine: 'underline' }]}>
+                  {nickName[language].check}
+                </Text>
+              )}
             </Pressable>
           </Animated.View>
+          <Text style={[nicknameStyles.notAvailable, { opacity: check && !available ? 1 : 0 }]}>
+            {nickName[language].notAvailable}
+          </Text>
         </View>
-        <Text>{console.log(user)}</Text>
+        <Animated.View style={{ opacity: fadeInAnim }}>
+          <Pressable style={[{ top: -11 }, available ? styles.button : styles.disabledButton]} disabled={!available}>
+            <Text style={styles.buttonText}>{nickName[language].next}</Text>
+          </Pressable>
+        </Animated.View>
       </ImageBackground>
     </View>
   )
@@ -99,6 +140,15 @@ const nicknameStyles = StyleSheet.create({
     top: -50,
     marginTop: 12,
     alignContent: 'center',
+  },
+  notAvailable: {
+    top: -40,
+    alignSelf: 'center',
+    fontFamily: 'GmarketSansTTFBold',
+    fontWeight: '400',
+    fontSize: 11,
+    lineHeight: 11,
+    color: '#FFFFFF',
   },
 })
 export default Nickname
