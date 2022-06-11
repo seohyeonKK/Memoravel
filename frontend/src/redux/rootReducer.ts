@@ -1,7 +1,9 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import languageOption from '@/redux/languageOption'
+import userInformation from '@/redux/userInformation'
 
 const reducer = combineReducers({
+  userInformation,
   languageOption,
 })
 
