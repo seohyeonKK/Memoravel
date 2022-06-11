@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @ApiModel(value = "계정 로그인 요청")
-public class LoginInfo {
+public class LoginRequest {
     @ApiModelProperty(value = "이메일")
     private String email;
     @ApiModelProperty(value = "비밀번호")

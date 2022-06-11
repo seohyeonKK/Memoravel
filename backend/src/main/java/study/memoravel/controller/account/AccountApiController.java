@@ -69,7 +69,7 @@ public class AccountApiController {
 
     @PostMapping(value = "login")
     @ApiOperation(value = "로그인", notes = "로그인 할 유저의 아이디와 비밀번호의 일치를 확인하고, 일치한다면 JWT 를 발급한다.")
-    public Response login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody LoginInfo loginInfo) {
+    public Response login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody LoginRequest loginInfo) {
         try {
             String jwt = userService.login(loginInfo);
             return Response.builder().code(200).result(jwt).message("success login").build();
