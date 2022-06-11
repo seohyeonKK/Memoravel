@@ -24,12 +24,9 @@ class MailServiceTest {
 
     @Test
     void 이메일_인증번호_확인() {
-        // given
-
-        // when
         String authString1 = mailService.sendCheckMail(mailId);
         String authString2 = mailService.sendCheckMail(mailId);
-        //then
+
         assertThat(authString1.length()).isEqualTo(8);
         assertThat(authString1).isNotEqualTo(authString2);
     }
@@ -37,12 +34,10 @@ class MailServiceTest {
 
     @Test
     void 잘못된_이메일_오류_확인() {
-        // given
         String testMailId = "123123123123";
-        // when
 
-        //then
         MailServiceException exception = assertThrows(MailServiceException.class, () -> mailService.sendCheckMail(testMailId));
+
     }
 
 }

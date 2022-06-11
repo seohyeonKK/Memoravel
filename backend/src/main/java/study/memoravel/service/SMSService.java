@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import study.memoravel.exception.SMSServiceException;
 
 import java.util.HashMap;
 
@@ -22,7 +23,7 @@ public class SMSService {
         this.smsService = smsService;
     }
 
-    public String sendMessage(String phoneNumber) throws CoolsmsException {
+    public String sendMessage(String phoneNumber) {
         int randomNumber = (int) ((Math.random() * (9999 - 1000 + 1)) + 1000);
 
         // 4 params(to, from, type, text) is necessary
@@ -31,7 +32,11 @@ public class SMSService {
         params.put("from", sender);
         params.put("type", "SMS");
         params.put("text", "[Memoravel] 가입 인증번호는 [" + randomNumber + "] 입니다.");
-        smsService.send(params);
+        try {
+            smsService.send(params);
+        } catch (CoolsmsException e) {
+            throw new SMSServiceException();
+        }
 
         return String.valueOf(randomNumber);
     }

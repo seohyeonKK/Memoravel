@@ -4,7 +4,6 @@ package study.memoravel.controller;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import study.memoravel.controller.dto.UserInfoResponseDto;
@@ -36,7 +35,7 @@ public class UserInfoApiController {
             try {
                 String randomNumber = smsService.sendMessage(phoneNumber);
                 return Response.builder().code(200).result(randomNumber).message("success phone number authentication").build();
-            } catch (CoolsmsException e) {
+            } catch (Exception e) {
                 return Response.builder().code(500).result(e).message("failed phone number authentication\n cool sms error").build();
             }
         } else {
