@@ -13,7 +13,6 @@ import study.memoravel.service.MailService;
 import study.memoravel.service.UserService;
 import study.memoravel.util.JWT;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 @RestController
@@ -39,7 +38,7 @@ public class AccountApiController {
             } else {
                 return Response.builder().code(500).result(email).message("failed email authentication\n already using email").build();
             }
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             return Response.builder().code(500).result(e).message("failed email authentication\n MD5 algorithm is error").build();
         }
     }
