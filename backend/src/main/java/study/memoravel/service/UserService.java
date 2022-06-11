@@ -2,9 +2,9 @@ package study.memoravel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import study.memoravel.controller.account.LoginRequest;
-import study.memoravel.controller.account.SignupInfo;
-import study.memoravel.controller.userInfo.UserInfo;
+import study.memoravel.controller.dto.SignInRequestDto;
+import study.memoravel.controller.dto.SignUpRequestDto;
+import study.memoravel.controller.dto.UserInfoResponseDto;
 import study.memoravel.domain.UserEntity;
 import study.memoravel.repository.UserRepository;
 import study.memoravel.util.Encoding;
@@ -19,8 +19,8 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public String login(LoginRequest login) throws Exception {
-        UserInfo result = userRepo.findByEmail(login.getEmail());
+    public String login(SignInRequestDto login) throws Exception {
+        UserInfoResponseDto result = userRepo.findByEmail(login.getEmail());
         if (result == null) {
             throw new Exception("not exist email");
         }
@@ -31,7 +31,7 @@ public class UserService {
         }
     }
 
-    public String signup(SignupInfo user) {
+    public String signup(SignUpRequestDto user) {
         // 유저 데이터 저장
         String saltValue = Encoding.getSalt();
         user.setPassword(Encoding.getBCrypt(user.getPassword(), saltValue));
@@ -43,16 +43,16 @@ public class UserService {
         return jwt;
     }
 
-    public UserInfo getUser(int id) {
+    public UserInfoResponseDto getUser(int id) {
         return userRepo.findById(id);
     }
 
-    public void setUser(int id, UserInfo userInfo) {
+    public void setUser(int id, UserInfoResponseDto userInfo) {
         userRepo.updateUser(id, userInfo);
     }
 
     public Boolean checkPhoneNumber(String phoneNumber) {
-        UserInfo result = userRepo.findByPhoneNumber(phoneNumber);
+        UserInfoResponseDto result = userRepo.findByPhoneNumber(phoneNumber);
         return result == null;
     }
 
@@ -61,12 +61,12 @@ public class UserService {
     }
 
     public Boolean checkEmail(String mail) {
-        UserInfo result = userRepo.findByEmail(mail);
+        UserInfoResponseDto result = userRepo.findByEmail(mail);
         return result == null;
     }
 
     public Boolean checkNickname(String nickname) {
-        UserInfo result = userRepo.findByNickname(nickname);
+        UserInfoResponseDto result = userRepo.findByNickname(nickname);
         return result == null;
     }
 }

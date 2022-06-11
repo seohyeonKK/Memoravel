@@ -1,4 +1,4 @@
-package study.memoravel.controller.userInfo;
+package study.memoravel.controller.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +16,7 @@ import java.sql.Date;
 @Builder
 @ApiModel("유저 정보")
 
-public class UserInfo {
+public class UserInfoResponseDto {
 
     @ApiModelProperty(hidden = true)
     private int id;
@@ -43,7 +43,7 @@ public class UserInfo {
     @ApiModelProperty(hidden = true)
     private String jwt;
 
-    public UserInfo(UserEntity userEntity) {
+    public UserInfoResponseDto(UserEntity userEntity) {
         id = userEntity.getId();
         email = userEntity.getEmail();
         nickname = userEntity.getNickname();

@@ -1,4 +1,4 @@
-package study.memoravel.controller.userInfo;
+package study.memoravel.controller;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiParam;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import study.memoravel.controller.dto.UserInfoResponseDto;
 import study.memoravel.domain.Response;
 import study.memoravel.service.SMSService;
 import study.memoravel.service.UserService;
@@ -60,7 +61,7 @@ public class UserInfoApiController {
     public Response getUserInfo(@RequestHeader Map<String, Object> header) {
         try {
             int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            UserInfo userInfo = userService.getUser(userId);
+            UserInfoResponseDto userInfo = userService.getUser(userId);
             return Response.builder().code(200).result(userInfo).message("success get user info").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();
@@ -69,7 +70,7 @@ public class UserInfoApiController {
 
     @PostMapping("info")
     @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
-    public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody UserInfo userInfo) {
+    public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody UserInfoResponseDto userInfo) {
         try {
             int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
             userService.setUser(userId, userInfo);

@@ -1,8 +1,8 @@
 package study.memoravel.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import study.memoravel.controller.account.SignupInfo;
-import study.memoravel.controller.userInfo.UserInfo;
+import study.memoravel.controller.dto.SignUpRequestDto;
+import study.memoravel.controller.dto.UserInfoResponseDto;
 import study.memoravel.domain.UserEntity;
 
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ public class UserRepository {
         this.em = em;
     }
 
-    public UserEntity save(SignupInfo signupInfo) {
+    public UserEntity save(SignUpRequestDto signupInfo) {
 //        em.createNativeQuery("insert into user (email, nickname, password, address, gender, photo_path) values (:email,:nickname,:password,:address,:gender,:photoPath)")
 //                .setParameter("email", user.getEmail())
 //                .setParameter("nickname", user.getNickname())
@@ -43,42 +43,42 @@ public class UserRepository {
                 .executeUpdate();
     }
 
-    public UserInfo findById(int id) {
+    public UserInfoResponseDto findById(int id) {
         UserEntity userEntity = em.find(UserEntity.class, id);
-        return new UserInfo(userEntity);
+        return new UserInfoResponseDto(userEntity);
     }
 
-    public UserInfo findByPhoneNumber(String phoneNumber) {
+    public UserInfoResponseDto findByPhoneNumber(String phoneNumber) {
         try {
             UserEntity result = em.createQuery("select u from user as u where u.phoneNumber = :phoneNumber", UserEntity.class)
                     .setParameter("phoneNumber", phoneNumber)
                     .getSingleResult();
 
-            return new UserInfo(result);
+            return new UserInfoResponseDto(result);
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public UserInfo findByEmail(String email) {
+    public UserInfoResponseDto findByEmail(String email) {
         try {
             UserEntity result = em.createQuery("select user from user as user where user.email = :email", UserEntity.class)
                     .setParameter("email", email)
                     .getSingleResult();
 
-            return new UserInfo(result);
+            return new UserInfoResponseDto(result);
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public UserInfo findByNickname(String nickname) {
+    public UserInfoResponseDto findByNickname(String nickname) {
         try {
             UserEntity result = em.createQuery("select user from user as user where user.nickname = :nickname", UserEntity.class)
                     .setParameter("nickname", nickname)
                     .getSingleResult();
 
-            return new UserInfo(result);
+            return new UserInfoResponseDto(result);
         } catch (NoResultException e) {
             return null;
         }
@@ -91,7 +91,7 @@ public class UserRepository {
                 .executeUpdate();
     }
 
-    public void updateUser(int id, UserInfo userInfo) {
+    public void updateUser(int id, UserInfoResponseDto userInfo) {
         em.createQuery("update user as u set u.email = :newEmail, u.nickname = :nickname," +
                         " u.address = :address, u.gender = :gender , u.photoPath = :photoPath , u.phoneNumber = :phoneNumber , " +
                         "u.language = :language where u.id = :id")

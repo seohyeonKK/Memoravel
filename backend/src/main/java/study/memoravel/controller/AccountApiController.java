@@ -1,11 +1,13 @@
-package study.memoravel.controller.account;
+package study.memoravel.controller;
 
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import study.memoravel.controller.userInfo.UserInfo;
+import study.memoravel.controller.dto.SignInRequestDto;
+import study.memoravel.controller.dto.SignUpRequestDto;
+import study.memoravel.controller.dto.UserInfoResponseDto;
 import study.memoravel.domain.Response;
 import study.memoravel.service.MailService;
 import study.memoravel.service.UserService;
@@ -58,7 +60,7 @@ public class AccountApiController {
 
     @PostMapping("signup")
     @ApiOperation(value = "가입", notes = "가입 할 유저의 정보를 저장하고, JWT 를 반환한다.")
-    public Response signup(@RequestBody SignupInfo user) {
+    public Response signup(@RequestBody SignUpRequestDto user) {
         try {
             String jwt = userService.signup(user);
             return Response.builder().code(200).result(jwt).message("success signup").build();
@@ -69,7 +71,7 @@ public class AccountApiController {
 
     @PostMapping(value = "login")
     @ApiOperation(value = "로그인", notes = "로그인 할 유저의 아이디와 비밀번호의 일치를 확인하고, 일치한다면 JWT 를 발급한다.")
-    public Response login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody LoginRequest loginInfo) {
+    public Response login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody SignInRequestDto loginInfo) {
         try {
             String jwt = userService.login(loginInfo);
             return Response.builder().code(200).result(jwt).message("success login").build();
@@ -87,7 +89,7 @@ public class AccountApiController {
     public Response getRefreshToken(@RequestHeader Map<String, Object> header) {
         try {
             int id = JWT.getIdFromJWT((String) (header.get("authorization")));
-            UserInfo userInfo = userService.getUser(id);
+            UserInfoResponseDto userInfo = userService.getUser(id);
             String newJwt = JWT.create(userInfo.getId(), userInfo.getNickname());
             return Response.builder().code(200).result(newJwt).message("success refresh token").build();
         } catch (Exception e) {
