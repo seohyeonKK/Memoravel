@@ -1,5 +1,5 @@
 import styles from '@/styles'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import Images from '@assets/images'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +9,7 @@ import { identification } from '@/constants/language'
 import { useInterval } from '@/util'
 import Icons from '@assets/Icons'
 import { useNavigation } from '@react-navigation/native'
-import { emailAuthentication } from '@/api/api'
+import { getEmailAuthentication } from '@/api/api'
 import { setUserEmail } from '@/redux/userInformation'
 
 const Identification = () => {
@@ -29,11 +29,9 @@ const Identification = () => {
       setRequest(true)
       setTimer(180)
       setSend(true)
-      const get = await emailAuthentication(email)
-      if (parseInt(get.data.code) === 200) {
-        setCode(get.data.result)
-        setRequest(false)
-      }
+      const get = await getEmailAuthentication(email)
+      if (get) setRequest(false)
+      if (parseInt(get.data.code) === 200) setCode(get.data.result)
     }
   }
 
@@ -68,6 +66,10 @@ const Identification = () => {
       setTimer(timer - 1)
     }
   }, 1000)
+
+  useEffect(() => {
+    if (timer === 0) setCode(null)
+  }, [timer])
 
   const codeConfirmInput = (
     <View style={styles.longBox}>
@@ -136,9 +138,9 @@ const Identification = () => {
           </Pressable>
           {codeConfirmInput}
           <Pressable
-            style={[styles.longBtn, inputCode && send ? { backgroundColor: '#464646' } : '']}
+            style={[styles.longBtn, confirm || (inputCode && send && timer) ? { backgroundColor: '#464646' } : '']}
             onPress={confirmCode}
-            disabled={!send}>
+            disabled={!send || !timer}>
             <Text style={[styles.mediumText, { textAlign: 'center', color: 'white', lineHeight: 15 }]}>
               {identification[language].confirmCode}
             </Text>
