@@ -23,7 +23,7 @@ public enum ErrorCode {
 
     // User
     EMAIL_NOT_FOUND(400, "M000", "Email is not Exist"),
-    EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
+    EMAIL_DUPLICATION(400, "M001", "이메일이 중복되었습니다."),
     USER_NOT_FOUND(400, "M003", "User is not Exist"),
     NICKNAME_EMAIL_DUPLICATION(400, "M004", "NickName is Duplication"),
     USER_NOT_AUTHENTICATION(401, "M005", "User is not Authentication"),

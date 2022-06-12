@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import study.memoravel.annotation.Auth;
+import study.memoravel.aop.MemberContext;
 import study.memoravel.controller.dto.MemberInfoResponseDto;
 import study.memoravel.controller.dto.UpdateMemberInfoRequestDto;
 import study.memoravel.controller.dto.UpdatePhoneNumberRequestDto;
@@ -13,9 +15,6 @@ import study.memoravel.domain.Response;
 import study.memoravel.dto.MemberInfoDto;
 import study.memoravel.service.MemberService;
 import study.memoravel.service.SMSService;
-import study.memoravel.util.JWT;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
@@ -42,11 +41,11 @@ public class MemberInfoApiController {
 
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
-    public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestBody UpdatePhoneNumberRequestDto updatePhoneNumberRequestDto,
-                                   @RequestHeader Map<String, Object> header) {
+    @Auth
+    public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestBody UpdatePhoneNumberRequestDto updatePhoneNumberRequestDto) {
         try {
-            int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            memberService.setPhoneNumber(userId, updatePhoneNumberRequestDto.getPhoneNumber());
+            int id = MemberContext.getCurrentMemberId();
+            memberService.setPhoneNumber(id, updatePhoneNumberRequestDto.getPhoneNumber());
             return Response.builder().code(200).result(updatePhoneNumberRequestDto).message("success set phone number").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed set phone number").build();
@@ -55,10 +54,10 @@ public class MemberInfoApiController {
 
     @GetMapping("info")
     @ApiOperation(value = "유저 정보 반환", notes = "헤더의 JWT 에 해당하는 유저 정보를 반환한다.")
-    public Response getUserInfo(@RequestHeader Map<String, Object> header) {
+    public Response getUserInfo() {
         try {
-            int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            MemberInfoDto userInfo = memberService.getMemberInfo(userId);
+            int id = MemberContext.getCurrentMemberId();
+            MemberInfoDto userInfo = memberService.getMemberInfo(id);
             MemberInfoResponseDto userInfoResponse = new MemberInfoResponseDto(userInfo);
             return Response.builder().code(200).result(userInfoResponse).message("success get user info").build();
         } catch (ExpiredJwtException e) {
@@ -68,10 +67,10 @@ public class MemberInfoApiController {
 
     @PostMapping("info")
     @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
-    public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody UpdateMemberInfoRequestDto updateUserInfoRequest) {
+    public Response postUserInfo(@RequestBody UpdateMemberInfoRequestDto updateUserInfoRequest) {
         try {
-            int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            MemberInfoDto userInfo = new MemberInfoDto(updateUserInfoRequest, userId);
+            int id = MemberContext.getCurrentMemberId();
+            MemberInfoDto userInfo = new MemberInfoDto(updateUserInfoRequest, id);
             memberService.updateMemberInfo(userInfo);
             return Response.builder().code(200).result(updateUserInfoRequest).message("success get user info").build();
 
