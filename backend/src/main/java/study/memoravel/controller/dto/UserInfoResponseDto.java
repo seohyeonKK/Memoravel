@@ -2,59 +2,43 @@ package study.memoravel.controller.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import study.memoravel.domain.UserEntity;
+import study.memoravel.dto.UserInfoDto;
 
 import java.sql.Date;
 
 @Getter
-@Setter
-@AllArgsConstructor
-@Builder
 @ApiModel("유저 정보")
-
 public class UserInfoResponseDto {
 
-    @ApiModelProperty(hidden = true)
-    private int id;
     @ApiModelProperty(value = "이메일")
-    private String email;
+    private final String email;
     @ApiModelProperty(value = "별명")
-    private String nickname;
+    private final String nickname;
     @ApiModelProperty(value = "비밀번호")
-    private String password;
+    private final String password;
     @ApiModelProperty(value = "가입 일자")
-    private Date regDate;
+    private final Date regDate;
     @ApiModelProperty(value = "주소")
-    private String address;
+    private final String address;
     @ApiModelProperty(value = "성별")
-    private String gender;
+    private final String gender;
     @ApiModelProperty(value = "프로필 사진 위치")
-    private String photoPath;
+    private final String photoPath;
     @ApiModelProperty(value = "핸드폰 번호")
-    private String phoneNumber;
+    private final String phoneNumber;
     @ApiModelProperty(value = "UI 언어")
-    private String language;
-    @ApiModelProperty(hidden = true)
-    private String salt;
-    @ApiModelProperty(hidden = true)
-    private String jwt;
+    private final String language;
 
-    public UserInfoResponseDto(UserEntity userEntity) {
-        id = userEntity.getId();
-        email = userEntity.getEmail();
-        nickname = userEntity.getNickname();
-        password = userEntity.getPassword();
-        regDate = userEntity.getRegDate();
-        address = userEntity.getAddress();
-        gender = userEntity.getGender();
-        photoPath = userEntity.getPhotoPath();
-        phoneNumber = userEntity.getPhoneNumber();
-        language = userEntity.getLanguage();
-        salt = userEntity.getSalt();
-        jwt = userEntity.getJwt();
+    public UserInfoResponseDto(UserInfoDto userInfo) {
+        this.email = userInfo.getEmail();
+        this.nickname = userInfo.getNickname();
+        this.password = userInfo.getPassword();
+        this.regDate = userInfo.getRegDate();
+        this.address = userInfo.getAddress();
+        this.gender = userInfo.getGender();
+        this.photoPath = userInfo.getPhotoPath();
+        this.phoneNumber = userInfo.getPhoneNumber();
+        this.language = userInfo.getLanguage();
     }
 }

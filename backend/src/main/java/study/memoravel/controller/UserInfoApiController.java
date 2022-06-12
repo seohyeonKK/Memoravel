@@ -6,8 +6,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import study.memoravel.controller.dto.UpdatePhoneNumberRequestDto;
+import study.memoravel.controller.dto.UpdateUserInfoRequestDto;
 import study.memoravel.controller.dto.UserInfoResponseDto;
 import study.memoravel.domain.Response;
+import study.memoravel.dto.UserInfoDto;
 import study.memoravel.service.SMSService;
 import study.memoravel.service.UserService;
 import study.memoravel.util.JWT;
@@ -28,9 +31,9 @@ public class UserInfoApiController {
     }
 
 
-    @GetMapping("phone-number-authentication")
+    @GetMapping("phone-number/{phoneNumber}/authentication")
     @ApiOperation(value = "핸드폰 번호 인증", notes = "이미 가입된 유저의 핸드폰 번호와 같은 번호인지 확인하고 같은 번호가 없다면, 인증번호를 반환한다.")
-    public Response getPhoneAuthentication(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber) {
+    public Response getPhoneAuthentication(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @PathVariable("phoneNumber") String phoneNumber) {
         if (userService.checkPhoneNumber(phoneNumber)) {
             try {
                 String randomNumber = smsService.sendMessage(phoneNumber);
@@ -45,11 +48,12 @@ public class UserInfoApiController {
 
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
-    public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestParam String phoneNumber, @RequestHeader Map<String, Object> header) {
+    public Response putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestBody UpdatePhoneNumberRequestDto updatePhoneNumberRequestDto,
+                                   @RequestHeader Map<String, Object> header) {
         try {
             int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            userService.setPhoneNumber(userId, phoneNumber);
-            return Response.builder().code(200).result(phoneNumber).message("success set phone number").build();
+            userService.setPhoneNumber(userId, updatePhoneNumberRequestDto.getPhoneNumber());
+            return Response.builder().code(200).result(updatePhoneNumberRequestDto).message("success set phone number").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed set phone number").build();
         }
@@ -60,8 +64,9 @@ public class UserInfoApiController {
     public Response getUserInfo(@RequestHeader Map<String, Object> header) {
         try {
             int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            UserInfoResponseDto userInfo = userService.getUser(userId);
-            return Response.builder().code(200).result(userInfo).message("success get user info").build();
+            UserInfoDto userInfo = userService.getUserInfo(userId);
+            UserInfoResponseDto userInfoResponse = new UserInfoResponseDto(userInfo);
+            return Response.builder().code(200).result(userInfoResponse).message("success get user info").build();
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();
         }
@@ -69,11 +74,12 @@ public class UserInfoApiController {
 
     @PostMapping("info")
     @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
-    public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody UserInfoResponseDto userInfo) {
+    public Response postUserInfo(@RequestHeader Map<String, Object> header, @RequestBody UpdateUserInfoRequestDto updateUserInfoRequest) {
         try {
             int userId = JWT.getIdFromJWT((String) (header.get("authorization")));
-            userService.setUser(userId, userInfo);
-            return Response.builder().code(200).result(userInfo).message("success get user info").build();
+            UserInfoDto userInfo = new UserInfoDto(updateUserInfoRequest, userId);
+            userService.updateUserInfo(userInfo);
+            return Response.builder().code(200).result(updateUserInfoRequest).message("success get user info").build();
 
         } catch (ExpiredJwtException e) {
             return Response.builder().code(500).result(e).message("failed get user info \n token is expired").build();

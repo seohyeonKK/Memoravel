@@ -1,9 +1,9 @@
 package study.memoravel.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import study.memoravel.controller.dto.SignUpRequestDto;
-import study.memoravel.controller.dto.UserInfoResponseDto;
 import study.memoravel.domain.UserEntity;
+import study.memoravel.dto.SignUpInfoDto;
+import study.memoravel.dto.UserInfoDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,7 +17,7 @@ public class UserRepository {
         this.em = em;
     }
 
-    public UserEntity save(SignUpRequestDto signupInfo) {
+    public int save(SignUpInfoDto signUpInfo, String salt) {
 //        em.createNativeQuery("insert into user (email, nickname, password, address, gender, photo_path) values (:email,:nickname,:password,:address,:gender,:photoPath)")
 //                .setParameter("email", user.getEmail())
 //                .setParameter("nickname", user.getNickname())
@@ -25,15 +25,15 @@ public class UserRepository {
 //                .setParameter("address", user.getAddress())
 //                .setParameter("gender", user.getGender())
 //                .setParameter("photoPath", user.getPhotoPath());
-        UserEntity user = UserEntity.builder().email(signupInfo.getEmail())
-                .password(signupInfo.getPassword())
-                .address(signupInfo.getAddress())
-                .nickname(signupInfo.getNickname())
-                .gender(signupInfo.getGender())
-                .salt(signupInfo.getSalt())
+        UserEntity user = UserEntity.builder().email(signUpInfo.getEmail())
+                .password(signUpInfo.getPassword())
+                .address(signUpInfo.getAddress())
+                .nickname(signUpInfo.getNickname())
+                .gender(signUpInfo.getGender())
+                .salt(salt)
                 .build();
         em.persist(user);
-        return user;
+        return user.getId();
     }
 
     public void updateJWT(int id, String jwt) {
@@ -43,42 +43,42 @@ public class UserRepository {
                 .executeUpdate();
     }
 
-    public UserInfoResponseDto findById(int id) {
+    public UserInfoDto findById(int id) {
         UserEntity userEntity = em.find(UserEntity.class, id);
-        return new UserInfoResponseDto(userEntity);
+        return new UserInfoDto(userEntity);
     }
 
-    public UserInfoResponseDto findByPhoneNumber(String phoneNumber) {
+    public UserInfoDto findByPhoneNumber(String phoneNumber) {
         try {
             UserEntity result = em.createQuery("select u from user as u where u.phoneNumber = :phoneNumber", UserEntity.class)
                     .setParameter("phoneNumber", phoneNumber)
                     .getSingleResult();
 
-            return new UserInfoResponseDto(result);
+            return new UserInfoDto(result);
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public UserInfoResponseDto findByEmail(String email) {
+    public UserInfoDto findByEmail(String email) {
         try {
             UserEntity result = em.createQuery("select user from user as user where user.email = :email", UserEntity.class)
                     .setParameter("email", email)
                     .getSingleResult();
 
-            return new UserInfoResponseDto(result);
+            return new UserInfoDto(result);
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public UserInfoResponseDto findByNickname(String nickname) {
+    public UserInfoDto findByNickname(String nickname) {
         try {
             UserEntity result = em.createQuery("select user from user as user where user.nickname = :nickname", UserEntity.class)
                     .setParameter("nickname", nickname)
                     .getSingleResult();
 
-            return new UserInfoResponseDto(result);
+            return new UserInfoDto(result);
         } catch (NoResultException e) {
             return null;
         }
@@ -91,7 +91,7 @@ public class UserRepository {
                 .executeUpdate();
     }
 
-    public void updateUser(int id, UserInfoResponseDto userInfo) {
+    public void updateUser(UserInfoDto userInfo) {
         em.createQuery("update user as u set u.email = :newEmail, u.nickname = :nickname," +
                         " u.address = :address, u.gender = :gender , u.photoPath = :photoPath , u.phoneNumber = :phoneNumber , " +
                         "u.language = :language where u.id = :id")
@@ -102,7 +102,7 @@ public class UserRepository {
                 .setParameter("photoPath", userInfo.getPhotoPath())
                 .setParameter("phoneNumber", userInfo.getPhoneNumber())
                 .setParameter("language", userInfo.getLanguage())
-                .setParameter("id", id)
+                .setParameter("id", userInfo.getId())
                 .executeUpdate();
     }
 

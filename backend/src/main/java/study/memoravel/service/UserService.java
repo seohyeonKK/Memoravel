@@ -2,10 +2,10 @@ package study.memoravel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import study.memoravel.controller.dto.SignInRequestDto;
-import study.memoravel.controller.dto.SignUpRequestDto;
-import study.memoravel.controller.dto.UserInfoResponseDto;
-import study.memoravel.domain.UserEntity;
+import study.memoravel.dto.SignInInfoDto;
+import study.memoravel.dto.SignUpInfoDto;
+import study.memoravel.dto.UserInfoDto;
+import study.memoravel.exception.FailedSignUpException;
 import study.memoravel.repository.UserRepository;
 import study.memoravel.util.Encoding;
 import study.memoravel.util.JWT;
@@ -19,40 +19,40 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public String login(SignInRequestDto login) throws Exception {
-        UserInfoResponseDto result = userRepo.findByEmail(login.getEmail());
-        if (result == null) {
-            throw new Exception("not exist email");
+    public String signIn(SignInInfoDto signInInfo) {
+        UserInfoDto userInfo = userRepo.findByEmail(signInInfo.getEmail());
+        if (userInfo == null) {
+            throw new FailedSignUpException();
         }
-        if (Encoding.checkBCrypt(login.getPassword(), result.getPassword())) {
-            return JWT.create(result.getId(), result.getNickname());
+        if (Encoding.checkBCrypt(signInInfo.getPassword(), userInfo.getPassword())) {
+            return JWT.create(userInfo.getId(), userInfo.getNickname());
         } else {
-            throw new Exception("not matched password");
+            throw new FailedSignUpException();
         }
     }
 
-    public String signup(SignUpRequestDto user) {
+    public String signUp(SignUpInfoDto signUpInfo) {
         // 유저 데이터 저장
-        String saltValue = Encoding.getSalt();
-        user.setPassword(Encoding.getBCrypt(user.getPassword(), saltValue));
-        user.setSalt(saltValue);
-        UserEntity userEntity = userRepo.save(user);
+        String salt = Encoding.getSalt();
+        String newPassword = Encoding.getBCrypt(signUpInfo.getPassword(), salt);
+        signUpInfo = new SignUpInfoDto(signUpInfo, newPassword);
+        int userId = userRepo.save(signUpInfo, salt);
         // jwt 저장
-        String jwt = JWT.create(userEntity.getId(), userEntity.getNickname());
-        userRepo.updateJWT(userEntity.getId(), jwt);
+        String jwt = JWT.create(userId, signUpInfo.getNickname());
+        userRepo.updateJWT(userId, jwt);
         return jwt;
     }
 
-    public UserInfoResponseDto getUser(int id) {
+    public UserInfoDto getUserInfo(int id) {
         return userRepo.findById(id);
     }
 
-    public void setUser(int id, UserInfoResponseDto userInfo) {
-        userRepo.updateUser(id, userInfo);
+    public void updateUserInfo(UserInfoDto userInfo) {
+        userRepo.updateUser(userInfo);
     }
 
     public Boolean checkPhoneNumber(String phoneNumber) {
-        UserInfoResponseDto result = userRepo.findByPhoneNumber(phoneNumber);
+        UserInfoDto result = userRepo.findByPhoneNumber(phoneNumber);
         return result == null;
     }
 
@@ -61,12 +61,12 @@ public class UserService {
     }
 
     public Boolean checkEmail(String mail) {
-        UserInfoResponseDto result = userRepo.findByEmail(mail);
+        UserInfoDto result = userRepo.findByEmail(mail);
         return result == null;
     }
 
     public Boolean checkNickname(String nickname) {
-        UserInfoResponseDto result = userRepo.findByNickname(nickname);
+        UserInfoDto result = userRepo.findByNickname(nickname);
         return result == null;
     }
 }

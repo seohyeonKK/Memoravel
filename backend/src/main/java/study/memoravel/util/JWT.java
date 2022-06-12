@@ -44,7 +44,7 @@ public class JWT {
         return (Integer) claims.get("id");
     }
 
-    private static Claims parse(String jwtString) throws ExpiredJwtException {
+    private static Claims parse(String jwtString) {
         if (secret == null) {
             secret = getSecret();
         }
