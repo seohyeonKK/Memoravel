@@ -15,8 +15,8 @@ public class Encoding {
         return BCrypt.hashpw(password, salt);
     }
 
-    public static Boolean checkBCrypt(String value, String target) {
-        return BCrypt.checkpw(value, target);
+    public static Boolean checkBCrypt(String rawValue, String encodedValue) {
+        return BCrypt.checkpw(rawValue, encodedValue);
     }
 
     public static String getMD5(String email) throws NoSuchAlgorithmException {

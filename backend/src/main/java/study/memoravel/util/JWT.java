@@ -1,6 +1,7 @@
 package study.memoravel.util;
 
 import io.jsonwebtoken.*;
+import study.memoravel.exception.CantReadPropertiesException;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,7 +17,7 @@ public class JWT {
             pt.load(JWT.class.getResourceAsStream("/private.properties"));
             result = pt.getProperty("jwt.secret");
         } catch (IOException e) {
-            System.out.println("properties 파일 읽기 오류");
+            throw new CantReadPropertiesException();
         }
         return result;
     }
