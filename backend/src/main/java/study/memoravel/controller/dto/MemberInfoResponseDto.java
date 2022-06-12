@@ -3,13 +3,13 @@ package study.memoravel.controller.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import study.memoravel.dto.UserInfoDto;
+import study.memoravel.dto.MemberInfoDto;
 
 import java.sql.Date;
 
 @Getter
-@ApiModel("유저 정보")
-public class UserInfoResponseDto {
+@ApiModel("회원 정보")
+public class MemberInfoResponseDto {
 
     @ApiModelProperty(value = "이메일")
     private final String email;
@@ -30,15 +30,15 @@ public class UserInfoResponseDto {
     @ApiModelProperty(value = "UI 언어")
     private final String language;
 
-    public UserInfoResponseDto(UserInfoDto userInfo) {
-        this.email = userInfo.getEmail();
-        this.nickname = userInfo.getNickname();
-        this.password = userInfo.getPassword();
-        this.regDate = userInfo.getRegDate();
-        this.address = userInfo.getAddress();
-        this.gender = userInfo.getGender();
-        this.photoPath = userInfo.getPhotoPath();
-        this.phoneNumber = userInfo.getPhoneNumber();
-        this.language = userInfo.getLanguage();
+    public MemberInfoResponseDto(MemberInfoDto memberInfo) {
+        this.email = memberInfo.getEmail();
+        this.nickname = memberInfo.getNickname();
+        this.password = memberInfo.getPassword();
+        this.regDate = memberInfo.getRegDate();
+        this.address = memberInfo.getAddress();
+        this.gender = memberInfo.getGender();
+        this.photoPath = memberInfo.getPhotoPath();
+        this.phoneNumber = memberInfo.getPhoneNumber();
+        this.language = memberInfo.getLanguage();
     }
 }

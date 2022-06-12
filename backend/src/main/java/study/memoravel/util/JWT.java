@@ -2,6 +2,7 @@ package study.memoravel.util;
 
 import io.jsonwebtoken.*;
 import study.memoravel.exception.CantReadPropertiesException;
+import study.memoravel.exception.jwt.JwtExpiredException;
 
 import java.io.IOException;
 import java.util.Date;
@@ -53,7 +54,8 @@ public class JWT {
 
         Claims claims = (Claims) jwt.getBody();
         if (checkExpire(claims)) {
-            throw new ExpiredJwtException(jwt.getHeader(), (Claims) jwt.getBody(), "expired");
+//            throw new ExpiredJwtException(jwt.getHeader(), (Claims) jwt.getBody(), "expired");
+            throw new JwtExpiredException();
         }
         return claims;
     }

@@ -1,5 +1,6 @@
 package study.memoravel.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,16 +13,13 @@ import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 @PropertySource("classpath:private.properties")
 public class MailService {
     private final JavaMailSender emailSender;
 
     @Value("${mail.id}")
     private String senderEmail;
-
-    public MailService(JavaMailSender emailSender) {
-        this.emailSender = emailSender;
-    }
 
     private static String getAuthNumber() {
         StringBuilder key = new StringBuilder();

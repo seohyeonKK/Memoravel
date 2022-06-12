@@ -6,7 +6,7 @@ import lombok.Getter;
 
 
 @Getter
-@ApiModel("계정 가입 정보")
+@ApiModel("회원 가입 정보")
 public class SignUpRequestDto {
     @ApiModelProperty(value = "이메일")
     private String email;
