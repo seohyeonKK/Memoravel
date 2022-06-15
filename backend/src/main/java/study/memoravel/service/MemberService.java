@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.memoravel.dto.MemberInfoDto;
 import study.memoravel.dto.SignInInfoDto;
 import study.memoravel.dto.SignUpInfoDto;
-import study.memoravel.exception.FailedSignUpException;
+import study.memoravel.exception.member.SignUpInfoMismatchException;
 import study.memoravel.repository.MemberRepository;
 import study.memoravel.util.Encoding;
 import study.memoravel.util.JWT;
@@ -20,12 +20,12 @@ public class MemberService {
     public String signIn(SignInInfoDto signInInfo) {
         MemberInfoDto MemberInfo = memberRepository.findByEmail(signInInfo.getEmail());
         if (MemberInfo == null) {
-            throw new FailedSignUpException();
+            throw new SignUpInfoMismatchException();
         }
         if (Encoding.checkBCrypt(signInInfo.getPassword(), MemberInfo.getPassword())) {
             return JWT.create(MemberInfo.getId(), MemberInfo.getNickname());
         } else {
-            throw new FailedSignUpException();
+            throw new SignUpInfoMismatchException();
         }
     }
 

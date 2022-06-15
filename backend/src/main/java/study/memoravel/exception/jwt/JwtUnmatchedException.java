@@ -5,6 +5,6 @@ import study.memoravel.exception.ErrorCode;
 
 public class JwtUnmatchedException extends BusinessException {
     public JwtUnmatchedException() {
-        super(ErrorCode.JWT_UNMATCHED_ERROR);
+        super(ErrorCode.JWT_UNMATCHED_EXCEPTION);
     }
 }

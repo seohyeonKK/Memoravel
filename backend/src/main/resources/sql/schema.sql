@@ -1,6 +1,7 @@
 drop table if exists requested_course;
 drop table if exists interested_req_course;
 drop table if exists req_course_place;
+drop table if exists req_course_image;
 drop table if exists req_course_tag;
 drop table if exists req_course_lang;
 drop table if exists registered_course;
@@ -81,7 +82,6 @@ create table interested_req_course
     course_id int references req_course (id)
 );
 
-
 create table req_course_place
 (
     course_id  int references req_course (id),
@@ -92,12 +92,19 @@ create table req_course_place
     updated_at DATETIME    not null default now()
 );
 
+create table req_course_image
+(
+    course_id  int references req_course (id),
+    image_path varchar(100) not null,
+    created_at DATETIME     not null default now(),
+    updated_at DATETIME     not null default now()
+);
+
 create table req_course_tag
 (
     tag_id    int references tag (id),
     course_id int references req_course (id)
 );
-
 
 create table req_course_lang
 (

@@ -6,7 +6,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import study.memoravel.dto.MemberInfoDto;
 import study.memoravel.exception.jwt.JwtUnmatchedException;
+import study.memoravel.exception.jwt.NoJwtException;
+import study.memoravel.exception.member.MemberNotFoundException;
 import study.memoravel.repository.MemberRepository;
 import study.memoravel.util.JWT;
 
@@ -23,9 +26,15 @@ public class AuthAspect {
     @Around("@annotation(study.memoravel.annotation.Auth)")
     public Object checkJWT(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String jwt = httpServletRequest.getHeader("authorization");
+        if (jwt == null) {
+            throw new NoJwtException();
+        }
         int id = JWT.getIdFromJWT(jwt);
-
-        if (!jwt.equals(memberRepository.findById(id).getJwt())) {
+        MemberInfoDto memberInfo = memberRepository.findById(id);
+        if (memberInfo == null) {
+            throw new MemberNotFoundException();
+        }
+        if (!jwt.equals(memberInfo.getJwt())) {
             throw new JwtUnmatchedException();
         }
 

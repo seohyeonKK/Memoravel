@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import study.memoravel.exception.MailServiceException;
+import study.memoravel.exception.mail.MailServiceException;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;

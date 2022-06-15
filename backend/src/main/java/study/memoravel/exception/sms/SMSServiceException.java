@@ -1,4 +1,4 @@
-package study.memoravel.exception;
+package study.memoravel.exception.sms;
 
 
 public class SMSServiceException extends RuntimeException {

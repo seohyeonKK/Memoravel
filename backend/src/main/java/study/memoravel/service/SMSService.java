@@ -6,7 +6,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import study.memoravel.exception.SMSServiceException;
+import study.memoravel.exception.sms.SMSServiceException;
 
 import java.util.HashMap;
 

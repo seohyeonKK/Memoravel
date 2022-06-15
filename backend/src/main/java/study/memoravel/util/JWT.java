@@ -1,7 +1,7 @@
 package study.memoravel.util;
 
 import io.jsonwebtoken.*;
-import study.memoravel.exception.CantReadPropertiesException;
+import study.memoravel.exception.boot.PropertiesReadException;
 import study.memoravel.exception.jwt.JwtExpiredException;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class JWT {
             pt.load(JWT.class.getResourceAsStream("/private.properties"));
             result = pt.getProperty("jwt.secret");
         } catch (IOException e) {
-            throw new CantReadPropertiesException();
+            throw new PropertiesReadException();
         }
         return result;
     }
@@ -35,7 +35,7 @@ public class JWT {
                 .setIssuedAt(now) // 발급 시간 설정
                 .setExpiration(new Date(now.getTime() + expiredTime)) // 만료 시간 설정
                 .claim("id", id) // 비공개 클레임 설정(ID만 사용)
-                .claim("date", new Date().getTime())
+                .claim("date", now)
                 .signWith(SignatureAlgorithm.HS256, secret) // 해싱 알고리즘과 시크릿 키 설정
                 .compact();
     }
@@ -55,7 +55,7 @@ public class JWT {
         Claims claims = (Claims) jwt.getBody();
         if (checkExpire(claims)) {
 //            throw new ExpiredJwtException(jwt.getHeader(), (Claims) jwt.getBody(), "expired");
-            throw new JwtExpiredException();
+            throw new JwtExpiredException((Integer) claims.get("id"), claims.getIssuer());
         }
         return claims;
     }

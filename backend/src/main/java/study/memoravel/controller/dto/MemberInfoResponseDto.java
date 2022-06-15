@@ -15,8 +15,6 @@ public class MemberInfoResponseDto {
     private final String email;
     @ApiModelProperty(value = "별명")
     private final String nickname;
-    @ApiModelProperty(value = "비밀번호")
-    private final String password;
     @ApiModelProperty(value = "가입 일자")
     private final Date regDate;
     @ApiModelProperty(value = "주소")
@@ -33,7 +31,6 @@ public class MemberInfoResponseDto {
     public MemberInfoResponseDto(MemberInfoDto memberInfo) {
         this.email = memberInfo.getEmail();
         this.nickname = memberInfo.getNickname();
-        this.password = memberInfo.getPassword();
         this.regDate = memberInfo.getRegDate();
         this.address = memberInfo.getAddress();
         this.gender = memberInfo.getGender();

@@ -1,4 +1,4 @@
-package study.memoravel.exception;
+package study.memoravel.exception.mail;
 
 
 public class MailServiceException extends RuntimeException {
