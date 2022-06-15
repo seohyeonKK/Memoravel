@@ -1,6 +1,7 @@
 drop table if exists requested_course;
 drop table if exists interested_req_course;
 drop table if exists req_course_place;
+drop table if exists req_course_image;
 drop table if exists req_course_tag;
 drop table if exists req_course_lang;
 drop table if exists registered_course;
@@ -11,13 +12,13 @@ drop table if exists reg_course_image;
 drop table if exists reg_course_tag;
 drop table if exists reg_course_lang;
 
-drop table if exists user;
+drop table if exists member;
 drop table if exists req_course;
 drop table if exists reg_course;
 drop table if exists lang;
 drop table if exists tag;
 
-create table user
+create table member
 (
     id           int primary key auto_increment,
     email        varchar(50) not null unique,
@@ -71,16 +72,15 @@ create table reg_course
  */
 create table requested_course
 (
-    user_id   int references user (id),
+    user_id   int references member (id),
     course_id int references req_course (id)
 );
 
 create table interested_req_course
 (
-    user_id   int references user (id),
+    user_id   int references member (id),
     course_id int references req_course (id)
 );
-
 
 create table req_course_place
 (
@@ -92,12 +92,19 @@ create table req_course_place
     updated_at DATETIME    not null default now()
 );
 
+create table req_course_image
+(
+    course_id  int references req_course (id),
+    image_path varchar(100) not null,
+    created_at DATETIME     not null default now(),
+    updated_at DATETIME     not null default now()
+);
+
 create table req_course_tag
 (
     tag_id    int references tag (id),
     course_id int references req_course (id)
 );
-
 
 create table req_course_lang
 (
@@ -110,17 +117,17 @@ create table req_course_lang
  */
 create table registered_course
 (
-    user_id   int references user (id),
+    user_id   int references member (id),
     course_id int references reg_course (id)
 );
 create table interested_reg_course
 (
-    user_id   int references user (id),
+    user_id   int references member (id),
     course_id int references reg_course (id)
 );
 create table visited_reg_course
 (
-    user_id   int references user (id),
+    user_id   int references member (id),
     course_id int references reg_course (id),
     star      int
 );

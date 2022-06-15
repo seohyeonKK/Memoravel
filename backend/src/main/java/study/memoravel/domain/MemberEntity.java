@@ -13,9 +13,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity(name = "user")
-@Table(name = "user")
-public class UserEntity {
+@Entity(name = "member")
+public class MemberEntity {
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
