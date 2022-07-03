@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -12,8 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity(name = "req_course")
-public class RequestCourseEntity {
+@Entity(name = "reg_course")
+public class RegisterCourseEntity {
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +22,11 @@ public class RequestCourseEntity {
     private String title;
     private String contents;
     @CreationTimestamp
-    private String createdAt;
+    private Date createdAt;
     @CreationTimestamp
-    private String updatedAt;
+    private Date updatedAt;
+    private Date startTime;
+    private Date endTime;
+    private int guidePay;
     private int travelExpense;
 }

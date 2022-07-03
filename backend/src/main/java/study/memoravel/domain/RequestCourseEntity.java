@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -21,8 +22,8 @@ public class RequestCourseEntity {
     private String title;
     private String contents;
     @CreationTimestamp
-    private String createdAt;
+    private Date createdAt;
     @CreationTimestamp
-    private String updatedAt;
+    private Date updatedAt;
     private int travelExpense;
 }

@@ -60,10 +60,10 @@ create table reg_course
     id             int primary key auto_increment,
     title          varchar(50)  not null,
     contents       varchar(500) not null,
-    created_at     DATETIME     not null default now(),
-    updated_at     DATETIME     not null default now(),
-    start_time     varchar(50)  not null,
-    end_time       varchar(50)  not null,
+    created_at     datetime     not null default now(),
+    updated_at     datetime     not null default now(),
+    start_time     datetime     not null,
+    end_time       datetime     not null,
     guide_pay      int(10)      not null,
     travel_expense int(10)      not null
 );
