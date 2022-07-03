@@ -4,7 +4,7 @@ import Send from '@/api/Send'
 const postSignup = async (userInfo: userInfo) => {
   return Send({
     method: 'post',
-    url: 'api/user/signup',
+    url: 'api/account/signup',
     data: {
       address: userInfo.address,
       email: userInfo.email,
