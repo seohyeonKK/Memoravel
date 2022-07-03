@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import EnterInfo from '@/pages/signup/EnterInfoPage'
 import Nickname from '@/pages/signup/Nickname'
+import Location from '@/pages/signup/Location'
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +37,7 @@ const App = () => {
           <Stack.Screen name="Signup" component={Identification} />
           <Stack.Screen name="EnterInfo" component={EnterInfo} />
           <Stack.Screen name="Nickname" component={Nickname} />
+          <Stack.Screen name="Location" component={Location} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

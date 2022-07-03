@@ -2,11 +2,13 @@ import { Animated, ImageBackground, Pressable, StyleSheet, Text, TextInput, View
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/styles'
 import Images from '@assets/images'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { nickName } from '@/constants/language'
 import Back from '@/components/Back'
 import { getNicknameCheck } from '@/api/api'
 import Icons from '@assets/Icons'
+import { useNavigation } from '@react-navigation/native'
+import { setUserNickname } from '@/redux/userInformation'
 
 const Nickname = () => {
   const language = useSelector((state) => state.languageOption)
@@ -17,7 +19,8 @@ const Nickname = () => {
   const [request, setRequest] = useState(false)
   const [check, setCheck] = useState(false)
   const [available, setAvailable] = useState(false)
-  // const user = useSelector((state) => state.userInformation)
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   const goUp = () => {
     Animated.timing(upAnim, {
@@ -49,6 +52,11 @@ const Nickname = () => {
       if (checkNickname.data.result) setAvailable(checkNickname.data.result)
       setCheck(true)
     }
+  }
+
+  const next = () => {
+    dispatch(setUserNickname(nickname))
+    navigation.navigate('Location')
   }
 
   useEffect(() => {
@@ -114,7 +122,10 @@ const Nickname = () => {
           </Text>
         </View>
         <Animated.View style={{ opacity: fadeInAnim }}>
-          <Pressable style={[{ top: -11 }, available ? styles.button : styles.disabledButton]} disabled={!available}>
+          <Pressable
+            style={[{ top: -11 }, available ? styles.button : styles.disabledButton]}
+            disabled={!available}
+            onPress={next}>
             <Text style={styles.buttonText}>{nickName[language].next}</Text>
           </Pressable>
         </Animated.View>
