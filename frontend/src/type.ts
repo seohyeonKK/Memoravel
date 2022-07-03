@@ -5,3 +5,7 @@ export type userInfo = {
   nickname: string
   password: string
 }
+export type location = {
+  latitude: number
+  longitude: number
+}
