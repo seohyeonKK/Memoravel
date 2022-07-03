@@ -2,10 +2,11 @@ import { Animated, ImageBackground, Pressable, StyleSheet, Text, TextInput, View
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/styles'
 import Images from '@assets/images'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import { location as locationTxt } from '@/constants/language'
 import { geoCode, getLocation } from '@/util'
+import { setUserAddress } from '@/redux/userInformation'
 
 const Location = () => {
   const language = useSelector((state) => state.languageOption)
@@ -13,7 +14,9 @@ const Location = () => {
   const fadeTxtAnim = useRef(new Animated.Value(0)).current
   const fadeInAnim = useRef(new Animated.Value(0)).current
   const [location, setLocation] = useState(null)
-  const [userLocation, setUserLocation] = useState('')
+  const [locationName, setLocationName] = useState('')
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.userInformation)
 
   const goUp = () => {
     Animated.timing(upAnim, {
@@ -39,7 +42,12 @@ const Location = () => {
 
   const revGeo = async () => {
     const result = await geoCode(location)
-    if (result && result.results[0]) setUserLocation(result.results[0].region.area2.name)
+    if (result && result.results[0]) setLocationName(result.results[0].region.area2.name)
+  }
+
+  const signUp = () => {
+    dispatch(setUserAddress(locationName))
+    console.log(user)
   }
 
   useEffect(() => {
@@ -73,7 +81,7 @@ const Location = () => {
           <Animated.View style={[styles.longBox, { opacity: fadeInAnim }, locationStyles.input]}>
             <TextInput
               style={[styles.mediumText, { flex: 1, paddingLeft: 22, paddingRight: 10 }]}
-              value={userLocation}
+              value={locationName}
               placeholder={locationTxt[language].current}
               keyboardType="default"
               placeholderTextColor="#888888"
@@ -84,8 +92,9 @@ const Location = () => {
         </View>
         <Animated.View style={{ opacity: fadeInAnim }}>
           <Pressable
-            style={[{ top: -11 }, userLocation.length ? styles.button : styles.disabledButton]}
-            disabled={!location}>
+            style={[{ top: -11 }, locationName.length ? styles.button : styles.disabledButton]}
+            disabled={!location}
+            onPress={signUp}>
             <Text style={styles.buttonText}>{locationTxt[language].start}</Text>
           </Pressable>
         </Animated.View>
