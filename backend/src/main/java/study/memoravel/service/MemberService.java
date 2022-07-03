@@ -34,7 +34,7 @@ public class MemberService {
         String salt = Encoding.getSalt();
         String newPassword = Encoding.getBCrypt(signUpInfo.getPassword(), salt);
         signUpInfo = new SignUpInfoDto(signUpInfo, newPassword);
-        int id = memberRepository.save(signUpInfo, salt);
+        long id = memberRepository.save(signUpInfo, salt);
         // jwt 저장
         String jwt = JWT.create(id, signUpInfo.getNickname());
         memberRepository.updateJWT(id, jwt);

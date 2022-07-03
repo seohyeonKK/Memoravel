@@ -18,7 +18,7 @@ public class MemberEntity {
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String email;
     private String nickname;
     private String password;
@@ -35,6 +35,7 @@ public class MemberEntity {
     @PrePersist
     public void prePersist() {
         this.language = this.language == null ? "korean" : this.language;
+        // default photo path
         this.photoPath = this.photoPath == null ? "D://" : this.photoPath;
     }
 }
