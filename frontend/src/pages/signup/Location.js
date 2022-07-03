@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import { location as locationTxt } from '@/constants/language'
 import { geoCode, getLocation } from '@/util'
+import { postSignup } from '@/api/api'
 import { setUserAddress } from '@/redux/userInformation'
 
 const Location = () => {
@@ -42,12 +43,16 @@ const Location = () => {
 
   const revGeo = async () => {
     const result = await geoCode(location)
-    if (result && result.results[0]) setLocationName(result.results[0].region.area2.name)
+    if (result && result.results[0]) {
+      setLocationName(result.results[0].region.area2.name)
+      dispatch(setUserAddress(result.results[0].region.area2.name))
+    }
   }
 
-  const signUp = () => {
-    dispatch(setUserAddress(locationName))
+  const signUp = async () => {
     console.log(user)
+    const result = await postSignup(user)
+    if (result) console.log(result.status)
   }
 
   useEffect(() => {
