@@ -2,7 +2,7 @@ import { setEnglish, setKorean } from '@/redux/languageOption'
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
+import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styles from '@/styles'
 
