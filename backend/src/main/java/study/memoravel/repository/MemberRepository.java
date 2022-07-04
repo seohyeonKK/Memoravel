@@ -15,7 +15,7 @@ import javax.persistence.NoResultException;
 public class MemberRepository {
     private final EntityManager em;
 
-    public int save(SignUpInfoDto signUpInfo, String salt) {
+    public long save(SignUpInfoDto signUpInfo, String salt) {
 //        em.createNativeQuery("insert into user (email, nickname, password, address, gender, photo_path) values (:email,:nickname,:password,:address,:gender,:photoPath)")
 //                .setParameter("email", user.getEmail())
 //                .setParameter("nickname", user.getNickname())
@@ -34,7 +34,7 @@ public class MemberRepository {
         return memberEntity.getId();
     }
 
-    public void updateJWT(int id, String jwt) {
+    public void updateJWT(long id, String jwt) {
         em.createQuery("update member as m set m.jwt = :jwt where m.id = :id")
                 .setParameter("jwt", jwt)
                 .setParameter("id", id)

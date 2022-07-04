@@ -23,7 +23,7 @@ public class JWT {
         return result;
     }
 
-    public static String create(int id, String nickname) {
+    public static String create(long id, String nickname) {
         if (secret == null) {
             secret = getSecret();
         }
