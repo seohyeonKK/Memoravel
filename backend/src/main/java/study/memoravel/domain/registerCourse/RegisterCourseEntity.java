@@ -1,4 +1,4 @@
-package study.memoravel.domain;
+package study.memoravel.domain.registerCourse;
 
 
 import lombok.*;
@@ -42,7 +42,7 @@ public class RegisterCourseEntity {
 
     @Column(nullable = false)
     private int guidePay;
-    
+
     @Column(nullable = false)
     private int travelExpense;
 }

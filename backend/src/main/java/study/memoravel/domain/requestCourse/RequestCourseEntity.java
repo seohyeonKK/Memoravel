@@ -1,4 +1,4 @@
-package study.memoravel.domain;
+package study.memoravel.domain.requestCourse;
 
 
 import lombok.*;
@@ -33,7 +33,7 @@ public class RequestCourseEntity {
     @Column(nullable = false)
     @CreationTimestamp
     private Date updatedAt;
-    
+
     @Column(nullable = false)
     private int travelExpense;
 }
