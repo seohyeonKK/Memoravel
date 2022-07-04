@@ -8,7 +8,7 @@ import java.sql.Date;
 
 @Getter
 public class MemberInfoDto {
-    private final int id;
+    private final long id;
     private final String email;
     private final String nickname;
     private final String password;
