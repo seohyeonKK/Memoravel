@@ -7,12 +7,13 @@ import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
 import { login } from '@/constants/language'
+import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const language = useSelector((state) => state.languageOption)
-
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
@@ -34,7 +35,9 @@ const Login = () => {
           </View>
         </View>
         <View style={LoginStyles.loginBtn}>
-          <Pressable style={email && password ? styles.button : styles.disabledButton}>
+          <Pressable
+            style={email && password ? styles.button : styles.disabledButton}
+            onPress={() => navigation.navigate('Mypage')}>
             <Text style={styles.buttonText}>{login[language].login}</Text>
           </Pressable>
         </View>
