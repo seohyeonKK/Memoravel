@@ -35,8 +35,8 @@ create table member
 );
 create table lang
 (
-    id          int primary key auto_increment,
-    choice_lang varchar(50) not null
+    id        int primary key auto_increment,
+    lang_name varchar(50) not null
 );
 
 create table tag

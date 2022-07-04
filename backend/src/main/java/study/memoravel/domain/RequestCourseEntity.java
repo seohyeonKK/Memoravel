@@ -19,11 +19,21 @@ public class RequestCourseEntity {
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String contents;
+
     @CreationTimestamp
+    @Column(nullable = false)
     private Date createdAt;
+
+    @Column(nullable = false)
     @CreationTimestamp
     private Date updatedAt;
+    
+    @Column(nullable = false)
     private int travelExpense;
 }
