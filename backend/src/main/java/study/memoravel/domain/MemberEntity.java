@@ -2,6 +2,7 @@ package study.memoravel.domain;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -34,7 +35,7 @@ public class MemberEntity {
     private Date regDate;
 
     @Column(nullable = false, unique = true)
-    private String address;
+    private Point location;
 
     @Column(nullable = false, unique = true)
     private String gender;
@@ -46,7 +47,7 @@ public class MemberEntity {
 
     @Column(nullable = false)
     private String salt;
-    
+
     private String jwt;
 
     @PrePersist

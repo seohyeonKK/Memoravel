@@ -17,8 +17,6 @@ public class MemberInfoResponseDto {
     private final String nickname;
     @ApiModelProperty(value = "가입 일자")
     private final Date regDate;
-    @ApiModelProperty(value = "주소")
-    private final String address;
     @ApiModelProperty(value = "성별")
     private final String gender;
     @ApiModelProperty(value = "프로필 사진 위치")
@@ -27,12 +25,17 @@ public class MemberInfoResponseDto {
     private final String phoneNumber;
     @ApiModelProperty(value = "UI 언어")
     private final String language;
+    @ApiModelProperty(value = "위도")
+    private final double latitude;
+    @ApiModelProperty(value = "경도")
+    private final double longitude;
 
     public MemberInfoResponseDto(MemberInfoDto memberInfo) {
         this.email = memberInfo.getEmail();
         this.nickname = memberInfo.getNickname();
         this.regDate = memberInfo.getRegDate();
-        this.address = memberInfo.getAddress();
+        this.latitude = memberInfo.getLatitude();
+        this.longitude = memberInfo.getLongitude();
         this.gender = memberInfo.getGender();
         this.photoPath = memberInfo.getPhotoPath();
         this.phoneNumber = memberInfo.getPhoneNumber();

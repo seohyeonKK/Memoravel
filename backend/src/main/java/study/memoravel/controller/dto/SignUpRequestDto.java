@@ -14,8 +14,10 @@ public class SignUpRequestDto {
     private String nickname;
     @ApiModelProperty(value = "비밀번호")
     private String password;
-    @ApiModelProperty(value = "주소")
-    private String address;
+    @ApiModelProperty(value = "위도")
+    private double latitude;
+    @ApiModelProperty(value = "경도")
+    private double longitude;
     @ApiModelProperty(value = "성별")
     private String gender;
 }

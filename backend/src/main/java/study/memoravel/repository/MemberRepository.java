@@ -1,6 +1,7 @@
 package study.memoravel.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Repository;
 import study.memoravel.domain.MemberEntity;
 import study.memoravel.dto.MemberInfoDto;
@@ -25,7 +26,7 @@ public class MemberRepository {
 //                .setParameter("photoPath", user.getPhotoPath());
         MemberEntity memberEntity = MemberEntity.builder().email(signUpInfo.getEmail())
                 .password(signUpInfo.getPassword())
-                .address(signUpInfo.getAddress())
+                .location(new Point(signUpInfo.getLatitude(), signUpInfo.getLongitude()))
                 .nickname(signUpInfo.getNickname())
                 .gender(signUpInfo.getGender())
                 .salt(salt)
@@ -91,11 +92,11 @@ public class MemberRepository {
 
     public void updateMemberInfo(MemberInfoDto memberInfo) {
         em.createQuery("update member as m set m.email = :newEmail, m.nickname = :nickname," +
-                        " m.address = :address, m.gender = :gender , m.photoPath = :photoPath , m.phoneNumber = :phoneNumber , " +
+                        " m.location = :location, m.gender = :gender , m.photoPath = :photoPath , m.phoneNumber = :phoneNumber , " +
                         "m.language = :language where m.id = :id")
                 .setParameter("newEmail", memberInfo.getEmail())
                 .setParameter("nickname", memberInfo.getNickname())
-                .setParameter("address", memberInfo.getAddress())
+                .setParameter("location", new Point(memberInfo.getLatitude(), memberInfo.getLongitude()))
                 .setParameter("gender", memberInfo.getGender())
                 .setParameter("photoPath", memberInfo.getPhotoPath())
                 .setParameter("phoneNumber", memberInfo.getPhoneNumber())

@@ -25,7 +25,7 @@ create table member
     nickname     varchar(50) not null unique,
     password     varchar(60) not null,
     reg_date     datetime    not null default now(),
-    address      varchar(50) not null,
+    location     point       not null,
     gender       varchar(10) not null check (gender = 'man' || gender = 'woman'),
     photo_path   varchar(50) not null,
     phone_number varchar(50),
