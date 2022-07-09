@@ -19,8 +19,10 @@ public class UpdateMemberInfoRequestDto {
     private String password;
     @ApiModelProperty(value = "가입 일자")
     private Date regDate;
-    @ApiModelProperty(value = "주소")
-    private String address;
+    @ApiModelProperty(value = "위도")
+    private double latitude;
+    @ApiModelProperty(value = "경도")
+    private double longitude;
     @ApiModelProperty(value = "성별")
     private String gender;
     @ApiModelProperty(value = "프로필 사진 위치")

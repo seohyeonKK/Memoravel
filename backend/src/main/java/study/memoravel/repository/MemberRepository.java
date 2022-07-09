@@ -1,6 +1,9 @@
 package study.memoravel.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 import org.springframework.stereotype.Repository;
 import study.memoravel.domain.MemberEntity;
 import study.memoravel.dto.MemberInfoDto;
@@ -23,13 +26,8 @@ public class MemberRepository {
 //                .setParameter("address", user.getAddress())
 //                .setParameter("gender", user.getGender())
 //                .setParameter("photoPath", user.getPhotoPath());
-        MemberEntity memberEntity = MemberEntity.builder().email(signUpInfo.getEmail())
-                .password(signUpInfo.getPassword())
-                .address(signUpInfo.getAddress())
-                .nickname(signUpInfo.getNickname())
-                .gender(signUpInfo.getGender())
-                .salt(salt)
-                .build();
+
+        MemberEntity memberEntity = new MemberEntity(signUpInfo, salt);
         em.persist(memberEntity);
         return memberEntity.getId();
     }
@@ -41,7 +39,7 @@ public class MemberRepository {
                 .executeUpdate();
     }
 
-    public MemberInfoDto findById(int id) {
+    public MemberInfoDto findById(long id) {
         MemberEntity memberEntity = em.find(MemberEntity.class, id);
         return new MemberInfoDto(memberEntity);
     }
@@ -82,7 +80,7 @@ public class MemberRepository {
         }
     }
 
-    public void updatePhoneNumber(int id, String phoneNumber) {
+    public void updatePhoneNumber(long id, String phoneNumber) {
         em.createQuery("update member as m set m.phoneNumber = :phoneNumber where m.id = :id")
                 .setParameter("phoneNumber", phoneNumber)
                 .setParameter("id", id)
@@ -90,12 +88,20 @@ public class MemberRepository {
     }
 
     public void updateMemberInfo(MemberInfoDto memberInfo) {
+        Point location = null;
+        try {
+            location = (Point) new WKTReader().read(String.format("POINT(%s %s)", memberInfo.getLongitude(), memberInfo.getLatitude()));
+        } catch (ParseException e) {
+            System.out.println("좌표 저장 파싱 오류");
+            e.printStackTrace();
+        }
+
         em.createQuery("update member as m set m.email = :newEmail, m.nickname = :nickname," +
-                        " m.address = :address, m.gender = :gender , m.photoPath = :photoPath , m.phoneNumber = :phoneNumber , " +
+                        " m.location = :location, m.gender = :gender , m.photoPath = :photoPath , m.phoneNumber = :phoneNumber , " +
                         "m.language = :language where m.id = :id")
                 .setParameter("newEmail", memberInfo.getEmail())
                 .setParameter("nickname", memberInfo.getNickname())
-                .setParameter("address", memberInfo.getAddress())
+                .setParameter("location", location)
                 .setParameter("gender", memberInfo.getGender())
                 .setParameter("photoPath", memberInfo.getPhotoPath())
                 .setParameter("phoneNumber", memberInfo.getPhoneNumber())
@@ -104,7 +110,7 @@ public class MemberRepository {
                 .executeUpdate();
     }
 
-    public void updateLanguage(int id, String newLanguage) {
+    public void updateLanguage(long id, String newLanguage) {
         em.createQuery("update member as m set m.language = :language where m.id = :id")
                 .setParameter("language", newLanguage)
                 .setParameter("id", id)

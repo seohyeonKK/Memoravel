@@ -13,7 +13,8 @@ public class MemberInfoDto {
     private final String nickname;
     private final String password;
     private final Date regDate;
-    private final String address;
+    private final double latitude;
+    private final double longitude;
     private final String gender;
     private final String photoPath;
     private final String phoneNumber;
@@ -27,7 +28,8 @@ public class MemberInfoDto {
         this.nickname = memberEntity.getNickname();
         this.password = memberEntity.getPassword();
         this.regDate = memberEntity.getRegDate();
-        this.address = memberEntity.getAddress();
+        this.longitude = memberEntity.getLocation().getY();
+        this.latitude = memberEntity.getLocation().getX();
         this.gender = memberEntity.getGender();
         this.photoPath = memberEntity.getPhotoPath();
         this.phoneNumber = memberEntity.getPhoneNumber();
@@ -36,13 +38,14 @@ public class MemberInfoDto {
         this.jwt = memberEntity.getJwt();
     }
 
-    public MemberInfoDto(UpdateMemberInfoRequestDto updateMemberInfoRequest, int id) {
+    public MemberInfoDto(UpdateMemberInfoRequestDto updateMemberInfoRequest, long id) {
         this.id = id;
         this.email = updateMemberInfoRequest.getEmail();
         this.nickname = updateMemberInfoRequest.getNickname();
         this.password = updateMemberInfoRequest.getPassword();
         this.regDate = updateMemberInfoRequest.getRegDate();
-        this.address = updateMemberInfoRequest.getAddress();
+        this.latitude = updateMemberInfoRequest.getLatitude();
+        this.longitude = updateMemberInfoRequest.getLongitude();
         this.gender = updateMemberInfoRequest.getGender();
         this.photoPath = updateMemberInfoRequest.getPhotoPath();
         this.phoneNumber = updateMemberInfoRequest.getPhoneNumber();

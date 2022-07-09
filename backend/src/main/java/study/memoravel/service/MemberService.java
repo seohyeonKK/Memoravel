@@ -41,7 +41,7 @@ public class MemberService {
         return jwt;
     }
 
-    public MemberInfoDto getMemberInfo(int id) {
+    public MemberInfoDto getMemberInfo(long id) {
         return memberRepository.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class MemberService {
         return result == null;
     }
 
-    public void setPhoneNumber(int id, String phoneNumber) {
+    public void setPhoneNumber(long id, String phoneNumber) {
         memberRepository.updatePhoneNumber(id, phoneNumber);
     }
 

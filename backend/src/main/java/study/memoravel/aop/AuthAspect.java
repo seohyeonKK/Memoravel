@@ -29,7 +29,7 @@ public class AuthAspect {
         if (jwt == null) {
             throw new NoJwtException();
         }
-        int id = JWT.getIdFromJWT(jwt);
+        long id = JWT.getIdFromJWT(jwt);
         MemberInfoDto memberInfo = memberRepository.findById(id);
         if (memberInfo == null) {
             throw new MemberNotFoundException();

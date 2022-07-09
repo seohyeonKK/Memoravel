@@ -8,14 +8,16 @@ public class SignUpInfoDto {
     private final String email;
     private final String nickname;
     private final String password;
-    private final String address;
+    private final double longitude;
+    private final double latitude;
     private final String gender;
 
     public SignUpInfoDto(SignUpRequestDto signUpRequest) {
         this.email = signUpRequest.getEmail();
         this.nickname = signUpRequest.getNickname();
         this.password = signUpRequest.getPassword();
-        this.address = signUpRequest.getAddress();
+        this.longitude = signUpRequest.getLongitude();
+        this.latitude = signUpRequest.getLatitude();
         this.gender = signUpRequest.getGender();
     }
 
@@ -23,7 +25,8 @@ public class SignUpInfoDto {
         this.email = signUpInfo.getEmail();
         this.nickname = signUpInfo.getNickname();
         this.password = password;
-        this.address = signUpInfo.getAddress();
+        this.longitude = signUpInfo.getLongitude();
+        this.latitude = signUpInfo.getLatitude();
         this.gender = signUpInfo.getGender();
     }
 
