@@ -38,7 +38,7 @@ public class MemberInfoDto {
         this.jwt = memberEntity.getJwt();
     }
 
-    public MemberInfoDto(UpdateMemberInfoRequestDto updateMemberInfoRequest, int id) {
+    public MemberInfoDto(UpdateMemberInfoRequestDto updateMemberInfoRequest, long id) {
         this.id = id;
         this.email = updateMemberInfoRequest.getEmail();
         this.nickname = updateMemberInfoRequest.getNickname();

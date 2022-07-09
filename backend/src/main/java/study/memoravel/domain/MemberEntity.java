@@ -2,7 +2,10 @@ package study.memoravel.domain;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
+import study.memoravel.dto.SignUpInfoDto;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -49,6 +52,20 @@ public class MemberEntity {
     private String salt;
 
     private String jwt;
+
+    public MemberEntity(SignUpInfoDto signUpInfoDto, String salt) {
+        this.email = signUpInfoDto.getEmail();
+        this.nickname = signUpInfoDto.getNickname();
+        this.password = signUpInfoDto.getPassword();
+        try {
+            this.location = (Point) new WKTReader().read(String.format("POINT(%s %s)", signUpInfoDto.getLatitude(), signUpInfoDto.getLongitude()));
+        } catch (ParseException e) {
+            System.out.println("좌표 저장 파싱 오류");
+            e.printStackTrace();
+        }
+        this.gender = signUpInfoDto.getGender();
+        this.salt = salt;
+    }
 
     @PrePersist
     public void prePersist() {

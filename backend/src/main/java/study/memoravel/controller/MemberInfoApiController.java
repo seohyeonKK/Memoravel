@@ -37,7 +37,7 @@ public class MemberInfoApiController {
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
     public void putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestBody UpdatePhoneNumberRequestDto updatePhoneNumberRequestDto) {
-        int id = MemberContext.getCurrentMemberId();
+        long id = MemberContext.getCurrentMemberId();
         memberService.setPhoneNumber(id, updatePhoneNumberRequestDto.getPhoneNumber());
     }
 
@@ -45,7 +45,7 @@ public class MemberInfoApiController {
     @GetMapping("")
     @ApiOperation(value = "유저 정보 반환", notes = "헤더의 JWT 에 해당하는 유저 정보를 반환한다.")
     public MemberInfoResponseDto getUserInfo() {
-        int id = MemberContext.getCurrentMemberId();
+        long id = MemberContext.getCurrentMemberId();
         MemberInfoDto memberInfo = memberService.getMemberInfo(id);
         return new MemberInfoResponseDto(memberInfo);
     }
@@ -54,7 +54,7 @@ public class MemberInfoApiController {
     @PostMapping("")
     @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
     public void postUserInfo(@RequestBody UpdateMemberInfoRequestDto updateUserInfoRequest) {
-        int id = MemberContext.getCurrentMemberId();
+        long id = MemberContext.getCurrentMemberId();
         MemberInfoDto userInfo = new MemberInfoDto(updateUserInfoRequest, id);
         memberService.updateMemberInfo(userInfo);
     }

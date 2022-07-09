@@ -40,9 +40,10 @@ public class JWT {
                 .compact();
     }
 
-    public static Integer getIdFromJWT(String jwtString) {
+    public static long getIdFromJWT(String jwtString) {
         Claims claims = JWT.parse(jwtString);
-        return (Integer) claims.get("id");
+
+        return Long.valueOf((Integer) claims.get("id"));
     }
 
     private static Claims parse(String jwtString) {
