@@ -1,13 +1,13 @@
 package study.memoravel.dto;
 
 import lombok.Getter;
-import study.memoravel.controller.dto.UpdateMemberInfoRequestDto;
+import study.memoravel.controller.dto.UpdateMemberInfoRequest;
 import study.memoravel.domain.MemberEntity;
 
 import java.sql.Date;
 
 @Getter
-public class MemberInfoDto {
+public class MemberInfo {
     private final long id;
     private final String email;
     private final String nickname;
@@ -22,7 +22,7 @@ public class MemberInfoDto {
     private String salt;
     private String jwt;
 
-    public MemberInfoDto(MemberEntity memberEntity) {
+    public MemberInfo(MemberEntity memberEntity) {
         this.id = memberEntity.getId();
         this.email = memberEntity.getEmail();
         this.nickname = memberEntity.getNickname();
@@ -38,7 +38,7 @@ public class MemberInfoDto {
         this.jwt = memberEntity.getJwt();
     }
 
-    public MemberInfoDto(UpdateMemberInfoRequestDto updateMemberInfoRequest, long id) {
+    public MemberInfo(UpdateMemberInfoRequest updateMemberInfoRequest, long id) {
         this.id = id;
         this.email = updateMemberInfoRequest.getEmail();
         this.nickname = updateMemberInfoRequest.getNickname();

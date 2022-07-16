@@ -1,4 +1,4 @@
-package study.memoravel.domain.requestCourse;
+package study.memoravel.domain.course.requested;
 
 
 import lombok.*;
@@ -13,18 +13,24 @@ import java.sql.Date;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity(name = "req_course_image")
-public class RequestCourseImageEntity {
+@Entity(name = "req_course_place")
+public class RequestCoursePlaceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @JoinColumn(name = "course_id")
     @OneToOne
-    private RequestCourseImageEntity requestedCourseEntity;
+    private RequestCoursePlaceEntity requestedCourseEntity;
 
     @Column(nullable = false)
-    private String imagePath;
+    private int ordered;
+
+    @Column(nullable = false)
+    private double latitude;
+
+    @Column(nullable = false)
+    private double longitude;
 
     @Column(nullable = false)
     @CreationTimestamp

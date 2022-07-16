@@ -1,4 +1,4 @@
-package study.memoravel.domain.requestCourse;
+package study.memoravel.domain.course.requested;
 
 
 import lombok.*;

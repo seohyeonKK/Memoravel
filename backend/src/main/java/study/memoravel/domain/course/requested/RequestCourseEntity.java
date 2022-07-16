@@ -1,4 +1,4 @@
-package study.memoravel.domain.registerCourse;
+package study.memoravel.domain.course.requested;
 
 
 import lombok.*;
@@ -13,8 +13,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity(name = "reg_course")
-public class RegisterCourseEntity {
+@Entity(name = "req_course")
+public class RequestCourseEntity {
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,18 +30,9 @@ public class RegisterCourseEntity {
     @Column(nullable = false)
     private Date createdAt;
 
+    @Column(nullable = false)
     @CreationTimestamp
-    @Column(nullable = false)
     private Date updatedAt;
-
-    @Column(nullable = false)
-    private Date startTime;
-
-    @Column(nullable = false)
-    private Date endTime;
-
-    @Column(nullable = false)
-    private int guidePay;
 
     @Column(nullable = false)
     private int travelExpense;

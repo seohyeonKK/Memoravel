@@ -1,10 +1,10 @@
 package study.memoravel.dto;
 
 import lombok.Getter;
-import study.memoravel.controller.dto.SignUpRequestDto;
+import study.memoravel.controller.dto.SignUpRequest;
 
 @Getter
-public class SignUpInfoDto {
+public class SignUpInfo {
     private final String email;
     private final String nickname;
     private final String password;
@@ -12,7 +12,7 @@ public class SignUpInfoDto {
     private final double latitude;
     private final String gender;
 
-    public SignUpInfoDto(SignUpRequestDto signUpRequest) {
+    public SignUpInfo(SignUpRequest signUpRequest) {
         this.email = signUpRequest.getEmail();
         this.nickname = signUpRequest.getNickname();
         this.password = signUpRequest.getPassword();
@@ -21,7 +21,7 @@ public class SignUpInfoDto {
         this.gender = signUpRequest.getGender();
     }
 
-    public SignUpInfoDto(SignUpInfoDto signUpInfo, String password) {
+    public SignUpInfo(SignUpInfo signUpInfo, String password) {
         this.email = signUpInfo.getEmail();
         this.nickname = signUpInfo.getNickname();
         this.password = password;

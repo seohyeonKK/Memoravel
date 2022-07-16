@@ -9,7 +9,7 @@ import java.sql.Date;
 @Getter
 @ApiModel("회원 정보 수정 정보")
 
-public class UpdateMemberInfoRequestDto {
+public class UpdateMemberInfoRequest {
 
     @ApiModelProperty(value = "이메일")
     private String email;

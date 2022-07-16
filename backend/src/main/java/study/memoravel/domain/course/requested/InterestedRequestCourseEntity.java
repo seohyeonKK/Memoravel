@@ -1,4 +1,4 @@
-package study.memoravel.domain.requestCourse;
+package study.memoravel.domain.course.requested;
 
 
 import lombok.*;
@@ -12,8 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity(name = "requested_course")
-public class RequestedCourseEntity {
+@Entity(name = "interested_req_course")
+public class InterestedRequestCourseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -24,5 +24,5 @@ public class RequestedCourseEntity {
 
     @JoinColumn(name = "course_id")
     @OneToOne
-    private RequestedCourseEntity requestedCourseEntity;
+    private InterestedRequestCourseEntity requestedCourseEntity;
 }

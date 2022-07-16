@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
-import study.memoravel.dto.SignUpInfoDto;
+import study.memoravel.dto.SignUpInfo;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -53,7 +53,7 @@ public class MemberEntity {
 
     private String jwt;
 
-    public MemberEntity(SignUpInfoDto signUpInfoDto, String salt) {
+    public MemberEntity(SignUpInfo signUpInfoDto, String salt) {
         this.email = signUpInfoDto.getEmail();
         this.nickname = signUpInfoDto.getNickname();
         this.password = signUpInfoDto.getPassword();

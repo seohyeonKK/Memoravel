@@ -54,66 +54,65 @@ create table req_course
     travel_expense int(10)     not null
 );
 
-
-create table reg_course
+/*
+ 등록한 코스
+ */
+create table registered_course
 (
-    id             int primary key auto_increment,
-    title          varchar(50)  not null,
-    contents       varchar(500) not null,
-    created_at     datetime     not null default now(),
-    updated_at     datetime     not null default now(),
-    start_time     datetime     not null,
-    end_time       datetime     not null,
-    guide_pay      int(10)      not null,
-    travel_expense int(10)      not null
+    id                  int primary key auto_increment,
+    title               varchar(50)  not null,
+    represent_region    varchar(50)  not null,
+    contents            varchar(500) not null,
+    guide_cost          int          not null,
+    expected_total_cost int          not null,
+    start_date          date         not null,
+    end_date            date         not null,
+    created_at          datetime     not null default now(),
+    updated_at          datetime     not null default now()
 );
 /*
  요청 코스 관계 테이블
  */
 create table requested_course
 (
-    id        int primary key auto_increment,
+    id        long primary key auto_increment,
     member_id int references member (id),
     course_id int references req_course (id)
 );
 
 create table interested_req_course
 (
-    id        int primary key auto_increment,
+    id        long primary key auto_increment,
     member_id int references member (id),
     course_id int references req_course (id)
 );
 
-create table req_course_place
+create table req_course_spot
 (
-    id         int primary key auto_increment,
-    course_id  int references req_course (id),
-    ordered    int(10)  not null,
-    latitude   double   not null,
-    longitude  double   not null,
-    created_at datetime not null default now(),
-    updated_at datetime not null default now()
+    id        long primary key auto_increment,
+    course_id int references req_course (id),
+    ordered   int(10) not null,
+    latitude  double  not null,
+    longitude double  not null
 );
 
 create table req_course_image
 (
-    id         int primary key auto_increment,
+    id         long primary key auto_increment,
     course_id  int references req_course (id),
-    image_path varchar(100) not null,
-    created_at datetime     not null default now(),
-    updated_at datetime     not null default now()
+    image_path varchar(100) not null
 );
 
 create table req_course_tag
 (
-    id        int primary key auto_increment,
+    id        long primary key auto_increment,
     tag_id    int references tag (id),
     course_id int references req_course (id)
 );
 
 create table req_course_lang
 (
-    id        int primary key auto_increment,
+    id        long primary key auto_increment,
     course_id int references req_course (id),
     lang_id   int references lang (id)
 );
@@ -121,48 +120,52 @@ create table req_course_lang
 /*
  등록 코스 관계 테이블
  */
-create table registered_course
+create table registering
 (
+    id        long primary key auto_increment,
     member_id int references member (id),
     course_id int references reg_course (id)
 );
 create table interested_reg_course
 (
+    id        long primary key auto_increment,
     member_id int references member (id),
     course_id int references reg_course (id)
 );
 create table visited_reg_course
 (
+    id        long primary key auto_increment,
     member_id int references member (id),
     course_id int references reg_course (id),
     star      int
 );
 
-create table reg_course_place
+create table reg_course_spot
 (
-    course_id  int references reg_course (id),
-    ordered    varchar(50) not null,
-    latitude   int(10)     not null,
-    longitude  int(10)     not null,
-    created_at datetime    not null default now(),
-    updated_at datetime    not null default now()
+    id            long primary key auto_increment,
+    course_id     int references reg_course (id),
+    ordered       varchar(50) not null,
+    latitude      double      not null,
+    longitude     double      not null,
+    expected_cost int
 );
 
 create table reg_course_image
 (
+    id         long primary key auto_increment,
     course_id  int references reg_course (id),
-    image_path varchar(100) not null,
-    created_at datetime     not null default now(),
-    updated_at datetime     not null default now()
+    image_path varchar(100) not null
 );
 create table reg_course_tag
 (
+    id        long primary key auto_increment,
     tag_id    int references tag (id),
     course_id int references reg_course (id)
 );
 
 create table reg_course_lang
 (
+    id        long primary key auto_increment,
     course_id int references reg_course (id),
     lang_id   int references lang (id)
 );
