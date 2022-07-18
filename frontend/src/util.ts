@@ -4,6 +4,8 @@ import Geolocation from 'react-native-geolocation-service'
 import { PermissionsAndroid, Platform } from 'react-native'
 import { location } from '@/type'
 import axios from 'axios'
+// @ts-ignore
+import { GOOGLE_MAPS_API_KEY } from '@env'
 
 export const setJWT = (token: any) => {
   AsyncStorage.setItem('JWT_TOKEN', token)
@@ -60,17 +62,12 @@ export const getLocation = (setLocation: Function) => {
   })
 }
 
-export const geoCode = async (location: location) => {
+export const geoCode = async (location: location, isEnglish: boolean) => {
+  let apiURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}&key=${GOOGLE_MAPS_API_KEY}`
+  if (isEnglish) apiURL += '&language=en'
   return axios({
-    url:
-      'https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=' +
-      `${location.longitude}, ${location.latitude}` +
-      '&orders=addr&output=json',
+    url: apiURL,
     method: 'GET',
-    headers: {
-      'X-NCP-APIGW-API-KEY-ID': '7pvl33db92',
-      'X-NCP-APIGW-API-KEY': 'SFf02qBluq3rQ7sAPKDUXYyDuZ9AD1Eo32WSKkSd',
-    },
   })
     .then((res) => {
       return res.data

@@ -42,10 +42,11 @@ const Location = () => {
   }
 
   const revGeo = async () => {
-    const result = await geoCode(location)
-    if (result && result.results[0]) {
-      setLocationName(result.results[0].region.area2.name)
-      dispatch(setUserAddress(result.results[0].region.area2.name))
+    const isEnglish = language === 0 ? true : false
+    const result = await geoCode(location, isEnglish)
+    if (result && result.results) {
+      setLocationName(result.results[4].formatted_address)
+      dispatch(setUserAddress(result.results[4].formatted_address))
     }
   }
 
