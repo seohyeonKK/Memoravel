@@ -23,7 +23,7 @@ import FixInform from '@/pages/MyPage/Sections/Setting/FixInform/FixInform'
 import LanguageSetting from '@/pages/MyPage/Sections/Setting/LanguageSetting/LanguageSetting'
 import FAQ from '@/pages/MyPage/Sections/Setting/FAQ/FAQ'
 import Notice from '@/pages/MyPage/Sections/Setting/Notice/Notice'
-
+import RequestedCourse from '@/pages/MyPage/Sections/Courses/RequestedCourse'
 const Stack = createNativeStackNavigator()
 
 export enum Language {
@@ -50,6 +50,7 @@ const App = () => {
           <Stack.Screen name="Notice" component={Notice} />
           <Stack.Screen name="FAQ" component={FAQ} />
           <Stack.Screen name="LanguageSetting" component={LanguageSetting} />
+          <Stack.Screen name="RequestedCourse" component={RequestedCourse} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

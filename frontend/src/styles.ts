@@ -104,9 +104,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 12,
   },
+
   GsanMe15: {
     fontFamily: 'GmarketSansTTFMedium',
     fontSize: 15,
+  },
+  GsanMe14: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 14,
+  },
+  GsanMe13: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 13,
   },
   GsanMe11: {
     fontFamily: 'GmarketSansTTFMedium',
@@ -132,6 +141,30 @@ const styles = StyleSheet.create({
     height: 60,
     borderBottomWidth: 0.5,
     paddingLeft: 25,
+  },
+  fullWidthBlock: {
+    height: 120,
+    borderBottomWidth: 0.5,
+    paddingLeft: 25,
+  },
+  fullInput: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#B4B4B4',
+    height: 50,
+    borderRadius: 50,
+    paddingLeft: 20,
+  },
+  blackBtn: {
+    position: 'absolute',
+    bottom: 30,
+    marginLeft: '5%',
+    backgroundColor: '#464646',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: '90%',
   },
 })
 

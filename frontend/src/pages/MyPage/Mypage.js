@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import Header from './Sections/Header'
 import Profile from './Sections/Profile'
@@ -11,7 +11,7 @@ export default function Mypage() {
         <Header />
       </View>
       <Profile />
-      <Course />
+      <Course />  
       <Review />
     </View>
   )
