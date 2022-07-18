@@ -1,29 +1,25 @@
 package study.memoravel.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import study.memoravel.exception.mail.MailServiceException;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 @PropertySource("classpath:private.properties")
 public class MailService {
     private final JavaMailSender emailSender;
 
     @Value("${mail.id}")
     private String senderEmail;
-
-    @Autowired
-    public MailService(JavaMailSender emailSender) {
-        this.emailSender = emailSender;
-    }
 
     private static String getAuthNumber() {
         StringBuilder key = new StringBuilder();
@@ -68,21 +64,21 @@ public class MailService {
         text += "</div>";
 
         MimeMessage message = emailSender.createMimeMessage();
+
         message.addRecipients(RecipientType.TO, receiverEmail);//보내는 대상
         message.setSubject("Memoravel 이메일 인증");//제목
         message.setText(text, "utf-8", "html");//내용
         message.setFrom(new InternetAddress(senderEmail, "Memoravel"));//보내는 사람
-
         return message;
     }
 
-    public String sendCheckMail(String receiverEmail) throws NoSuchAlgorithmException {
+    public String sendCheckMail(String receiverEmail) {
         String authNumber = getAuthNumber();
         try {
             MimeMessage message = createMessage(receiverEmail, authNumber);
             emailSender.send(message);
-        } catch (Exception es) {
-            es.printStackTrace();
+        } catch (Exception e) {
+            throw new MailServiceException();
         }
         return authNumber;
     }

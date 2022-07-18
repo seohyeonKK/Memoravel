@@ -4,6 +4,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  MainView: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: 60,
+  },
   gmarketMedium: {
     fontFamily: 'GmarketSansTTFMedium',
   },
@@ -99,12 +104,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 12,
   },
+  GsanMe15: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 15,
+  },
+  GsanMe11: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 11,
+  },
+  GsanMe10: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 10,
+  },
   stepText: {
     fontFamily: 'GmarketSansTTFBold',
     fontWeight: '400',
     fontSize: 12,
     lineHeight: 12,
     color: 'white',
+  },
+  settingTitle: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 16,
+    color: 'black',
+  },
+  sixblock: {
+    height: 60,
+    borderBottomWidth: 0.5,
+    paddingLeft: 25,
   },
 })
 
