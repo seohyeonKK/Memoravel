@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@Entity(name = "registered_course")
+@Entity(name = "registering")
 public class RegisteringEntity {
     @Id
     @PrimaryKeyJoinColumn
@@ -21,11 +21,11 @@ public class RegisteringEntity {
     private long id;
 
     @JoinColumn(name = "member_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private MemberEntity memberEntity;
 
     @JoinColumn(name = "course_id")
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private RegisteredCourseEntity registeredCourseEntity;
 
     public RegisteringEntity(MemberEntity memberEntity, RegisteredCourseEntity registeredCourseEntity) {

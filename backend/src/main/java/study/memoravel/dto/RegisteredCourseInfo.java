@@ -1,5 +1,7 @@
 package study.memoravel.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import study.memoravel.controller.dto.RegisterCourseRequest;
 import study.memoravel.domain.course.registered.RegisteredCourseEntity;
@@ -8,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
+@AllArgsConstructor
+@Builder
 public class RegisteredCourseInfo {
     private final long memberId;
     private final String title;
@@ -25,7 +29,7 @@ public class RegisteredCourseInfo {
         this.memberId = memberId;
         this.title = registerCourseRequest.getTitle();
         this.representRegion = registerCourseRequest.getRepresentRegion();
-        this.enableLangList = registerCourseRequest.getEnableLang();
+        this.enableLangList = registerCourseRequest.getEnableLangList();
         this.imagePathList = registerCourseRequest.getImagePathList();
         this.contents = registerCourseRequest.getContents();
         this.courseSpotList = registerCourseRequest.getCourseSpotList();
@@ -39,7 +43,6 @@ public class RegisteredCourseInfo {
                                 List<String> enableLangList,
                                 List<String> imagePathList,
                                 List<CourseSpot> courseSpotList) {
-        // TODO 생성자로 enableLang & courseSpotList & photoPathList 추가
         this.memberId = memberId;
         this.title = registeredCourseEntity.getTitle();
         this.representRegion = registeredCourseEntity.getRepresentRegion();

@@ -20,7 +20,7 @@ public class RegisteredCourseSpotEntity {
     private long id;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private RegisteredCourseEntity registeredCourseEntity;
 
     @Column(nullable = false)

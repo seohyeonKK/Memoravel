@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import study.memoravel.domain.MemberEntity;
 import study.memoravel.dto.MemberInfo;
 import study.memoravel.dto.SignUpInfo;
+import study.memoravel.exception.member.MemberNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -41,6 +42,9 @@ public class MemberRepository {
 
     public MemberInfo findById(long id) {
         MemberEntity memberEntity = em.find(MemberEntity.class, id);
+        if (memberEntity == null) {
+            throw new MemberNotFoundException();
+        }
         return new MemberInfo(memberEntity);
     }
 

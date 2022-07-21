@@ -1,9 +1,13 @@
 package study.memoravel.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import study.memoravel.controller.dto.SignUpRequest;
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class SignUpInfo {
     private final String email;
     private final String nickname;

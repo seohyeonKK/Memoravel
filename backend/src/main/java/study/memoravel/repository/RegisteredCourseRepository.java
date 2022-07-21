@@ -20,7 +20,7 @@ import java.util.List;
 public class RegisteredCourseRepository {
     private final EntityManager em;
 
-    public long save(RegisteredCourseInfo registeredCourseInfo) {
+    public void save(RegisteredCourseInfo registeredCourseInfo) {
         // 기본 코스 정보 저장
         RegisteredCourseEntity registeredCourseEntity = new RegisteredCourseEntity(registeredCourseInfo);
         em.persist(registeredCourseEntity);
@@ -33,7 +33,7 @@ public class RegisteredCourseRepository {
         for (String enableLang : enableLangList) {
             LanguageEntity languageEntity = null;
             try {
-                languageEntity = em.createQuery("select lang from lang where lang.langName = :name", LanguageEntity.class)
+                languageEntity = em.createQuery("select l from lang as l where l.langName = :name", LanguageEntity.class)
                         .setParameter("name", enableLang)
                         .getSingleResult();
             } catch (NoResultException e) {
@@ -56,7 +56,6 @@ public class RegisteredCourseRepository {
                     new RegisteredCourseSpotEntity(registeredCourseEntity, i + 1, courseSpotList.get(i));
             em.persist(registeredCourseSpotEntity);
         }
-        return registeredCourseEntity.getId();
     }
 
     public RegisteredCourseInfo findById(long id) {
@@ -70,7 +69,7 @@ public class RegisteredCourseRepository {
 
         List<String> enableLangList = new ArrayList<>();
         List<RegisteredCourseLangEntity> registeredCourseLangEntityList
-                = em.createQuery("select reg_course_lang from reg_course_lang as r " +
+                = em.createQuery("select r from reg_course_lang as r " +
                         "where r.registeredCourseEntity.id = :id", RegisteredCourseLangEntity.class)
                 .setParameter("id", id)
                 .getResultList();
@@ -80,7 +79,7 @@ public class RegisteredCourseRepository {
 
         List<String> imagePathList = new ArrayList<>();
         List<RegisteredCourseImageEntity> registeredCourseImageEntityList
-                = em.createQuery("select reg_course_image from reg_course_image as r " +
+                = em.createQuery("select r from reg_course_image as r " +
                         "where r.registeredCourseEntity.id = :id", RegisteredCourseImageEntity.class)
                 .setParameter("id", id)
                 .getResultList();
@@ -89,7 +88,7 @@ public class RegisteredCourseRepository {
         }
 
         List<CourseSpot> courseSpotList = new ArrayList<>();
-        List<RegisteredCourseSpotEntity> registeredCourseSpotEntityList = em.createQuery("select reg_course_spot from reg_course_spot as r " +
+        List<RegisteredCourseSpotEntity> registeredCourseSpotEntityList = em.createQuery("select r from reg_course_spot as r " +
                         "where r.registeredCourseEntity.id = :id", RegisteredCourseSpotEntity.class)
                 .setParameter("id", id)
                 .getResultList();

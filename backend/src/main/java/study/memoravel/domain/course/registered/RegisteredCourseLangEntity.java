@@ -20,11 +20,11 @@ public class RegisteredCourseLangEntity {
     private long id;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private RegisteredCourseEntity registeredCourseEntity;
 
     @JoinColumn(name = "lang_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private LanguageEntity languageEntity;
 
     public RegisteredCourseLangEntity(RegisteredCourseEntity registeredCourseEntity, LanguageEntity languageEntity) {

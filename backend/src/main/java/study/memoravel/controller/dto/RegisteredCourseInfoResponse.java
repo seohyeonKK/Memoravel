@@ -3,18 +3,22 @@ package study.memoravel.controller.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import study.memoravel.dto.CourseSpot;
+import study.memoravel.dto.RegisteredCourseInfo;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @ApiModel("코스 등록 정보")
-@Builder
-
-public class RegisterCourseRequest {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RegisteredCourseInfoResponse {
+    @ApiModelProperty("코스 등록한 사람 id")
+    private long memberId;
     @ApiModelProperty("등록할 코스 이름")
     private String title;
     @ApiModelProperty("대표 지역 주소")
@@ -35,4 +39,18 @@ public class RegisterCourseRequest {
     private Date startDate;
     @ApiModelProperty("종료 날짜")
     private Date endDate;
+
+    public RegisteredCourseInfoResponse(RegisteredCourseInfo registeredCourseInfo) {
+        memberId = registeredCourseInfo.getMemberId();
+        title = registeredCourseInfo.getTitle();
+        representRegion = registeredCourseInfo.getRepresentRegion();
+        enableLangList = registeredCourseInfo.getEnableLangList();
+        imagePathList = registeredCourseInfo.getImagePathList();
+        contents = registeredCourseInfo.getContents();
+        courseSpotList = registeredCourseInfo.getCourseSpotList();
+        guideCost = registeredCourseInfo.getGuideCost();
+        expectedTotalCost = registeredCourseInfo.getExpectedTotalCost();
+        startDate = registeredCourseInfo.getStartDate();
+        endDate = registeredCourseInfo.getEndDate();
+    }
 }
