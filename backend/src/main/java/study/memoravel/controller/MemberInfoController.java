@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import study.memoravel.annotation.Auth;
 import study.memoravel.aop.MemberContext;
-import study.memoravel.controller.dto.MemberInfoResponseDto;
-import study.memoravel.controller.dto.UpdateMemberInfoRequestDto;
-import study.memoravel.controller.dto.UpdatePhoneNumberRequestDto;
-import study.memoravel.dto.MemberInfoDto;
+import study.memoravel.controller.dto.MemberInfoResponse;
+import study.memoravel.controller.dto.UpdateMemberInfoRequest;
+import study.memoravel.controller.dto.UpdatePhoneNumberRequest;
+import study.memoravel.dto.MemberInfo;
 import study.memoravel.exception.member.PhoneNumberDuplicateException;
 import study.memoravel.service.MemberService;
 import study.memoravel.service.SMSService;
@@ -19,7 +19,7 @@ import study.memoravel.service.SMSService;
 @RequestMapping("/api/member/info")
 @ResponseBody
 @RequiredArgsConstructor
-public class MemberInfoApiController {
+public class MemberInfoController {
     private final MemberService memberService;
     private final SMSService smsService;
 
@@ -36,7 +36,7 @@ public class MemberInfoApiController {
     @Auth
     @PutMapping("phone-number")
     @ApiOperation(value = "핸드폰 번호 저장", notes = "헤더의 JWT 에 해당하는 유저의 핸드폰 번호를 저장한다.")
-    public void putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestBody UpdatePhoneNumberRequestDto updatePhoneNumberRequestDto) {
+    public void putPhoneNumber(@ApiParam(value = "핸드폰 번호(String,\"-\"제외하고)", required = true) @RequestBody UpdatePhoneNumberRequest updatePhoneNumberRequestDto) {
         long id = MemberContext.getCurrentMemberId();
         memberService.setPhoneNumber(id, updatePhoneNumberRequestDto.getPhoneNumber());
     }
@@ -44,18 +44,18 @@ public class MemberInfoApiController {
     @Auth
     @GetMapping("")
     @ApiOperation(value = "유저 정보 반환", notes = "헤더의 JWT 에 해당하는 유저 정보를 반환한다.")
-    public MemberInfoResponseDto getUserInfo() {
+    public MemberInfoResponse getUserInfo() {
         long id = MemberContext.getCurrentMemberId();
-        MemberInfoDto memberInfo = memberService.getMemberInfo(id);
-        return new MemberInfoResponseDto(memberInfo);
+        MemberInfo memberInfo = memberService.getMemberInfo(id);
+        return new MemberInfoResponse(memberInfo);
     }
 
     @Auth
     @PostMapping("")
     @ApiOperation(value = "유저 정보 수정", notes = "헤더의 JWT 에 해당하는 유저 정보를 전송한 유저 정보로 수정한다.")
-    public void postUserInfo(@RequestBody UpdateMemberInfoRequestDto updateUserInfoRequest) {
+    public void postUserInfo(@RequestBody UpdateMemberInfoRequest updateUserInfoRequest) {
         long id = MemberContext.getCurrentMemberId();
-        MemberInfoDto userInfo = new MemberInfoDto(updateUserInfoRequest, id);
+        MemberInfo userInfo = new MemberInfo(updateUserInfoRequest, id);
         memberService.updateMemberInfo(userInfo);
     }
 }

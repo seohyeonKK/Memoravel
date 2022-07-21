@@ -9,7 +9,7 @@ public enum ErrorCode {
     PROPERTIES_READ_EXCEPTION(500, "B001", ".properties 파일을 읽는데 실패하였습니다."),
 
     // 공통
-    INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
+    INTERNAL_SERVER_ERROR(500, "C001", "Server Error"),
 
 
     // JWT
@@ -29,6 +29,9 @@ public enum ErrorCode {
     // 전송
     EMAIL_SEND_EXCEPTION(500, "S001", "메일 전송 오류"),
     SMS_SEND_EXCEPTION(500, "S002", "문자 전송 오류"),
+
+    // 등록된 코스
+    COURSE_NOT_FOUND_EXCEPTION(400, "RGC01", "등록된 코스를 찾을 수 없습니다."),
 
     // Common
     INVALID_INPUT_VALUE(400, "C001", " Invalid Input Value"),

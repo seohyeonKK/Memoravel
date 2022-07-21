@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @ApiModel("핸드폰 번호 수정 정보")
-public class UpdatePhoneNumberRequestDto {
+public class UpdatePhoneNumberRequest {
     @ApiModelProperty("수정할 핸드폰 번호")
     private String phoneNumber;
 }

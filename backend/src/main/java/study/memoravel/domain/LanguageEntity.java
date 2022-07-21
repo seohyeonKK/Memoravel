@@ -1,14 +1,15 @@
 package study.memoravel.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @ToString
 @Entity(name = "lang")
 public class LanguageEntity {
@@ -18,5 +19,9 @@ public class LanguageEntity {
     private long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String langName;
+
+    public LanguageEntity(String name) {
+        this.langName = name;
+    }
 }
