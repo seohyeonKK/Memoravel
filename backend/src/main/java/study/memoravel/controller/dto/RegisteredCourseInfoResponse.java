@@ -35,9 +35,9 @@ public class RegisteredCourseInfoResponse {
     private int guideCost;
     @ApiModelProperty("코스 총 예상 비용")
     private int expectedTotalCost;
-    @ApiModelProperty("시작 날짜")
+    @ApiModelProperty("시작 날짜(yyyy-MM-dd'T'HH:mm:ss.SSSXXX)")
     private Date startDate;
-    @ApiModelProperty("종료 날짜")
+    @ApiModelProperty("종료 날짜(yyyy-MM-dd'T'HH:mm:ss.SSSXXX)")
     private Date endDate;
 
     public RegisteredCourseInfoResponse(RegisteredCourseInfo registeredCourseInfo) {
