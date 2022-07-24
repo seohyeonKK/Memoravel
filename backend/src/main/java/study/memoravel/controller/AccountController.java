@@ -5,10 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import study.memoravel.controller.dto.SignInRequestDto;
-import study.memoravel.controller.dto.SignUpRequestDto;
-import study.memoravel.dto.SignInInfoDto;
-import study.memoravel.dto.SignUpInfoDto;
+import study.memoravel.controller.dto.SignInRequest;
+import study.memoravel.controller.dto.SignUpRequest;
+import study.memoravel.dto.SignInInfo;
+import study.memoravel.dto.SignUpInfo;
 import study.memoravel.exception.member.EmailDuplicateException;
 import study.memoravel.service.MailService;
 import study.memoravel.service.MemberService;
@@ -17,7 +17,7 @@ import study.memoravel.service.MemberService;
 @RequestMapping("/api/account")
 @ResponseBody
 @RequiredArgsConstructor
-public class AccountApiController {
+public class AccountController {
     private final MemberService memberService;
     private final MailService mailService;
 
@@ -39,15 +39,15 @@ public class AccountApiController {
 
     @PostMapping("signup")
     @ApiOperation(value = "가입", notes = "가입 할 유저의 정보를 저장하고, JWT 를 반환한다.")
-    public String signup(@RequestBody SignUpRequestDto signUpRequest) {
-        SignUpInfoDto signUpInfo = new SignUpInfoDto(signUpRequest);
+    public String signup(@RequestBody SignUpRequest signUpRequest) {
+        SignUpInfo signUpInfo = new SignUpInfo(signUpRequest);
         return memberService.signUp(signUpInfo);
     }
 
     @PostMapping(value = "signin")
     @ApiOperation(value = "로그인", notes = "로그인 할 유저의 아이디와 비밀번호의 일치를 확인하고, 일치한다면 JWT 를 발급한다.")
-    public String login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody SignInRequestDto signInRequest) {
-        SignInInfoDto signInInfo = new SignInInfoDto(signInRequest);
+    public String login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody SignInRequest signInRequest) {
+        SignInInfo signInInfo = new SignInInfo(signInRequest);
         return memberService.signIn(signInInfo);
     }
 }

@@ -3,13 +3,13 @@ package study.memoravel.controller.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import study.memoravel.dto.MemberInfoDto;
+import study.memoravel.dto.MemberInfo;
 
 import java.sql.Date;
 
 @Getter
 @ApiModel("회원 정보")
-public class MemberInfoResponseDto {
+public class MemberInfoResponse {
 
     @ApiModelProperty(value = "이메일")
     private final String email;
@@ -30,7 +30,7 @@ public class MemberInfoResponseDto {
     @ApiModelProperty(value = "경도")
     private final double longitude;
 
-    public MemberInfoResponseDto(MemberInfoDto memberInfo) {
+    public MemberInfoResponse(MemberInfo memberInfo) {
         this.email = memberInfo.getEmail();
         this.nickname = memberInfo.getNickname();
         this.regDate = memberInfo.getRegDate();

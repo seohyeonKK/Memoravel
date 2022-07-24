@@ -1,14 +1,14 @@
 package study.memoravel.dto;
 
 import lombok.Getter;
-import study.memoravel.controller.dto.SignInRequestDto;
+import study.memoravel.controller.dto.SignInRequest;
 
 @Getter
-public class SignInInfoDto {
+public class SignInInfo {
     private final String email;
     private final String password;
 
-    public SignInInfoDto(SignInRequestDto signInRequest) {
+    public SignInInfo(SignInRequest signInRequest) {
         this.email = signInRequest.getEmail();
         this.password = signInRequest.getPassword();
     }
