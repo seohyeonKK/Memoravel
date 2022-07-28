@@ -94,7 +94,10 @@ const EnterInfo = () => {
           </Text>
         </View>
         <View style={enterInfoStyles.next}>
-          <TouchableOpacity style={email && isSamePwd() ? styles.button : styles.disabledButton} onPress={next}>
+          <TouchableOpacity
+            style={email && isSamePwd() ? styles.button : styles.disabledButton}
+            onPress={next}
+            disabled={!(email && isSamePwd())}>
             <Text style={styles.buttonText}>{enterInfo[language].signup}</Text>
           </TouchableOpacity>
         </View>

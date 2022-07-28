@@ -53,7 +53,9 @@ const Location = () => {
   const signUp = async () => {
     console.log(user)
     const result = await postSignup(user)
-    if (result) console.log(result.status)
+    if (result.status === 200) {
+      console.log(result.data)
+    }
   }
 
   useEffect(() => {
