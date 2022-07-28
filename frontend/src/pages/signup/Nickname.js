@@ -1,4 +1,4 @@
-import { Animated, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Animated, ImageBackground, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/styles'
 import Images from '@assets/images'
@@ -96,7 +96,7 @@ const Nickname = () => {
               placeholderTextColor="#888888"
               autoCapitalize="none"
             />
-            <TouchableOpacity style={{ opacity: nickname ? 1 : 0 }} onPress={checkNickname}>
+            <Pressable style={{ opacity: nickname ? 1 : 0 }} onPress={checkNickname}>
               {available ? (
                 <Icons.Ionicons
                   name="checkmark"
@@ -115,7 +115,7 @@ const Nickname = () => {
                   {nickName[language].check}
                 </Text>
               )}
-            </TouchableOpacity>
+            </Pressable>
           </Animated.View>
           <Text style={[nicknameStyles.notAvailable, { opacity: check && !available ? 1 : 0 }]}>
             {nickName[language].notAvailable}
