@@ -1,7 +1,7 @@
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, Pressable } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
 import styles from '@/styles'
@@ -25,12 +25,12 @@ const LoginOption = () => {
           {Logo()}
         </View>
         <View style={LoginOptionStyles.buttons}>
-          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.longBox} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.boxInnerText}>{loginOption[language].login}</Text>
-          </Pressable>
-          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Signup')}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.longBox} onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.boxInnerText}>{loginOption[language].signup}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>

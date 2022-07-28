@@ -1,7 +1,7 @@
 import styles from '@/styles'
 import Icons from '@assets/Icons'
 import React, { useState } from 'react'
-import { View, TextInput, Pressable } from 'react-native'
+import { TextInput, TouchableOpacity, View } from 'react-native'
 
 const InputPassword = (password: string, setPassword: Function, pwdText: string, confirm: boolean, isSame: boolean) => {
   const [showPassword, setShowPassword] = useState(true)
@@ -39,7 +39,7 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
           )}
         </View>
       ) : (
-        <Pressable onPress={() => setShowPassword((prev) => !prev)}>
+        <TouchableOpacity onPress={() => setShowPassword((prev) => !prev)}>
           <Icons.MaterialCommunityIcons
             name="eye"
             size={18}
@@ -48,7 +48,7 @@ const InputPassword = (password: string, setPassword: Function, pwdText: string,
             }}
             color="rgba(0,0,0,0.5)"
           />
-        </Pressable>
+        </TouchableOpacity>
       )}
     </View>
   )
