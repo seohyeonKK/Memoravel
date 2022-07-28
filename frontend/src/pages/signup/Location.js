@@ -7,7 +7,7 @@ import Back from '@/components/Back'
 import { location as locationTxt } from '@/constants/language'
 import { geoCode, getLocation } from '@/util'
 import { postSignup } from '@/api/api'
-import { setUserAddress } from '@/redux/userInformation'
+import { setUserLocation } from '@/redux/userInformation'
 
 const Location = () => {
   const language = useSelector((state) => state.languageOption)
@@ -46,7 +46,7 @@ const Location = () => {
     const result = await geoCode(location, isEnglish)
     if (result && result.results) {
       setLocationName(result.results[4].formatted_address)
-      dispatch(setUserAddress(result.results[4].formatted_address))
+      dispatch(setUserLocation(location))
     }
   }
 

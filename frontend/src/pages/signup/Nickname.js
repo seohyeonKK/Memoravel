@@ -49,7 +49,7 @@ const Nickname = () => {
       setRequest(true)
       const checkNickname = await getNicknameCheck(nickname)
       if (checkNickname) setRequest(false)
-      if (checkNickname.data.result) setAvailable(checkNickname.data.result)
+      if (checkNickname.data) setAvailable(checkNickname.data)
       setCheck(true)
     }
   }

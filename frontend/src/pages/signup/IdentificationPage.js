@@ -31,7 +31,7 @@ const Identification = () => {
       setSend(true)
       const get = await getEmailAuthentication(email)
       if (get) setRequest(false)
-      if (parseInt(get.data.code) === 200) setCode(get.data.result)
+      if (parseInt(get.status) === 200) setCode(get.data)
     }
   }
 

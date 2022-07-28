@@ -6,7 +6,8 @@ const postSignup = async (userInfo: userInfo) => {
     method: 'post',
     url: 'api/account/signup',
     data: {
-      address: userInfo.address,
+      longitude: userInfo.longitude,
+      latitude: userInfo.latitude,
       email: userInfo.email,
       gender: userInfo.gender,
       nickname: userInfo.nickname,
@@ -18,15 +19,14 @@ const postSignup = async (userInfo: userInfo) => {
 const getEmailAuthentication = async (email: string) => {
   return Send({
     method: 'get',
-    url: `api/account/email-authentication`,
-    params: { email: email },
+    url: `api/account/email/${email}/authentication`,
   })
 }
 
 const getNicknameCheck = async (nickname: string) => {
   return Send({
     method: 'get',
-    url: 'api/account/nickname-check',
+    url: `api/account/nickname/${nickname}/check`,
     params: { nickname: nickname },
   })
 }
