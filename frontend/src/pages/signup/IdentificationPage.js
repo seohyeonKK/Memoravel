@@ -1,6 +1,6 @@
 import styles from '@/styles'
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Images from '@assets/images'
 import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
@@ -128,31 +128,31 @@ const Identification = () => {
         </View>
         <View style={identificationStyles.input}>
           {InputEmail(email, setText, identification[language].email, !request && !confirm)}
-          <Pressable
+          <TouchableOpacity
             style={[styles.longBtn, email ? { backgroundColor: '#464646' } : '']}
             onPress={getCode}
-            disabled={confirm}>
+            disabled={confirm || !email}>
             <Text style={[styles.mediumText, { textAlign: 'center', color: 'white', lineHeight: 15 }]}>
               {identification[language].sendingCode}
             </Text>
-          </Pressable>
+          </TouchableOpacity>
           {codeConfirmInput}
-          <Pressable
+          <TouchableOpacity
             style={[styles.longBtn, confirm || (inputCode && send && timer) ? { backgroundColor: '#464646' } : '']}
             onPress={confirmCode}
             disabled={!send || !timer}>
             <Text style={[styles.mediumText, { textAlign: 'center', color: 'white', lineHeight: 15 }]}>
               {identification[language].confirmCode}
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
         <View style={identificationStyles.next}>
-          <Pressable
+          <TouchableOpacity
             style={email && inputCode && send && confirm ? styles.button : styles.disabledButton}
             disabled={!confirm}
             onPress={next}>
             <Text style={styles.buttonText}>{identification[language].next}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>

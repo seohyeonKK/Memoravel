@@ -1,4 +1,4 @@
-import { Animated, ImageBackground, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Animated, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/styles'
 import Images from '@assets/images'
@@ -42,7 +42,7 @@ const Location = () => {
   }
 
   const revGeo = async () => {
-    const isEnglish = language === 0 ? true : false
+    const isEnglish = language === 0
     const result = await geoCode(location, isEnglish)
     if (result && result.results) {
       setLocationName(result.results[4].formatted_address)
@@ -97,12 +97,12 @@ const Location = () => {
           </Animated.View>
         </View>
         <Animated.View style={{ opacity: fadeInAnim }}>
-          <Pressable
+          <TouchableOpacity
             style={[{ top: -11 }, locationName.length ? styles.button : styles.disabledButton]}
             disabled={!location}
             onPress={signUp}>
             <Text style={styles.buttonText}>{locationTxt[language].start}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </Animated.View>
       </ImageBackground>
     </View>

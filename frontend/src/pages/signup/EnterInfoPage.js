@@ -1,6 +1,6 @@
 import styles from '@/styles'
 import React, { useState } from 'react'
-import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Images from '@assets/images'
 import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
@@ -61,17 +61,17 @@ const EnterInfo = () => {
               <Text style={[styles.mediumText, { color: '#FFFFFF', marginRight: 20, lineHeight: 25 }]}>
                 {enterInfo[language].male}
               </Text>
-              <Pressable style={enterInfoStyles.radio} onPress={() => setMale(true)}>
+              <TouchableOpacity style={enterInfoStyles.radio} onPress={() => setMale(true)}>
                 <View style={male ? enterInfoStyles.checked : null} />
-              </Pressable>
+              </TouchableOpacity>
             </View>
             <View style={[{ flexDirection: 'row' }, language ? { marginLeft: 72 } : { marginLeft: 48 }]}>
               <Text style={[styles.mediumText, { color: '#FFFFFF', marginRight: 20, lineHeight: 25 }]}>
                 {enterInfo[language].female}
               </Text>
-              <Pressable style={enterInfoStyles.radio} onPress={() => setMale(false)}>
+              <TouchableOpacity style={enterInfoStyles.radio} onPress={() => setMale(false)}>
                 <View style={!male ? enterInfoStyles.checked : null} />
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -94,9 +94,9 @@ const EnterInfo = () => {
           </Text>
         </View>
         <View style={enterInfoStyles.next}>
-          <Pressable style={email && isSamePwd() ? styles.button : styles.disabledButton} onPress={next}>
+          <TouchableOpacity style={email && isSamePwd() ? styles.button : styles.disabledButton} onPress={next}>
             <Text style={styles.buttonText}>{enterInfo[language].signup}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
