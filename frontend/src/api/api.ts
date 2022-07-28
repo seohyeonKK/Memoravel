@@ -16,6 +16,17 @@ const postSignup = async (userInfo: userInfo) => {
   })
 }
 
+const postSignin = async (email: string, password: string) => {
+  return Send({
+    method: 'post',
+    url: 'api/account/signin',
+    data: {
+      email: email,
+      password: password,
+    },
+  })
+}
+
 const getEmailAuthentication = async (email: string) => {
   return Send({
     method: 'get',
@@ -27,8 +38,7 @@ const getNicknameCheck = async (nickname: string) => {
   return Send({
     method: 'get',
     url: `api/account/nickname/${nickname}/check`,
-    params: { nickname: nickname },
   })
 }
 
-export { postSignup, getEmailAuthentication, getNicknameCheck }
+export { postSignup, postSignin, getEmailAuthentication, getNicknameCheck }
