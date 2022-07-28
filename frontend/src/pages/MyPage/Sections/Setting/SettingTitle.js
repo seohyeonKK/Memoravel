@@ -7,7 +7,15 @@ import { useNavigation } from '@react-navigation/native'
 export default function SettingTitle({ Title }) {
   const navigation = useNavigation()
   return (
-    <View style={[styles.sixblock, { alignItems: 'center', paddingLeft: 0, borderBottomColor: '#C4C4C4' }]}>
+    <View
+      style={{
+        height: 40,
+        borderBottomWidth: 0.5,
+        paddingLeft: 25,
+        alignItems: 'center',
+        paddingLeft: 0,
+        borderBottomColor: '#C4C4C4',
+      }}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', left: '5%' }}>
         <Icons.Entypo name="chevron-thin-left" size={20} color="black" />
       </TouchableOpacity>
