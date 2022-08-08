@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, ImageBackground, StyleSheet, Pressable } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Images from '@assets/images'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
@@ -26,20 +26,20 @@ const Login = () => {
           {InputEmail(email, setEmail, login[language].email, true)}
           {InputPassword(password, setPassword, login[language].password, false, false)}
           <View style={LoginStyles.find}>
-            <Pressable>
+            <TouchableOpacity>
               <Text style={LoginStyles.findText}>{login[language].findId}</Text>
-            </Pressable>
-            <Pressable>
+            </TouchableOpacity>
+            <TouchableOpacity>
               <Text style={LoginStyles.findText}>{login[language].findPassword}</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={LoginStyles.loginBtn}>
-          <Pressable
+          <TouchableOpacity
             style={email && password ? styles.button : styles.disabledButton}
             onPress={() => navigation.navigate('Mypage')}>
             <Text style={styles.buttonText}>{login[language].login}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>

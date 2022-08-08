@@ -1,18 +1,20 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {userInfo} from "@/type"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { location, userInfo } from '@/type'
 
 const userInformation = createSlice({
   name: 'userInfoReducer',
   initialState: {
-    address: '',
+    longitude: 0,
+    latitude: 0,
     email: '',
     gender: '',
     nickname: '',
-    password: ''
+    password: '',
   } as userInfo,
   reducers: {
-    setUserAddress: (state: userInfo, action: PayloadAction<string>) => {
-      state.address = action.payload
+    setUserLocation: (state: userInfo, action: PayloadAction<location>) => {
+      state.longitude = action.payload.longitude
+      state.latitude = action.payload.latitude
       return state
     },
     setUserEmail: (state: userInfo, action: PayloadAction<string>) => {
@@ -34,5 +36,6 @@ const userInformation = createSlice({
   },
 })
 
-export const {setUserAddress, setUserEmail, setUserGender, setUserNickname, setUserPassword} = userInformation.actions
+export const { setUserLocation, setUserEmail, setUserGender, setUserNickname, setUserPassword } =
+  userInformation.actions
 export default userInformation.reducer

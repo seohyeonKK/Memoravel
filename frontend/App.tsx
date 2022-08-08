@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import EnterInfo from '@/pages/signup/EnterInfoPage'
 import Nickname from '@/pages/signup/Nickname'
+import Location from '@/pages/signup/Location'
 import Mypage from '@/pages/MyPage/Mypage'
 import Setting from '@/pages/MyPage/Sections/Setting/Setting'
 import FixInform from '@/pages/MyPage/Sections/Setting/FixInform/FixInform'
@@ -39,9 +40,12 @@ const App = () => {
           <Stack.Screen name="Front" component={Front} />
           <Stack.Screen name="LoginOption" component={LoginOption} />
           <Stack.Screen name="Login" component={Login} />
+
+          {/* SignUp */}
           <Stack.Screen name="Signup" component={Identification} />
           <Stack.Screen name="EnterInfo" component={EnterInfo} />
           <Stack.Screen name="Nickname" component={Nickname} />
+          <Stack.Screen name="Location" component={Location} />
 
           {/* MyPage  */}
           <Stack.Screen name="Mypage" component={Mypage} />
