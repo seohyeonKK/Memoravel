@@ -28,7 +28,8 @@ public class JWT {
             secret = getSecret();
         }
         Date now = new Date();
-        long expiredTime = 1000 * 60L * 30L; // 30분
+//        long expiredTime = 1000 * 60L * 30L; // 30분
+        long expiredTime = 1000 * 60L * 60L * 24 * 365; // 1년
 
         return Jwts.builder().setHeaderParam(Header.TYPE, Header.JWT_TYPE) // header 설정
                 .setIssuer(nickname) // 발급자 설정
