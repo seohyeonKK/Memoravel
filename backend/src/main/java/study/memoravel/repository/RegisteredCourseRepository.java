@@ -6,6 +6,7 @@ import study.memoravel.domain.LanguageEntity;
 import study.memoravel.domain.MemberEntity;
 import study.memoravel.domain.course.registered.*;
 import study.memoravel.dto.CourseSpot;
+import study.memoravel.dto.RegisteredCourseCard;
 import study.memoravel.dto.RegisteredCourseInfo;
 import study.memoravel.exception.course.CourseNotFoundException;
 
@@ -98,4 +99,42 @@ public class RegisteredCourseRepository {
 
         return new RegisteredCourseInfo(registeredCourseEntity, memberId, enableLangList, imagePathList, courseSpotList);
     }
+
+    public List<RegisteredCourseCard> GetRegisterCourseCardList(int offset, int limit) {
+        // TODO Join으로 변경
+        List<RegisteredCourseCard> registeredCourseCardList = new ArrayList<>();
+
+        List<RegisteredCourseEntity> registeredCourseEntityList = em.createQuery("select r from registered_course as r  order by r.createdAt desc", RegisteredCourseEntity.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+        for (RegisteredCourseEntity registeredCourseEntity : registeredCourseEntityList) {
+            long id = registeredCourseEntity.getId();
+
+            List<String> enableLangList = new ArrayList<>();
+            List<RegisteredCourseLangEntity> registeredCourseLangEntityList
+                    = em.createQuery("select r from reg_course_lang as r " +
+                            "where r.registeredCourseEntity.id = :id", RegisteredCourseLangEntity.class)
+                    .setParameter("id", id)
+                    .getResultList();
+            for (RegisteredCourseLangEntity registeredCourseLangEntity : registeredCourseLangEntityList) {
+                enableLangList.add(registeredCourseLangEntity.getLanguageEntity().getLangName());
+            }
+
+            List<String> imagePathList = new ArrayList<>();
+            List<RegisteredCourseImageEntity> registeredCourseImageEntityList
+                    = em.createQuery("select r from reg_course_image as r " +
+                            "where r.registeredCourseEntity.id = :id", RegisteredCourseImageEntity.class)
+                    .setParameter("id", id)
+                    .getResultList();
+            for (RegisteredCourseImageEntity registeredCourseImageEntity : registeredCourseImageEntityList) {
+                imagePathList.add(registeredCourseImageEntity.getImagePath());
+            }
+
+            registeredCourseCardList.add(new RegisteredCourseCard(registeredCourseEntity, enableLangList, imagePathList));
+        }
+
+        return registeredCourseCardList;
+    }
+
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import study.memoravel.controller.dto.ReAuthRequest;
 import study.memoravel.controller.dto.SignInRequest;
 import study.memoravel.controller.dto.SignUpRequest;
 import study.memoravel.dto.SignInInfo;
@@ -49,5 +50,11 @@ public class AccountController {
     public String login(@ApiParam(value = "유저의 아이디(id)와 비밀번호(password)", required = true) @RequestBody SignInRequest signInRequest) {
         SignInInfo signInInfo = new SignInInfo(signInRequest);
         return memberService.signIn(signInInfo);
+    }
+
+    @PostMapping(value = "re-auth")
+    @ApiOperation(value = "재인증", notes = "기존 토큰을 통해 새로운 토큰을 제공한다.(만료기간 연장)")
+    public String reAuth(@ApiParam(value = "기존 토큰", required = true) @RequestBody ReAuthRequest reAuthRequest) {
+        return memberService.reAuth(reAuthRequest.getOldToken());
     }
 }

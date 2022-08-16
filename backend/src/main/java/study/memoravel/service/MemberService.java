@@ -67,4 +67,10 @@ public class MemberService {
         MemberInfo result = memberRepository.findByNickname(nickname);
         return result == null;
     }
+
+    public String reAuth(String oldToken) {
+        long memberId = JWT.getIdFromJWT(oldToken);
+        MemberInfo memberInfo = memberRepository.findById(memberId);
+        return JWT.create(memberId, memberInfo.getNickname());
+    }
 }

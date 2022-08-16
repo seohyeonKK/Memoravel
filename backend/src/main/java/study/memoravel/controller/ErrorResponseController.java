@@ -11,7 +11,7 @@ import study.memoravel.exception.ErrorResponse;
 @Controller
 @RequestMapping("/api/no/send")
 @ResponseBody
-public class ForErrorResponse {
+public class ErrorResponseController {
     @GetMapping("")
     @ApiOperation(value = "사용하지 마세요", notes = "ErrorResponseDto를 Swagger에 표시하기 위한 API")
     public ErrorResponse noSend() {

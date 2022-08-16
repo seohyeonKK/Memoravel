@@ -21,12 +21,13 @@ public class RegisteringEntity {
     private long id;
 
     @JoinColumn(name = "member_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MemberEntity memberEntity;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private RegisteredCourseEntity registeredCourseEntity;
+
 
     public RegisteringEntity(MemberEntity memberEntity, RegisteredCourseEntity registeredCourseEntity) {
         this.memberEntity = memberEntity;
