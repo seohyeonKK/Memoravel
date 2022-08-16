@@ -1,7 +1,8 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
-
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 export default function Course() {
+  const navigation = useNavigation()
   return (
     <View
       style={{
@@ -18,10 +19,10 @@ export default function Course() {
         <Text style={inStyle.NumText}>0</Text>
         <Text style={inStyle.courseText}>등록한 코스</Text>
       </View>
-      <View style={inStyle.courseView}>
+      <TouchableOpacity style={inStyle.courseView} onPress={() => navigation.navigate('RequestedCourse')}>
         <Text style={inStyle.NumText}>0</Text>
         <Text style={inStyle.courseText}>요청한 코스</Text>
-      </View>
+      </TouchableOpacity>
       <View style={inStyle.courseView}>
         <Text style={inStyle.NumText}>0</Text>
         <Text style={inStyle.courseText}>여행한 코스</Text>
@@ -31,7 +32,7 @@ export default function Course() {
         <Text style={inStyle.courseText}>관심코스 코스</Text>
       </View>
     </View>
-  );
+  )
 }
 const inStyle = StyleSheet.create({
   courseView: {
@@ -39,10 +40,10 @@ const inStyle = StyleSheet.create({
     width: '25%',
     alignItems: 'center',
   },
-  NumText: {fontSize: 28, color: '#B4B4B4'},
+  NumText: { fontSize: 28, color: '#B4B4B4' },
   courseText: {
     fontSize: 12,
     color: '#464646',
     marginTop: 15,
   },
-});
+})
