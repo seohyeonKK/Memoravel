@@ -19,7 +19,7 @@ public class RegisteredCourseImageEntity {
     private long id;
 
     @JoinColumn(name = "course_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private RegisteredCourseEntity registeredCourseEntity;
 
     @Column(nullable = false)
