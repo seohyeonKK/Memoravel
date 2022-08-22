@@ -56,7 +56,7 @@ const Location = () => {
     const result = await postSignup(user)
     if (result.status === 200) {
       setJWT(result.data)
-      navigation.navigate('Login')
+      navigation.navigate('Mypage')
     }
   }
 

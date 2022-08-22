@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Images from '@assets/images'
 import styles from '@/styles'
@@ -7,9 +7,8 @@ import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
 import { login } from '@/constants/language'
-import asyncStorage from '@react-native-async-storage/async-storage/src/AsyncStorage'
-import { postSignin, reAuthentication } from '@/api/api'
-import { removeJWT, setJWT } from '@/util'
+import { postSignin } from '@/api/api'
+import { setJWT } from '@/util'
 import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
@@ -17,24 +16,6 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const language = useSelector((state) => state.languageOption)
   const navigation = useNavigation()
-
-  useEffect(() => {
-    removeJWT()
-
-    asyncStorage.getItem('JWT').then((value) => {
-      newToken(value)
-    })
-  }, [])
-
-  const newToken = (token) => {
-    reAuthentication(token)
-      .then((result) => {
-        if (result.status === 200) removeJWT().then(setJWT(result.data).then(() => navigation.navigate('Mypage')))
-      })
-      .catch(() => {
-        removeJWT()
-      })
-  }
 
   const signin = async () => {
     postSignin(email, password)
