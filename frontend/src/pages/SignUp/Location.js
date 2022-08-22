@@ -5,9 +5,10 @@ import Images from '@assets/images'
 import { useDispatch, useSelector } from 'react-redux'
 import Back from '@/components/Back'
 import { location as locationTxt } from '@/constants/language'
-import { geoCode, getLocation } from '@/util'
+import { geoCode, getLocation, setJWT } from '@/util'
 import { postSignup } from '@/api/api'
 import { setUserLocation } from '@/redux/userInformation'
+import { useNavigation } from '@react-navigation/native'
 
 const Location = () => {
   const language = useSelector((state) => state.languageOption)
@@ -18,6 +19,7 @@ const Location = () => {
   const [locationName, setLocationName] = useState('')
   const dispatch = useDispatch()
   const user = useSelector((state) => state.userInformation)
+  const navigation = useNavigation()
 
   const goUp = () => {
     Animated.timing(upAnim, {
@@ -51,10 +53,10 @@ const Location = () => {
   }
 
   const signUp = async () => {
-    console.log(user)
     const result = await postSignup(user)
     if (result.status === 200) {
-      console.log(result.data)
+      setJWT(result.data)
+      navigation.navigate('Login')
     }
   }
 
