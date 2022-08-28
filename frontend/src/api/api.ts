@@ -41,4 +41,18 @@ const getNicknameCheck = async (nickname: string) => {
   })
 }
 
-export { postSignup, postSignin, getEmailAuthentication, getNicknameCheck }
+const getMemberInfo = async () => {
+  return Send({
+    method: 'get',
+    url: 'api/member/info',
+  })
+}
+
+const reAuthentication = async (token: string) => {
+  return Send({
+    method: 'post',
+    url: 'api/account/re-auth',
+    data: { oldToken: token },
+  })
+}
+export { postSignup, postSignin, getEmailAuthentication, getNicknameCheck, getMemberInfo, reAuthentication }
