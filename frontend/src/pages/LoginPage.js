@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Images from '@assets/images'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
@@ -7,6 +7,8 @@ import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
 import { login } from '@/constants/language'
+import { postSignin } from '@/api/api'
+import { setJWT } from '@/util'
 import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
@@ -14,6 +16,18 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const language = useSelector((state) => state.languageOption)
   const navigation = useNavigation()
+
+  const signin = async () => {
+    postSignin(email, password)
+      .then((result) => {
+        if (result.status === 200) setJWT(result.data).then(() => navigation.navigate('Mypage'))
+        else Alert.alert('X')
+      })
+      .catch(() => {
+        Alert.alert('X')
+      })
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.LoginBackground} resizeMode="cover" style={styles.backgroundImg}>
@@ -37,7 +51,8 @@ const Login = () => {
         <View style={LoginStyles.loginBtn}>
           <TouchableOpacity
             style={email && password ? styles.button : styles.disabledButton}
-            onPress={() => navigation.navigate('Mypage')}>
+            onPress={signin}
+            disabled={!email || !password}>
             <Text style={styles.buttonText}>{login[language].login}</Text>
           </TouchableOpacity>
         </View>

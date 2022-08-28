@@ -6,18 +6,21 @@
  * @flow strict-local
  */
 
-import Front from '@/pages/FrontPage'
-import Identification from '@/pages/signup/IdentificationPage'
-import LoginOption from '@/pages/LoginOptionPage'
-import Login from '@/pages/LoginPage'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React from 'react'
 import { Provider } from 'react-redux'
 import store from './store'
-import EnterInfo from '@/pages/signup/EnterInfoPage'
-import Nickname from '@/pages/signup/Nickname'
-import Location from '@/pages/signup/Location'
+
+import Front from '@/pages/FrontPage'
+import LoginOption from '@/pages/LoginOptionPage'
+import Login from '@/pages/LoginPage'
+
+import Identification from '@/pages/SignUp/IdentificationPage'
+import EnterInfo from '@/pages/SignUp/EnterInfoPage'
+import Nickname from '@/pages/SignUp/Nickname'
+import Location from '@/pages/SignUp/Location'
+
 import Mypage from '@/pages/MyPage/Mypage'
 import Setting from '@/pages/MyPage/Sections/Setting/Setting'
 import FixInform from '@/pages/MyPage/Sections/Setting/FixInform/FixInform'
@@ -25,6 +28,7 @@ import LanguageSetting from '@/pages/MyPage/Sections/Setting/LanguageSetting/Lan
 import FAQ from '@/pages/MyPage/Sections/Setting/FAQ/FAQ'
 import Notice from '@/pages/MyPage/Sections/Setting/Notice/Notice'
 import RequestedCourse from '@/pages/MyPage/Sections/Courses/RequestedCourse'
+
 const Stack = createNativeStackNavigator()
 
 export enum Language {
