@@ -4,6 +4,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+<<<<<<< Updated upstream
+=======
+  MainView: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: 60,
+    height: '100%',
+  },
+>>>>>>> Stashed changes
   gmarketMedium: {
     fontFamily: 'GmarketSansTTFMedium',
   },

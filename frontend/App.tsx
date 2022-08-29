@@ -17,7 +17,19 @@ import { Provider } from 'react-redux'
 import store from './store'
 import EnterInfo from '@/pages/signup/EnterInfoPage'
 import Nickname from '@/pages/signup/Nickname'
+<<<<<<< Updated upstream
 
+=======
+import Location from '@/pages/signup/Location'
+import Mypage from '@/pages/MyPage/Mypage'
+import Setting from '@/pages/MyPage/Sections/Setting/Setting'
+import FixInform from '@/pages/MyPage/Sections/Setting/FixInform/FixInform'
+import LanguageSetting from '@/pages/MyPage/Sections/Setting/LanguageSetting/LanguageSetting'
+import FAQ from '@/pages/MyPage/Sections/Setting/FAQ/FAQ'
+import Notice from '@/pages/MyPage/Sections/Setting/Notice/Notice'
+import RequestedCourse from '@/pages/MyPage/Sections/Courses/RequestedCourse'
+import Body from '@/pages/MainPage/Body'
+>>>>>>> Stashed changes
 const Stack = createNativeStackNavigator()
 
 export enum Language {
@@ -30,6 +42,8 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Front">
+          <Stack.Screen name="Body" component={Body} />
+
           <Stack.Screen name="Front" component={Front} />
           <Stack.Screen name="LoginOption" component={LoginOption} />
           <Stack.Screen name="Login" component={Login} />

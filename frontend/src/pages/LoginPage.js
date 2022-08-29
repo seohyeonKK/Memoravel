@@ -34,7 +34,13 @@ const Login = () => {
           </View>
         </View>
         <View style={LoginStyles.loginBtn}>
+<<<<<<< Updated upstream
           <Pressable style={email && password ? styles.button : styles.disabledButton}>
+=======
+          <TouchableOpacity
+            style={email && password ? styles.button : styles.disabledButton}
+            onPress={() => navigation.navigate('Body')}>
+>>>>>>> Stashed changes
             <Text style={styles.buttonText}>{login[language].login}</Text>
           </Pressable>
         </View>
