@@ -1,7 +1,8 @@
-import { View, Text, Image } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import styles from '@/styles'
-import NoProfile from './images/NoProfile.png'
+import NoProfile from '@assets/img/noProfile.png'
+
 export default function Review() {
   const [RankNum, setRankNum] = useState(4.5)
   return (

@@ -1,7 +1,8 @@
-import { View, Text, Image } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import styles from '@/styles'
-import NoProfile from '../pages/MyPage/Sections/images/NoProfile.png'
+import NoProfile from '@assets/img/noProfile.png'
+
 export default function FullWidthCourse() {
   const [CourseName, setCourseName] = useState('코스 이름이름')
   const [Location, setLocation] = useState('장소 예: 경복궁')

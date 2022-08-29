@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import styles from '@/styles'
 import SettingTitle from '../SettingTitle'
-import NoProfile from '../../images/NoProfile.png'
+import NoProfile from '@assets/img/noProfile.png'
+
 export default function FixInform() {
   const Title = '회원정보수정'
   const [NickName, setNickName] = useState('')
