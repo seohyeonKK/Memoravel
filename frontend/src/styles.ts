@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native'
 
+export const GsansMedium = 'GmarketSansTTFMedium'
+export const GsansBold = 'GmarketSansTTFBold'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -10,7 +13,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   gmarketMedium: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
   },
   backgroundImg: {
     flex: 1,
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
   },
   boxInnerText: {
     textAlign: 'center',
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontWeight: '500',
     fontSize: 13,
     lineHeight: 15,
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
     height: 85,
   },
   logoText: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontWeight: '500',
     fontSize: 18,
     textAlign: 'center',
@@ -76,14 +79,14 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: GsansBold,
     fontWeight: '700',
     fontSize: 12,
     lineHeight: 12,
     color: 'white',
   },
   loginTitle: {
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: GsansBold,
     color: 'white',
     fontWeight: '800',
     fontSize: 25,
@@ -91,7 +94,7 @@ const styles = StyleSheet.create({
   },
   welcome: {
     textAlign: 'center',
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontWeight: '400',
     fontSize: 13,
     lineHeight: 13,
@@ -99,41 +102,40 @@ const styles = StyleSheet.create({
     color: '#464646',
   },
   mediumText: {
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: GsansBold,
     fontWeight: '400',
     fontSize: 12,
     lineHeight: 12,
   },
-
   GsanMe15: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontSize: 15,
   },
   GsanMe14: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontSize: 14,
   },
   GsanMe13: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontSize: 13,
   },
   GsanMe11: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontSize: 11,
   },
   GsanMe10: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontSize: 10,
   },
   stepText: {
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: GsansBold,
     fontWeight: '400',
     fontSize: 12,
     lineHeight: 12,
     color: 'white',
   },
   settingTitle: {
-    fontFamily: 'GmarketSansTTFMedium',
+    fontFamily: GsansMedium,
     fontSize: 16,
     color: 'black',
   },
