@@ -29,7 +29,7 @@ class JWTTest {
         String nickname = "asffddss";
         String jwt = JWT.create(id, nickname);
 
-        int parsedId = JWT.getIdFromJWT(jwt);
+        long parsedId = JWT.getIdFromJWT(jwt);
 
         assertThat(id).isEqualTo(parsedId);
 

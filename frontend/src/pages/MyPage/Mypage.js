@@ -1,9 +1,10 @@
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import Header from './Sections/Header'
 import Profile from './Sections/Profile'
 import Course from './Sections/Course'
 import Review from './Sections/Review'
+
 export default function Mypage() {
   return (
     <View style={instyle.MainView}>

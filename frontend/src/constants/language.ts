@@ -107,3 +107,18 @@ export const nickName = [
     next: '다음',
   },
 ]
+
+export const location = [
+  {
+    infoBold: '이용지역',
+    infoNormal: '을 설정합니다.',
+    current: '현재 위치를 불러올 수 없습니다.',
+    start: '시작하기',
+  },
+  {
+    infoBold: '이용지역',
+    infoNormal: '을 설정합니다.',
+    current: '현재 위치를 불러올 수 없습니다.',
+    start: '시작하기',
+  },
+]

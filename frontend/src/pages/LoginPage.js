@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, ImageBackground, StyleSheet, Pressable } from 'react-native'
+import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Images from '@assets/images'
 import styles from '@/styles'
 import { useSelector } from 'react-redux'
@@ -7,11 +7,26 @@ import Back from '@/components/Back'
 import InputEmail from '@/components/InputEmail'
 import InputPassword from '@/components/InputPassword'
 import { login } from '@/constants/language'
+import { postSignin } from '@/api/api'
+import { setJWT } from '@/util'
+import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const language = useSelector((state) => state.languageOption)
+  const navigation = useNavigation()
+
+  const signin = async () => {
+    postSignin(email, password)
+      .then((result) => {
+        if (result.status === 200) setJWT(result.data).then(() => navigation.navigate('Body'))
+        else Alert.alert('X')
+      })
+      .catch(() => {
+        Alert.alert('X')
+      })
+  }
 
   return (
     <View style={styles.container}>
@@ -25,24 +40,21 @@ const Login = () => {
           {InputEmail(email, setEmail, login[language].email, true)}
           {InputPassword(password, setPassword, login[language].password, false, false)}
           <View style={LoginStyles.find}>
-            <Pressable>
+            <TouchableOpacity>
               <Text style={LoginStyles.findText}>{login[language].findId}</Text>
-            </Pressable>
-            <Pressable>
+            </TouchableOpacity>
+            <TouchableOpacity>
               <Text style={LoginStyles.findText}>{login[language].findPassword}</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={LoginStyles.loginBtn}>
-<<<<<<< Updated upstream
-          <Pressable style={email && password ? styles.button : styles.disabledButton}>
-=======
           <TouchableOpacity
             style={email && password ? styles.button : styles.disabledButton}
-            onPress={() => navigation.navigate('Body')}>
->>>>>>> Stashed changes
+            onPress={signin}
+            disabled={!email || !password}>
             <Text style={styles.buttonText}>{login[language].login}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>

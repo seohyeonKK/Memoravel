@@ -2,7 +2,7 @@ import { setEnglish, setKorean } from '@/redux/languageOption'
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, Image, Pressable } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styles from '@/styles'
 
@@ -35,12 +35,12 @@ export const Front = () => {
           {Logo()}
         </View>
         <View style={FrontStyles.buttons}>
-          <Pressable style={styles.longBox} onPress={Korean}>
+          <TouchableOpacity style={styles.longBox} onPress={Korean}>
             <Text style={styles.boxInnerText}>한국어로 시작하기</Text>
-          </Pressable>
-          <Pressable style={styles.longBox} onPress={English}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.longBox} onPress={English}>
             <Text style={styles.boxInnerText}>START IN ENGLISH</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>

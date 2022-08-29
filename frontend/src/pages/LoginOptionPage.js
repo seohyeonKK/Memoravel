@@ -1,16 +1,39 @@
 import Images from '@assets/images'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, Pressable } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Logo } from '@/pages/FrontPage'
 import { useSelector } from 'react-redux'
 import styles from '@/styles'
 import Back from '@/components/Back'
 import { loginOption } from '@/constants/language'
+import { removeJWT, setJWT } from '@/util'
+import asyncStorage from '@react-native-async-storage/async-storage/src/AsyncStorage'
+import { reAuthentication } from '@/api/api'
 
 const LoginOption = () => {
   const navigation = useNavigation()
   const language = useSelector((state) => state.languageOption)
+
+  const newToken = (token) => {
+    reAuthentication(token)
+      .then((result) => {
+        if (result.status === 200) removeJWT().then(setJWT(result.data).then(() => navigation.navigate('Body')))
+      })
+      .catch(() => {
+        removeJWT()
+        navigation.navigate('Login')
+      })
+  }
+
+  const login = () => {
+    asyncStorage
+      .getItem('JWT')
+      .then((value) => {
+        newToken(value)
+      })
+      .catch(() => navigation.navigate('Login'))
+  }
 
   return (
     <View style={styles.container}>
@@ -25,12 +48,12 @@ const LoginOption = () => {
           {Logo()}
         </View>
         <View style={LoginOptionStyles.buttons}>
-          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.longBox} onPress={login}>
             <Text style={styles.boxInnerText}>{loginOption[language].login}</Text>
-          </Pressable>
-          <Pressable style={styles.longBox} onPress={() => navigation.navigate('Signup')}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.longBox} onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.boxInnerText}>{loginOption[language].signup}</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>

@@ -23,12 +23,13 @@ public class JWT {
         return result;
     }
 
-    public static String create(int id, String nickname) {
+    public static String create(long id, String nickname) {
         if (secret == null) {
             secret = getSecret();
         }
         Date now = new Date();
-        long expiredTime = 1000 * 60L * 30L; // 30분
+//        long expiredTime = 1000 * 60L * 30L; // 30분
+        long expiredTime = 1000 * 60L * 60L * 24 * 365; // 1년
 
         return Jwts.builder().setHeaderParam(Header.TYPE, Header.JWT_TYPE) // header 설정
                 .setIssuer(nickname) // 발급자 설정
@@ -40,9 +41,10 @@ public class JWT {
                 .compact();
     }
 
-    public static Integer getIdFromJWT(String jwtString) {
+    public static long getIdFromJWT(String jwtString) {
         Claims claims = JWT.parse(jwtString);
-        return (Integer) claims.get("id");
+
+        return Long.valueOf((Integer) claims.get("id"));
     }
 
     private static Claims parse(String jwtString) {
